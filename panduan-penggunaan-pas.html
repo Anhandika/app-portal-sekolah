@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panduan Penggunaan - PAS Portal Academy Sekolah</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+:root{--navy:#0f172a;--navy2:#1e1b4b;--red:#dc2626;--reddark:#991b1b;--blue:#2563eb;--surface:#f6f7fb;--ink:#0f172a;--mist:#64748b;--faint:#94a3b8;--green:#16a34a;--amber:#d97706}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:#fff;color:var(--ink);-webkit-font-smoothing:antialiased}
+.page{width:210mm;min-height:297mm;margin:0 auto;page-break-after:always;position:relative;overflow:hidden}
+@media print{.page{page-break-after:always;margin:0}}
+.content{padding:44px 52px}
+.eyebrow{font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin-bottom:8px}
+h1.sec{font-size:30px;font-weight:900;letter-spacing:-.03em;line-height:1.12;margin-bottom:8px}
+p.lead{font-size:14px;color:var(--mist);line-height:1.65;margin-bottom:28px;max-width:600px}
+.foot{position:absolute;bottom:22px;left:52px;right:52px;display:flex;justify-content:space-between;align-items:center;font-size:10px;color:var(--faint);border-top:1px solid rgba(15,23,42,.08);padding-top:10px}
+.foot b{color:var(--red)}
+/* langkah */
+.steps{display:flex;flex-direction:column;gap:14px}
+.step{display:flex;gap:14px;background:#fff;border:1px solid rgba(15,23,42,.07);border-radius:16px;padding:16px 18px;box-shadow:0 4px 14px rgba(15,23,42,.04)}
+.step .n{width:30px;height:30px;flex-shrink:0;border-radius:50%;background:linear-gradient(135deg,#dc2626,#ef4444);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;box-shadow:0 4px 10px rgba(220,38,38,.3)}
+.step h4{font-size:14px;font-weight:800;margin-bottom:3px}
+.step p{font-size:12px;color:var(--mist);line-height:1.55}
+.step code{font-family:ui-monospace,Menlo,monospace;font-size:11px;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:6px;padding:1px 6px;color:#0f172a}
+.tip{background:#fffbeb;border:1px solid #fde68a;border-radius:14px;padding:14px 16px;font-size:12px;line-height:1.6;color:#92400e;margin-top:16px}
+.tip b{color:#b45309}
+.warn{background:#fef2f2;border:1px solid #fecaca;border-radius:14px;padding:14px 16px;font-size:12px;line-height:1.6;color:#991b1b;margin-top:16px}
+/* phone figma */
+.figrow{display:flex;gap:28px;align-items:flex-start}
+.figrow .txt{flex:1;min-width:0}
+.phone{width:250px;flex-shrink:0;background:#0f172a;border-radius:38px;padding:10px;box-shadow:0 24px 60px rgba(15,23,42,.28)}
+.screen{width:100%;height:480px;background:var(--surface);border-radius:30px;overflow:hidden;position:relative;display:flex;flex-direction:column}
+.notch{width:100px;height:22px;background:#0f172a;border-radius:0 0 14px 14px;margin:0 auto;flex-shrink:0}
+.mhero{background:linear-gradient(135deg,#0f172a,#1e1b4b);padding:14px 14px 18px;border-radius:0 0 20px 20px;color:#fff;position:relative;overflow:hidden;flex-shrink:0}
+.mhero::after{content:'';position:absolute;top:-30px;right:-30px;width:110px;height:110px;border-radius:50%;background:radial-gradient(circle,rgba(220,38,38,.35),transparent 70%)}
+.mhero>*{position:relative;z-index:1}
+.mgreet{font-size:9px;color:rgba(255,255,255,.6);font-weight:600}
+.mname{font-size:16px;font-weight:900;letter-spacing:-.02em}
+.mchips{display:flex;gap:5px;margin-top:8px}
+.mchip{font-size:7px;font-weight:700;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.16);border-radius:7px;padding:3px 7px;color:rgba(255,255,255,.85)}
+.mbody{padding:12px;flex:1;overflow:hidden}
+.mcard{background:#fff;border:1px solid rgba(15,23,42,.06);border-radius:14px;padding:12px;margin-bottom:10px;box-shadow:0 4px 12px rgba(15,23,42,.05)}
+.mrow{display:flex;align-items:center;gap:9px}
+.mava{width:34px;height:34px;border-radius:11px;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:800}
+.mt{font-size:11px;font-weight:800}
+.ms{font-size:9px;color:var(--mist);margin-top:1px}
+.mbtn{display:block;text-align:center;background:linear-gradient(135deg,#dc2626,#ef4444);color:#fff;font-size:11px;font-weight:800;border-radius:11px;padding:11px;margin-top:4px;box-shadow:0 6px 14px rgba(220,38,38,.3)}
+.mbtn.blue{background:linear-gradient(135deg,#5e9ff0,#88afec);box-shadow:0 6px 14px rgba(136,175,236,.4)}
+.mbtn.white{background:#fff;color:#991b1b;border:1px solid #e2e8f0;box-shadow:none}
+.minput{background:#f1f5f9;border:1.5px solid #e2e8f0;border-radius:10px;padding:9px 11px;font-size:10px;color:var(--faint);margin-bottom:8px}
+.mgrid4{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.mmi{text-align:center}
+.mmi i{width:38px;height:38px;border-radius:12px;margin:0 auto 3px;display:flex;align-items:center;justify-content:center;font-size:15px;color:#fff;font-style:normal;font-weight:800}
+.mmi span{font-size:7px;font-weight:700;color:var(--mist)}
+.mnav{position:absolute;bottom:8px;left:10px;right:10px;height:46px;background:rgba(255,255,255,.94);border-radius:17px;display:flex;align-items:center;justify-content:space-around;box-shadow:0 8px 20px rgba(15,23,42,.12)}
+.mnav i{font-style:normal;font-size:15px;color:var(--faint)}
+.mnav i.on{color:var(--red)}
+.mstat3{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:10px}
+.mstat{background:#fff;border:1px solid rgba(15,23,42,.06);border-radius:12px;padding:9px 6px;text-align:center}
+.mstat b{font-size:15px;font-weight:900;display:block}
+.mstat span{font-size:7px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--faint)}
+.bubble{max-width:85%;font-size:9.5px;line-height:1.45;padding:8px 10px;border-radius:12px;margin-bottom:7px}
+.bubble.in{background:#fff;border:1px solid #eef2f7;border-bottom-left-radius:4px}
+.bubble.out{background:linear-gradient(135deg,#dc2626,#ef4444);color:#fff;margin-left:auto;border-bottom-right-radius:4px}
+.storyrow{display:flex;gap:8px;margin-bottom:10px}
+.story{text-align:center;flex-shrink:0}
+.ring{width:42px;height:42px;border-radius:50%;padding:2px;background:linear-gradient(45deg,#feda75,#fa7e1e,#d62976,#962fbf,#4f5bd5)}
+.ring div{width:100%;height:100%;border-radius:50%;background:#4f46e5;border:2px solid #fff;display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:800}
+.story span{font-size:7px;color:var(--mist);font-weight:600}
+.postimg{height:90px;border-radius:10px;background:linear-gradient(135deg,#dbeafe,#ede9fe,#fee2e2);margin:8px 0;display:flex;align-items:center;justify-content:center;font-size:22px}
+.pinpad{display:grid;grid-template-columns:repeat(3,64px);gap:10px;justify-content:center;margin-top:14px}
+.pinpad div{width:64px;height:56px;border-radius:18px;background:rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px;font-weight:800}
+.pindots{display:flex;gap:10px;justify-content:center;margin-top:12px}
+.pindots div{width:13px;height:13px;border-radius:50%;border:2px solid rgba(255,255,255,.5)}
+.pindots div.f{background:#fff;border-color:#fff}
+/* cover */
+.cover{background:linear-gradient(135deg,#0f172a 0%,#1e1b4b 45%,#7f1d1d 125%);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;color:#fff}
+.cover::before{content:'';position:absolute;top:-100px;right:-80px;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(220,38,38,.28),transparent 70%)}
+.cover-logo{width:120px;z-index:1;margin-bottom:22px;filter:drop-shadow(0 10px 30px rgba(0,0,0,.4))}
+.cover h1{font-size:40px;font-weight:900;letter-spacing:-.04em;z-index:1;line-height:1.1}
+.cover h1 span{color:#fca5a5}
+.cover p{font-size:15px;color:rgba(255,255,255,.65);margin:12px 0 30px;z-index:1}
+.cover .pill{z-index:1;display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16);border-radius:999px;padding:9px 22px;font-size:12px;font-weight:700}
+.cover .yr{position:absolute;bottom:34px;font-size:12px;letter-spacing:.12em;color:rgba(255,255,255,.35);font-weight:600;z-index:1}
+/* toc */
+.toc{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
+.toc a{display:flex;gap:10px;align-items:center;background:#fff;border:1px solid rgba(15,23,42,.07);border-radius:14px;padding:12px 14px;text-decoration:none;color:var(--ink);box-shadow:0 3px 10px rgba(15,23,42,.04)}
+.toc b{font-size:13px}
+.toc small{font-size:11px;color:var(--mist);display:block}
+.toc .tn{width:28px;height:28px;flex-shrink:0;border-radius:9px;background:linear-gradient(135deg,#dc2626,#ef4444);color:#fff;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.bg-blue{background:linear-gradient(135deg,#5e9ff0,#88afec)}.bg-green{background:linear-gradient(135deg,#16a34a,#22c55e)}.bg-purple{background:linear-gradient(135deg,#7c3aed,#8b5cf6)}.bg-orange{background:linear-gradient(135deg,#ea580c,#f97316)}.bg-pink{background:linear-gradient(135deg,#db2777,#f472b6)}.bg-teal{background:linear-gradient(135deg,#0d9488,#2dd4bf)}.bg-amber{background:linear-gradient(135deg,#d97706,#f59e0b)}.bg-red{background:linear-gradient(135deg,#dc2626,#ef4444)}.bg-navy{background:linear-gradient(135deg,#0f172a,#1e1b4b)}
+</style>
+</head>
+<body>
+
+<!-- 1 COVER -->
+<div class="page cover">
+  <img class="cover-logo" src="public/logo-pas.png" alt="PAS">
+  <h1>Panduan Penggunaan<br><span>PAS Portal Academy Sekolah</span></h1>
+  <p>Langkah demi langkah memakai aplikasi — dari daftar akun hingga semua fitur.<br>Untuk Siswa, Guru, dan Admin Sekolah.</p>
+  <div class="pill">19 Langkah &bull; Disertai Gambar Layar &bull; Edisi 2026</div>
+  <div class="yr">PAS &mdash; PORTAL ACADEMY SEKOLAH &bull; V2026</div>
+</div>
+
+<!-- 2 DAFTAR ISI -->
+<div class="page"><div class="content">
+  <div class="eyebrow">Cara Memakai Buku Ini</div>
+  <h1 class="sec">Daftar Isi</h1>
+  <p class="lead">Ikuti langkah 1–5 secara berurutan saat pertama kali memakai aplikasi. Langkah 6–19 bisa dibaca sesuai kebutuhan. Setiap langkah dilengkapi gambar tampilan persis di aplikasi.</p>
+  <div class="toc">
+    <a><span class="tn">1</span><span><b>Membuka Aplikasi</b><small>Web &amp; install APK Android</small></span></a>
+    <a><span class="tn">2</span><span><b>Mendaftar Akun Baru</b><small>Kode pendaftaran sekolah</small></span></a>
+    <a><span class="tn">3</span><span><b>Masuk (Login)</b><small>Email &amp; kata sandi</small></span></a>
+    <a><span class="tn">4</span><span><b>Kunci PIN &amp; Sidik Jari</b><small>Keamanan aplikasi</small></span></a>
+    <a><span class="tn">5</span><span><b>Tour Beranda</b><small>Kenali dashboard</small></span></a>
+    <a><span class="tn">6</span><span><b>Absensi Harian</b><small>Check-in tiap pagi</small></span></a>
+    <a><span class="tn">7</span><span><b>Mengerjakan Tugas</b><small>Lihat &amp; kumpulkan</small></span></a>
+    <a><span class="tn">8</span><span><b>Melihat Nilai</b><small>Nilai &amp; rapor</small></span></a>
+    <a><span class="tn">9</span><span><b>Cek Tagihan SPP</b><small>Pembayaran sekolah</small></span></a>
+    <a><span class="tn">10</span><span><b>Perpustakaan Digital</b><small>Pinjam &amp; baca buku</small></span></a>
+    <a><span class="tn">11</span><span><b>Ikut Ekstrakurikuler</b><small>Daftar eskul</small></span></a>
+    <a><span class="tn">12</span><span><b>Chat</b><small>Pesan &amp; grup</small></span></a>
+    <a><span class="tn">13</span><span><b>Global Portal</b><small>Posting &amp; cerita</small></span></a>
+    <a><span class="tn">14</span><span><b>Jadwal &amp; Pengumuman</b><small>Info sekolah</small></span></a>
+    <a><span class="tn">15</span><span><b>Profil &amp; Notifikasi</b><small>Atur akun Anda</small></span></a>
+    <a><span class="tn">16</span><span><b>Keluar Aman (Logout)</b><small>Akhiri sesi</small></span></a>
+    <a><span class="tn">17</span><span><b>Untuk Guru</b><small>Buat tugas &amp; nilai</small></span></a>
+    <a><span class="tn">18</span><span><b>Untuk Admin Sekolah</b><small>Kelola sekolah</small></span></a>
+    <a><span class="tn">19</span><span><b>Bantuan &amp; Masalah</b><small>FAQ &amp; kontak</small></span></a>
+  </div>
+  <div class="foot"><span>Panduan Penggunaan PAS</span><b>2</b></div>
+</div></div>
+
+<!-- 3 LANGKAH 1 -->
+<div class="page"><div class="content">
+  <div class="eyebrow">Langkah 1 &mdash; Membuka Aplikasi</div>
+  <h1 class="sec">Buka PAS lewat Web atau Install APK</h1>
+  <p class="lead">PAS bisa dibuka langsung di browser HP/laptop, atau di-install sebagai aplikasi Android agar bisa memakai sidik jari dan notifikasi.</p>
+  <div class="figrow"><div class="txt"><div class="steps">
+    <div class="step"><div class="n">1</div><div><h4>Lewat browser</h4><p>Ketik alamat portal sekolah Anda di Chrome (contoh: <code>nama-sekolah.up.railway.app</code>). Anda langsung melihat halaman depan PAS.</p></div></div>
+    <div class="step"><div class="n">2</div><div><h4>Install aplikasi Android</h4><p>Di halaman depan, ketuk <b>Unduh Aplikasi Android</b>. Buka file APK → ketuk <b>Install</b> → izinkan bila diminta. Ikon PAS muncul di beranda HP.</p></div></div>
+    <div class="step"><div class="n">3</div><div><h4>Beri izin yang diminta</h4><p>Saat pertama dibuka, izinkan <b>Notifikasi</b>, <b>Lokasi</b>, dan <b>Kamera</b>. Izin ini dipakai untuk pengumuman, absensi GPS, dan verifikasi wajah.</p></div></div>
+  </div>
+  <div class="tip"><b>Tips:</b> selalu unduh APK hanya dari situs resmi sekolah. Jangan dari grup chat tak dikenal — berisiko aplikasi palsu pencuri akun.</div></div>
+  <div class="phone"><div class="screen"><div class="notch"></div>
+    <div class="mhero"><div class="mgreet">PLATFORM DIGITAL ANTAR SEKOLAH</div><div class="mname">Satu Portal untuk<br>Seluruh Sekolah</div><div class="mchips"><div class="mchip">v2026</div><div class="mchip">Gratis</div></div></div>
+    <div class="mbody"><div class="mbtn white">Masuk Portal</div><div style="height:8px"></div><div class="mbtn">Daftar dengan Kode</div>
+    <div class="mcard" style="margin-top:10px"><div class="mt">Unduh Aplikasi Android</div><div class="ms">Ketuk untuk install APK resmi</div></div></div>
+  </div></div></div>
+  <div class="foot"><span>Panduan Penggunaan PAS</span><b>3</b></div>
+</div></div>
+
+<!-- 4 LANGKAH 2 -->
+<div class="page"><div class="content">
+  <div class="eyebrow">Langkah 2 &mdash; Mendaftar Akun Baru</div>
+  <h1 class="sec">Daftar Pakai Kode Sekolah</h1>
+  <p class="lead">Pendaftaran dikunci dengan kode resmi agar hanya warga sekolah yang bisa masuk.</p>
+  <div class="figrow"><div class="txt"><div class="steps">
+    <div class="step"><div class="n">1</div><div><h4>Minta kode ke admin sekolah</h4><p>Kode terdiri dari ID sekolah + kode wilayah (contoh <code>1851372</code>). Tanyakan ke wali kelas atau TU.</p></div></div>
+    <div class="step"><div class="n">2</div><div><h4>Ketuk "Daftar" lalu masukkan kode</h4><p>Masukkan kode → ketuk <b>Cek</b>. Bila valid, nama sekolah tampil otomatis.</p></div></div>
+    <div class="step"><div class="n">3</div><div><h4>Pilih peran &amp; isi data diri</h4><p>Pilih <b>Siswa</b> atau <b>Guru</b>, isi nama, NIS/NIK, email aktif, dan kata sandi. Unggah foto profil yang jelas.</p></div></div>
+    <div class="step"><div class="n">4</div><div><h4>Tunggu verifikasi admin</h4><p>Akun berstatus <b>Menunggu</b>. Admin sekolah memeriksa data, biasanya &lt; 1×24 jam. Anda akan bisa masuk setelah disetujui.</p></div></div>
+  </div>
+  <div class="warn"><b>Kode salah/tutup?</b> Pesan merah berarti kode keliru atau pendaftaran peran itu sedang ditutup — konfirmasi ke admin, jangan mendaftar berulang-ulang.</div></div>
+  <div class="phone"><div class="screen"><div class="notch"></div>
+    <div class="mbody" style="padding-top:16px"><div class="mcard"><div class="mt" style="font-size:13px">Daftar Akun</div><div class="ms">Langkah 1 dari 2</div></div>
+    <div class="ms" style="font-weight:800;margin-bottom:5px">KODE SEKOLAH</div>
+    <div class="minput" style="font-size:15px;font-weight:800;letter-spacing:.2em;color:#0f172a">1851372</div>
+    <div class="mcard" style="background:#f0fdf4;border-color:#bbf7d0"><div class="mt" style="color:#16a34a;font-size:10px">✓ SMKN 1 Jakarta — terdeteksi</div></div>
+    <div class="ms" style="font-weight:800;margin:6px 0 5px">PERAN</div>
+    <div style="display:flex;gap:7px"><div class="mbtn blue" style="flex:1">Siswa</div><div class="mbtn white" style="flex:1">Guru</div></div>
+    <div style="height:8px"></div><div class="mbtn">Lanjut →</div></div>
+  </div></div></div>
+  <div class="foot"><span>Panduan Penggunaan PAS</span><b>4</b></div>
+</div></div>
+
+<!-- 5 LANGKAH 3 -->
+<div class="page"><div class="content">
+  <div class="eyebrow">Langkah 3 &mdash; Masuk (Login)</div>
+  <h1 class="sec">Masuk ke Akun Anda</h1>
+  <p class="lead">Gunakan email dan kata sandi yang didaftarkan. Centang "Tetap masuk" di HP pribadi agar tidak perlu login ulang.</p>
+  <div class="figrow"><div class="txt"><div class="steps">
+    <div class="step"><div class="n">1</div><div><h4>Ketuk "Masuk Portal"</h4><p>Dari halaman depan atau layar sambutan aplikasi.</p></div></div>
+    <div class="step"><div class="n">2</div><div><h4>Isi email &amp; kata sandi</h4><p>Ketuk ikon mata untuk mengintip sandi sebelum masuk.</p></div></div>
+    <div class="step"><div class="n">3</div><div><h4>Ketuk "Masuk ke Portal"</h4><p>Tunggu animasi "Menghubungkan..." — Anda mendarat di Beranda.</p></div></div>
+  </div>
+  <div class="tip"><b>Lupa sandi?</b> Ketuk <b>Lupa Password?</b> → masukkan email → buka link reset dari inbox (cek spam bila tak ada). <b>Lupa email?</b> pakai menu <b>Lupa Email?</b> dengan NIK + nama.</div></div>
+  <div class="phone"><div class="screen"><div class="notch"></div>
+    <div class="mbody" style="padding-top:20px"><div style="text-align:center;margin-bottom:14px"><div class="mava bg-red" style="width:52px;height:52px;border-radius:16px;font-size:20px;margin:0 auto">P</div><div class="mt" style="font-size:13px;margin-top:8px">PAS - Portal Academy Sekolah</div><div class="ms">Portal Akademik Digital</div></div>
+    <div class="ms" style="font-weight:800;margin-bottom:5px">ALAMAT EMAIL</div><div class="minput">nama@gmail.com</div>
+    <div class="ms" style="font-weight:800;margin-bottom:5px">KATA SANDI</div><div class="minput">••••••••••</div>
+    <div class="mbtn blue">Masuk ke Portal</div>
+    <div style="text-align:center;margin-top:10px;font-size:9px;color:var(--mist)">Lupa Password? &nbsp;•&nbsp; <b style="color:#5e9ff0">Daftar Sekarang</b></div></div>
+  </div></div></div>
+  <div class="foot"><span>Panduan Penggunaan PAS</span><b>5</b></div>
+</div></div>
+
+<!-- 6 LANGKAH 4 -->
+<div class="page"><div class="content">
+  <div class="eyebrow">Langkah 4 &mdash; Kunci PIN &amp; Sidik Jari</div>
+  <h1 class="sec">Amankan Aplikasi Anda</h1>
+  <p class="lead">Aktifkan kunci layar agar orang lain tak bisa membuka aplikasi meski HP dipinjam.</p>
+  <div class="figrow"><div class="txt"><div class="steps">
+    <div class="step"><div class="n">1</div><div><h4>Buka Profil → Keamanan</h4><p>Ketuk ikon orang di navigasi bawah → menu <b>Keamanan</b>.</p></div></div>
+    <div class="step"><div class="n">2</div><div><h4>Buat PIN 4–6 digit</h4><p>Masukkan dua kali untuk konfirmasi. Hafalkan — jangan pakai tanggal lahir.</p></div></div>
+    <div class="step"><div class="n">3</div><div><h4>Aktifkan sidik jari (opsional)</h4><p>Bila HP mendukung, aktifkan <b>Biometrik</b> agar buka kunci sekali sentuh.</p></div></div>
+  </div>
+  <div class="warn"><b>Salah PIN 5×</b> → aplikasi terkunci 30 detik. Tetap salah? Hubungi admin untuk reset — jangan hapus-install aplikasi (data lokal hilang).</div></div>
+  <div class="phone"><div class="screen" style="background:linear-gradient(180deg,#0f172a,#1e1b4b)"><div class="notch"></div>
+    <div style="text-align:center;padding:26px 16px 0;color:#fff"><div style="font-size:30px">🛡️</div><div class="mt" style="color:#fff;font-size:13px;margin-top:8px">Masukkan PIN</div><div class="ms" style="color:rgba(255,255,255,.55)">Ahmad Rizki • Siswa</div>
+    <div class="pindots"><div class="f"></div><div class="f"></div><div class="f"></div><div></div></div>
+    <div class="pinpad"><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div><div style="font-size:20px">⌫</div><div>0</div><div style="font-size:20px">👆</div></div></div>
+  </div></div></div>
+  <div class="foot"><span>Panduan Penggunaan PAS</span><b>6</b></div>
+</div></div>
+
+<!-- 7 LANGKAH 5 -->
+<div class="page"><div class="content">
+  <div class="eyebrow">Langkah 5 &mdash; Tour Beranda</div>
+  <h1 class="sec">Kenali Layar Utama</h1>
+  <p class="lead">Beranda adalah pusat kendali: sapaan, statistik, menu fitur, dan navigasi bawah selalu dalam jangkauan jempol.</p>
+  <div class="figrow"><div class="txt"><div class="steps">
+    <div class="step"><div class="n">1</div><div><h4>Kartu sapaan</h4><p>Foto, nama, kelas, dan lonceng notifikasi (angka merah = belum dibaca).</p></div></div>
+    <div class="step"><div class="n">2</div><div><h4>Kartu statistik</h4><p>Ringkasan Tugas aktif, % kehadiran, dan jumlah teman sekelas (ketuk untuk daftar).</p></div></div>
+    <div class="step"><div class="n">3</div><div><h4>Menu Utama 8 ikon</h4><p>Absensi, Tugas, SPP, Chat, Perpus, Jadwal, Nilai, Eskul — ketuk untuk masuk.</p></div></div>
+    <div class="step"><div class="n">4</div><div><h4>Navigasi bawah</h4><p>Beranda • Global • Absen • Chat • Tugas • Profil. Ikon biru = halaman aktif.</p></div></div>
+    <div class="step"><div class="n">5</div><div><h4>Tarik ke bawah = muat ulang</h4><p>Di layar paling atas, tarik layar ke bawah lalu lepaskan untuk refresh data.</p></div></div>
+  </div></div>
+  <div class="phone"><div class="screen"><div class="notch"></div>
+    <div class="mhero"><div class="mgreet">Selamat pagi, Kak</div><div class="mname">Ahmad!</div><div class="mchips"><div class="mchip">XII TKJ 1</div><div class="mchip">✓ Aktif</div></div></div>
+    <div class="mbody"><div class="mstat3"><div class="mstat"><b>3</b><span>Tugas</span></div><div class="mstat"><b style="color:#16a34a">92%</b><span>Hadir</span></div><div class="mstat"><b>32</b><span>Siswa</span></div></div>
+    <div class="mgrid4"><div class="mmi"><i class="bg-blue">◷</i><span>Absensi</span></div><div class="mmi"><i class="bg-amber">✎</i><span>Tugas</span></div><div class="mmi"><i class="bg-green">₿</i><span>SPP</span></div><div class="mmi"><i class="bg-purple">✉</i><span>Chat</span></div><div class="mmi"><i class="bg-orange">❚❚</i><span>Perpus</span></div><div class="mmi"><i class="bg-pink">★</i><span>Nilai</span></div><div class="mmi"><i class="bg-teal">⚑</i><span>Eskul</span></div><div class="mmi"><i class="bg-red">▦</i><span>Jadwal</span></div></div></div>
+    <div class="mnav"><i class="on">⌂</i><i>○</i><i>✓</i><i>✉</i><i>✎</i><i>●</i></div>
+  </div></div></div>
+  <div class="foot"><span>Panduan Penggunaan PAS</span><b>7</b></div>
+</div></div>
+
+<!-- 8 LANGKAH 6 -->
+<div class="page"><div class="content">
+  <div class="eyebrow">Langkah 6 &mdash; Absensi Harian</div>
+  <h1 class="sec">Absen Tiap Pagi</h1>
+  <p class="lead">Absensi memakai GPS + verifikasi wajah agar tercatat valid di sekolah.</p>
+  <div class="figrow"><div class="txt"><div class="steps">
+    <div class="step"><div class="n">1</div><div><h4>Buka menu Absensi</h4><p>Dari Beranda atau tab <b>Absen</b> bawah. Pastikan GPS aktif &amp; di area sekolah.</p></div></div>
+    <div class="step"><div class="n">2</div><div><h4>Ketuk "Absen Masuk"</h4><p>Kamera terbuka dengan bingkai wajah — posisikan wajah di tengah, cahaya cukup, lepas masker.</p></div></div>
+    <div class="step"><div class="n">3</div><div><h4>Tunggu status "Berhasil"</h4><p>Kartu berubah hijau + jam tercatat. Ulangi sore hari untuk <b>Absen Pulang</b>.</p></div></div>
+  </div>
+  <div class="tip"><b>Gagal lokasi?</b> Nyalakan GPS akurasi tinggi, buka Maps sebentar, lalu coba lagi. <b>Gagal wajah?</b> Cari tempat terang dan latar polos.</div></div>
+  <div class="phone"><div class="screen"><div class="notch"></div>
+    <div class="mbody" style="padding-top:16px"><div class="mcard" style="background:linear-gradient(135deg,#0f172a,#1e1b4b);border:none;color:#fff"><div class="ms" style="color:rgba(255,255,255,.6)">SENIN, 12 SEP • 06:58</div><div class="mt" style="color:#fff;font-size:14px">Absensi Masuk</div></div>
+    <div class="mcard" style="text-align:center;padding:18px"><div style="width:120px;height:140px;border-radius:16px;background:linear-gradient(180deg,#1e293b,#0f172a);margin:0 auto;display:flex;align-items:center;justify-content:center;font-size:40px;border:2px dashed #5e9ff0">☺</div><div class="ms" style="margin-top:8px">Posisikan wajah di bingkai</div></div>
+    <div class="mbtn blue">📷 Absen Sekarang</div>
+    <div class="mstat3" style="margin-top:10px"><div class="mstat"><b style="color:#16a34a">24</b><span>Hadir</span></div><div class="mstat"><b style="color:#d97706">2</b><span>Sakit</span></div><div class="mstat"><b style="color:#dc2626">1</b><span>Alpha</span></div></div></div>
+  </div></div></div>
+  <div class="foot"><span>Panduan Penggunaan PAS</span><b>8</b></div>
+</div></div>
+
+<!-- 9 LANGKAH 7 -->
+<div class="page"><div class="content">
+  <div class="eyebrow">Langkah 7 &mdash; Mengerjakan Tugas</div>
+  <h1 class="sec">Lihat &amp; Kumpulkan Tugas</h1>
+  <p class="lead">Semua tugas dari guru berkumpul di satu daftar dengan tenggat yang jelas.</p>
+  <div class="figrow"><div class="txt"><div class="steps">
+    <div class="step"><div class="n">1</div><div><h4>Buka menu Tugas</h4><p>Badge merah = ada tugas belum dikumpulkan. Dahulukan yang tenggatnya dekat.</p></div></div>
+    <div class="step"><div class="n">2</div><div><h4>Baca detail &amp; lampiran guru</h4><p>Ketuk tugas → baca instruksi, unduh materi/file contoh bila ada.</p></div></div>
+    <div class="step"><div class="n">3</div><div><h4>Unggah jawaban (maks 10 MB)</h4><p>Ketuk <b>Kumpulkan</b> → pilih file/foto → tulis catatan → <b>Kirim</b>. File besar? Taruh di Drive lalu tempel link-nya.</p></div></div>
+    <div class="step"><div class="n">4</div><div><h4>Pantau status</h4><p><b>Terkirim</b> = masuk; <b>Dinilai</b> = guru sudah memberi nilai + notifikasi otomatis.</p></div></div>
+  </div></div>
+  <div class="phone"><div class="screen"><div class="notch"></div>
+    <div class="mbody" style="padding-top:16px">
+    <div class="mcard"><div class="mrow"><div class="mava bg-amber">✎</div><div><div class="mt">Laporan Praktikum Fisika</div><div class="ms" style="color:#dc2626">⏰ Tenggat: besok 23:59</div></div></div></div>
+    <div class="mcard"><div class="mrow"><div class="mava bg-blue">✎</div><div><div class="mt">Esai Bahasa Indonesia</div><div class="ms">Tenggat: 3 hari lagi</div></div></div></div>
+    <div class="mcard" style="background:#f0fdf4;border-color:#bbf7d0"><div class="mrow"><div class="mava bg-green">✓</div><div><div class="mt">Latihan Matematika 4</div><div class="ms" style="color:#16a34a">Dinilai: 90</div></div></div></div>
+    <div class="mbtn">Buka Tugas Teratas</div></div>
+    <div class="mnav"><i>⌂</i><i>○</i><i>✓</i><i>✉</i><i class="on">✎</i><i>●</i></div>
+  </div></div></div>
+  <div class="foot"><span>Panduan Penggunaan PAS</span><b>9</b></div>
+</div></div>
+
+<!-- 10 LANGKAH 8 -->
+<div class="page"><div class="content">
+  <div class="eyebrow">Langkah 8 &mdash; Melihat Nilai</div>
+  <h1 class="sec">Pantau Nilai &amp; Rapor</h1>
+  <p class="lead">Nilai tugas, ulangan, dan rapor semester tampil otomatis setelah guru menginput.</p>
+  <div class="figrow"><div class="txt"><div class="steps">
+    <div class="step"><div class="n">1</div><div><h4>Buka menu Nilai</h4><p>Pilih semester aktif untuk melihat rekap per mata pelajaran.</p></div></div>
+    <div class="step"><div class="n">2</div><div><h4>Ketuk mapel untuk rincian</h4><p>Terlihat nilai tugas, UH, UTS/UAS, dan rata-rata beserta grafik tren.</p></div></div>
+    <div class="step"><div class="n">3</div><div><h4>Unduh rekap (bila tersedia)</h4><p>Gunakan tombol unduh untuk menyimpan rekap <b>PDF/Excel</b> — berguna untuk arsip orang tua.</p></div></div>
+  </div>
+  <div class="tip"><b>Nilai belum muncul?</b> Artinya guru belum menginput. Tunggu notifikasi "Nilai diberikan" — tidak perlu bertanya berulang ke guru.</div></div>
+  <div class="phone"><div class="screen"><div class="notch"></div>
+    <div class="mbody" style="padding-top:16px"><div class="mcard" style="background:linear-gradient(135deg,#0f172a,#1e1b4b);border:none;color:#fff;text-align:center"><div class="ms" style="color:rgba(255,255,255,.6)">RATA-RATA SEMESTER 1</div><div style="font-size:30px;font-weight:900">87,4</div><div class="ms" style="color:#4ade80">▲ Naik 2,1 dari semester lalu</div></div>
+    <div class="mcard"><div class="mrow"><div class="mava bg-blue">M</div><div style="flex:1"><div class="mt">Matematika</div><div class="ms">T:90 • UH:85 • UAS:88</div></div><b style="color:#16a34a">88</b></div></div>
+    <div class="mcard"><div class="mrow"><div class="mava bg-green">F</div><div style="flex:1"><div class="mt">Fisika</div><div class="ms">T:92 • UH:90 • UAS:91</div></div><b style="color:#16a34a">91</b></div></div>
+    <div class="mbtn white">Unduh Rapor PDF</div></div>
+  </div></div></div>
+  <div class="foot"><span>Panduan Penggunaan PAS</span><b>10</b></div>
+</div></div>
+
+<!-- 11 LANGKAH 9 -->
+<div class="page"><div class="content">
+  <div class="eyebrow">Langkah 9 &mdash; Cek Tagihan SPP</div>
+  <h1 class="sec">Lihat Tagihan &amp; Riwayat Bayar</h1>
+  <p class="lead">Pantau kewajiban iuran sekolah dan pastikan status selalu lunas.</p>
+  <div class="figrow"><div class="txt"><div class="steps">
+    <div class="step"><div class="n">1</div><div><h4>Buka menu SPP</h4><p>Kartu atas menampilkan total tunggakan (bila ada) dan bulan berjalan.</p></div></div>
+    <div class="step"><div class="n">2</div><div><h4>Cek rincian per bulan</h4><p>Status <b style="color:#16a34a">Lunas</b> (hijau) vs <b style="color:#dc2626">Belum</b> (merah) per bulan tampil berurutan.</p></div></div>
+    <div class="step"><div class="n">3</div><div><h4>Bayar via TU/sekolah</h4><p>Lakukan pembayaran sesuai mekanisme sekolah; bukti dicatat admin dan status berubah otomatis + notifikasi.</p></div></div>
+  </div>
+  <div class="tip"><b>Pengingat otomatis:</b> tagihan mendekati jatuh tempo memunculkan notifikasi — jangan abaikan agar tidak menumpuk.</div></div>
+  <div class="phone"><div class="screen"><div class="notch"></div>
+    <div class="mbody" style="padding-top:16px"><div class="mcard" style="background:linear-gradient(135deg,#d97706,#f59e0b);border:none;color:#fff"><div class="ms" style="color:rgba(255,255,255,.75)">TOTAL TUNGGAKAN</div><div style="font-size:24px;font-weight:900">Rp 300rb</div><div class="ms" style="color:#fff">2 bulan • Sep–Okt</div></div>
+    <div class="mcard"><div class="mrow"><div style="flex:1"><div class="mt">Oktober 2026</div><div class="ms">Rp 150.000</div></div><b style="font-size:10px;color:#dc2626">BELUM</b></div></div>
+    <div class="mcard"><div class="mrow"><div style="flex:1"><div class="mt">September 2026</div><div class="ms">Rp 150.000</div></div><b style="font-size:10px;color:#dc2626">BELUM</b></div></div>
+    <div class="mcard" style="background:#f0fdf4"><div class="mrow"><div style="flex:1"><div class="mt">Agustus 2026</div><div class="ms">Lunas 05 Agu</div></div><b style="font-size:10px;color:#16a34a">LUNAS ✓</b></div></div></div>
+  </div></div></div>
+  <div class="foot"><span>Panduan Penggunaan PAS</span><b>11</b></div>
+</div></div>
+
+<!-- 12 LANGKAH 10 -->
+<div class="page"><div class="content">
+  <div class="eyebrow">Langkah 10 &mdash; Perpustakaan Digital</div>
+  <h1 class="sec">Pinjam &amp; Baca Buku</h1>
+  <p class="lead">Katalog buku sekolah dalam genggaman — pinjam fisik atau baca digital langsung.</p>
+  <div class="figrow"><div class="txt"><div class="steps">
+    <div class="step"><div class="n">1</div><div><h4>Buka menu Perpus</h4><p>Gunakan kolom cari (judul/pengarang) atau jelajahi per kategori.</p></div></div>
+    <div class="step"><div class="n">2</div><div><h4>Ketuk buku untuk detail</h4><p>Lihat sinopsis, stok tersedia, dan tombol aksi.</p></div></div>
+    <div class="step"><div class="n">3</div><div><h4>Pinjam atau Baca</h4><p><b>Pinjam</b> = ambil fisik ke perpus sesuai tanggal; <b>Baca</b> = buka e-book langsung di aplikasi.</p></div></div>
+    <div class="step"><div class="n">4</div><div><h4>Kembalikan tepat waktu</h4><p>Status pinjaman terpantau; keterlambatan tercatat dan bisa kena sanksi perpus.</p></div></div>
+  </div></div>
+  <div class="phone"><div class="screen"><div class="notch"></div>
+    <div class="mbody" style="padding-top:16px"><div class="minput">🔍 Cari judul, pengarang...</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+      <div class="mcard" style="margin:0;text-align:center"><div style="height:80px;border-radius:10px;background:linear-gradient(135deg,#fb923c,#ea580c);display:flex;align-items:center;justify-content:center;font-size:26px;color:#fff">❚❚</div><div class="mt" style="font-size:10px;margin-top:6px">Fisika XII</div><div class="ms">Stok: 4</div></div>
+      <div class="mcard" style="margin:0;text-align:center"><div style="height:80px;border-radius:10px;background:linear-gradient(135deg,#5e9ff0,#88afec);display:flex;align-items:center;justify-content:center;font-size:26px;color:#fff">❚❚</div><div class="mt" style="font-size:10px;margin-top:6px">Novel Laskar</div><div class="ms">E-book ✓</div></div>
+    </div>
+    <div style="height:8px"></div><div class="mbtn">Pinjam "Fisika XII"</div></div>
+    <div class="mnav"><i>⌂</i><i>○</i><i>✓</i><i>✉</i><i>✎</i><i>●</i></div>
+  </div></div></div>
+  <div class="foot"><span>Panduan Penggunaan PAS</span><b>12</b></div>
+</div></div>
+
+<!-- 13 LANGKAH 11 -->
+<div class="page"><div class="content">
+  <div class="eyebrow">Langkah 11 &mdash; Ikut Ekstrakurikuler</div>
+  <h1 class="sec">Gabung Eskul Favorit</h1>
+  <p class="lead">Futsal, basket, paskibra, robotik, seni — daftar dari aplikasi, diskusi di grup eskul.</p>
+  <div class="figrow"><div class="txt"><div class="steps">
+    <div class="step"><div class="n">1</div><div><h4>Buka menu Eskul</h4><p>Lihat daftar eskul aktif: jadwal latihan, pembina, dan kuota.</p></div></div>
+    <div class="step"><div class="n">2</div><div><h4>Ketuk "Gabung"</h4><p>Pengajuan terkirim ke pembina. Status: <b>Menunggu → Disetujui/Ditolak</b>.</p></div></div>
+    <div class="step"><div class="n">3</div><div><h4>Aktif di grup eskul</h4><p>Setelah disetujui, grup chat eskul terbuka otomatis — pantau info latihan di sana.</p></div></div>
+  </div>
+  <div class="tip"><b>Batasi 2 eskul</b> agar tidak bentrok dengan belajar. Keluar eskul? Hubungi pembina via chat grup.</div></div>
+  <div class="phone"><div class="screen"><div class="notch"></div>
+    <div class="mbody" style="padding-top:16px">
+    <div class="mcard"><div class="mrow"><div class="mava bg-teal">⚽</div><div style="flex:1"><div class="mt">Futsal</div><div class="ms">Senin &amp; Kamis • 24 anggota</div></div></div><div class="mbtn" style="margin-top:8px">Gabung</div></div>
+    <div class="mcard"><div class="mrow"><div class="mava bg-purple">🤖</div><div style="flex:1"><div class="mt">Robotik</div><div class="ms">Rabu • 12 anggota</div></div></div><div class="mbtn blue" style="margin-top:8px">Gabung</div></div>
+    <div class="mcard" style="background:#f0fdf4;border-color:#bbf7d0"><div class="mrow"><div class="mava bg-green">🏀</div><div style="flex:1"><div class="mt">Basket</div><div class="ms" style="color:#16a34a">✓ Anggota • grup terbuka</div></div></div></div></div>
+  </div></div></div>
+  <div class="foot"><span>Panduan Penggunaan PAS</span><b>13</b></div>
+</div></div>
+
+<!-- 14 LANGKAH 12 -->
+<div class="page"><div class="content">
+  <div class="eyebrow">Langkah 12 &mdash; Chat</div>
+  <h1 class="sec">Kirim Pesan &amp; Ikut Grup</h1>
+  <p class="lead">Chat kelas otomatis tersedia; chat pribadi dan grup bebas bisa dibuat sendiri.</p>
+  <div class="figrow"><div class="txt"><div class="steps">
+    <div class="step"><div class="n">1</div><div><h4>Buka tab Chat</h4><p>Grup kelas sudah ada (hijau). Grup eskul (ungu), grup bebas (indigo), chat pribadi (foto).</p></div></div>
+    <div class="step"><div class="n">2</div><div><h4>Kirim pesan</h4><p>Masuk utas → ketik → kirim. Titik hijau = sedang online. Pesan terkirim instan (real-time).</p></div></div>
+    <div class="step"><div class="n">3</div><div><h4>Buat grup / chat pribadi</h4><p>Ketuk <b>+</b> → pilih anggota → beri nama grup. Untuk pribadi: dari daftar teman sekelas → ikon chat.</p></div></div>
+  </div>
+  <div class="warn"><b>Etika chat:</b> dilarang bullying, spam, dan konten SARA — pelanggaran berakibat pembatasan akun (lihat Kebijakan Global Portal).</div></div>
+  <div class="phone"><div class="screen"><div class="notch"></div>
+    <div class="mbody" style="padding-top:16px">
+    <div class="minput">🔍 Cari chat...</div>
+    <div class="mcard"><div class="mrow"><div class="mava bg-green">XII</div><div style="flex:1"><div class="mt">Kelas XII TKJ 1 <span style="color:#16a34a">●</span></div><div class="ms">Bu Rina: Besok bawa laptop ya</div></div><div class="ms">09:41</div></div></div>
+    <div class="bubble in">Halo semua! Materi SPLDV sudah diupload ke LMS ya 📚</div>
+    <div class="bubble out">Siap Bu, terima kasih! 🙏</div>
+    <div class="minput" style="margin:0">Ketik pesan... ➤</div></div>
+    <div class="mnav"><i>⌂</i><i>○</i><i>✓</i><i class="on">✉</i><i>✎</i><i>●</i></div>
+  </div></div></div>
+  <div class="foot"><span>Panduan Penggunaan PAS</span><b>14</b></div>
+</div></div>
+
+<!-- 15 LANGKAH 13 -->
+<div class="page"><div class="content">
+  <div class="eyebrow">Langkah 13 &mdash; Global Portal</div>
+  <h1 class="sec">Posting &amp; Cerita Antar Sekolah</h1>
+  <p class="lead">Linimasa sosial seluruh sekolah: bagikan momen, beri suka, dan berkomentar sehat.</p>
+  <div class="figrow"><div class="txt"><div class="steps">
+    <div class="step"><div class="n">1</div><div><h4>Buka tab Global</h4><p>Deretan <b>cerita</b> (lingkaran warna) di atas, feed postingan di bawahnya.</p></div></div>
+    <div class="step"><div class="n">2</div><div><h4>Buat postingan</h4><p>Ketuk kolom "Bagikan momen..." → tulis teks → lampirkan foto (lolos sensor AI) → <b>Posting</b>.</p></div></div>
+    <div class="step"><div class="n">3</div><div><h4>Buat cerita 24 jam</h4><p>Ketuk lingkaran "+" → pilih foto → otomatis hilang sehari kemudian.</p></div></div>
+    <div class="step"><div class="n">4</div><div><h4>Interaksi &amp; laporkan</h4><p>♥ suka, 💬 komentar, 👥 ikuti. Konten melanggar? Ketuk <b>Laporkan</b> — 3 laporan = disembunyikan otomatis.</p></div></div>
+  </div></div>
+  <div class="phone"><div class="screen"><div class="notch"></div>
+    <div class="mbody" style="padding-top:14px">
+    <div class="storyrow"><div class="story"><div class="ring"><div>+</div></div><span>Anda</span></div><div class="story"><div class="ring"><div style="background:#16a34a">R</div></div><span>Rina</span></div><div class="story"><div class="ring"><div style="background:#ea580c">B</div></div><span>Budi</span></div><div class="story"><div class="ring"><div style="background:#7c3aed">S</div></div><span>Sari</span></div></div>
+    <div class="mcard"><div class="mrow"><div class="mava bg-blue">A</div><div><div class="mt">Ahmad • SMKN 1</div><div class="ms">2 jam lalu</div></div></div>
+    <div style="font-size:9.5px;margin-top:7px;line-height:1.5">Juara 1 robotik tingkat kota! 🏆 Terima kasih dukungannya!</div>
+    <div class="postimg">🏆</div>
+    <div style="font-size:9px;font-weight:700"><span style="color:#e11d48">♥ 24</span> &nbsp; <span style="color:var(--mist)">💬 8 • Laporkan</span></div></div></div>
+    <div class="mnav"><i>⌂</i><i class="on">○</i><i>✓</i><i>✉</i><i>✎</i><i>●</i></div>
+  </div></div></div>
+  <div class="foot"><span>Panduan Penggunaan PAS</span><b>15</b></div>
+</div></div>
+
+<!-- 16 LANGKAH 14 -->
+<div class="page"><div class="content">
+  <div class="eyebrow">Langkah 14 &mdash; Jadwal &amp; Pengumuman</div>
+  <h1 class="sec">Jangan Ketinggalan Info</h1>
+  <p class="lead">Jadwal pelajaran dan pengumuman resmi selalu terbarui — cek tiap pagi.</p>
+  <div class="figrow"><div class="txt"><div class="steps">
+    <div class="step"><div class="n">1</div><div><h4>Buka menu Jadwal</h4><p>Pilih hari (Senin–Sabtu) untuk melihat jam, mapel, guru, dan ruangan.</p></div></div>
+    <div class="step"><div class="n">2</div><div><h4>Baca Pengumuman</h4><p>Dari Beranda (kartu Pengumuman Terbaru) atau menu lengkapnya. Penanda merah = belum dibaca.</p></div></div>
+    <div class="step"><div class="n">3</div><div><h4>Aktifkan notifikasi</h4><p>Pengumuman penting juga dikirim sebagai notifikasi push + suara — pastikan izin notifikasi aktif (Langkah 1).</p></div></div>
+  </div></div>
+  <div class="phone"><div class="screen"><div class="notch"></div>
+    <div class="mbody" style="padding-top:16px"><div class="mcard" style="background:linear-gradient(135deg,#0f172a,#1e1b4b);border:none;color:#fff"><div class="ms" style="color:rgba(255,255,255,.6)">SENIN • 6 PELAJARAN</div><div class="mt" style="color:#fff;font-size:13px">07:00 – 14:30 WIB</div></div>
+    <div class="mcard"><div class="mrow"><div class="mava bg-blue">1</div><div style="flex:1"><div class="mt">Matematika • Bu Rina</div><div class="ms">07:00–08:30 • R.12</div></div></div></div>
+    <div class="mcard"><div class="mrow"><div class="mava bg-green">2</div><div style="flex:1"><div class="mt">Fisika • Pak Budi</div><div class="ms">08:30–10:00 • Lab 2</div></div></div></div>
+    <div class="mcard" style="border-color:#fca5a5"><div class="mrow"><div class="mava bg-red">!</div><div style="flex:1"><div class="mt">Upacara Bendera</div><div class="ms">Pengumuman • 2 jam lalu</div></div></div></div></div>
+  </div></div></div>
+  <div class="foot"><span>Panduan Penggunaan PAS</span><b>16</b></div>
+</div></div>
+
+<!-- 17 LANGKAH 15-16 -->
+<div class="page"><div class="content">
+  <div class="eyebrow">Langkah 15–16 &mdash; Profil, Notifikasi &amp; Keluar</div>
+  <h1 class="sec">Kelola Akun &amp; Akhiri Sesi</h1>
+  <p class="lead">Semua pengaturan pribadi terpusat di menu Profil (ikon orang, kanan bawah).</p>
+  <div class="figrow"><div class="txt"><div class="steps">
+    <div class="step"><div class="n">1</div><div><h4>Edit profil &amp; foto</h4><p>Profil → <b>Edit</b>: perbarui nomor HP, foto (atur posisi dengan geser), lalu simpan.</p></div></div>
+    <div class="step"><div class="n">2</div><div><h4>Atur notifikasi</h4><p>Profil → <b>Notifikasi</b>: pilih kategori (pengumuman/chat/tugas), cek status push FCM, minta pengecualian hemat baterai bila saran muncul.</p></div></div>
+    <div class="step"><div class="n">3</div><div><h4>Baca Pusat Bantuan &amp; Tentang</h4><p>Menu <b>Bantuan/FAQ</b> menjawab 32 pertanyaan umum + kebijakan; <b>Tentang</b> menampilkan versi aplikasi.</p></div></div>
+    <div class="step"><div class="n">4</div><div><h4>Keluar dengan tombol KELUAR</h4><p>Gulir Profil paling bawah → <b>KELUAR</b> merah. Sesi, token, dan cache dibersihkan — aman di HP bersama.</p></div></div>
+  </div>
+  <div class="warn"><b>Jangan</b> keluar dengan menghapus data aplikasi / tombol recent-apps saja — sesi bisa menggantung. Selalu pakai tombol KELUAR.</div></div>
+  <div class="phone"><div class="screen"><div class="notch"></div>
+    <div class="mbody" style="padding-top:16px"><div class="mcard" style="text-align:center"><div class="mava bg-indigo" style="width:52px;height:52px;border-radius:17px;font-size:20px;margin:0 auto">A</div><div class="mt" style="margin-top:7px">Ahmad Rizki</div><div class="ms">XII TKJ 1 • SMKN 1 Jakarta</div><div class="mbtn blue" style="margin-top:9px">Edit Profil</div></div>
+    <div class="mcard"><div class="mt" style="font-size:10px">🔔 Notifikasi <span style="float:right;color:#16a34a">Aktif ✓</span></div></div>
+    <div class="mcard"><div class="mt" style="font-size:10px">🛡️ Keamanan &amp; PIN <span style="float:right">›</span></div></div>
+    <div class="mcard"><div class="mt" style="font-size:10px">❓ Bantuan / FAQ <span style="float:right">›</span></div></div>
+    <div class="mbtn" style="background:#fff5f5;color:#dc2626;border:1px solid #fecaca;box-shadow:none">KELUAR</div></div>
+    <div class="mnav"><i>⌂</i><i>○</i><i>✓</i><i>✉</i><i>✎</i><i class="on">●</i></div>
+  </div></div></div>
+  <div class="foot"><span>Panduan Penggunaan PAS</span><b>17</b></div>
+</div></div>
+
+<!-- 18 LANGKAH 17 -->
+<div class="page"><div class="content">
+  <div class="eyebrow">Langkah 17 &mdash; Khusus Guru</div>
+  <h1 class="sec">Memberi Tugas &amp; Nilai</h1>
+  <p class="lead">Akun guru membuka tombol-tombol khusus yang tak terlihat di akun siswa.</p>
+  <div class="steps">
+    <div class="step"><div class="n">1</div><div><h4>Buat tugas baru</h4><p>Menu <b>Tugas → + Buat</b>: pilih mapel &amp; kelas, tulis instruksi, lampirkan file contoh, tentukan <b>tenggat</b> → Terbitkan. Siswa langsung dapat notifikasi.</p></div></div>
+    <div class="step"><div class="n">2</div><div><h4>Periksa pengumpulan</h4><p>Buka tugas → daftar pengumpul vs belum. Ketuk nama siswa untuk melihat jawaban &amp; lampirannya.</p></div></div>
+    <div class="step"><div class="n">3</div><div><h4>Beri nilai + umpan balik</h4><p>Isi angka + komentar → <b>Simpan</b>. Nilai terkirim ke siswa seketika beserta notifikasi.</p></div></div>
+    <div class="step"><div class="n">4</div><div><h4>Kelola materi (LMS)</h4><p>Menu mapel → <b>+ Materi</b>: judul, isi/ringkasan, lampirkan PDF/video/link → Terbitkan per kelas.</p></div></div>
+    <div class="step"><div class="n">5</div><div><h4>Rekap &amp; unduh</h4><p>Gunakan <b>Export PDF/Excel</b> di daftar nilai dan pengumpulan untuk arsip &amp; rapor.</p></div></div>
+  </div>
+  <div class="tip"><b>Etika menilai:</b> nilai yang sudah final sebaiknya tidak diubah diam-diam — sampaikan dulu ke siswa bila ada koreksi.</div>
+  <div class="foot"><span>Panduan Penggunaan PAS</span><b>18</b></div>
+</div></div>
+
+<!-- 19 LANGKAH 18 -->
+<div class="page"><div class="content">
+  <div class="eyebrow">Langkah 18 &mdash; Khusus Admin Sekolah</div>
+  <h1 class="sec">Mengelola Sekolah</h1>
+  <p class="lead">Panel admin dibuka dari <b>browser laptop/komputer</b> (tidak tersedia di aplikasi HP).</p>
+  <div class="steps">
+    <div class="step"><div class="n">1</div><div><h4>Masuk sebagai admin</h4><p>Login dengan akun admin di browser → otomatis diarahkan ke <b>Dashboard Admin</b> berisi grafik siswa, kehadiran, dan keuangan.</p></div></div>
+    <div class="step"><div class="n">2</div><div><h4>Verifikasi pendaftar baru</h4><p>Menu <b>Akun Pengguna</b>: periksa data pendaftar → <b>Setujui</b> (aktif) atau <b>Tolak</b>. Bagikan kode pendaftaran ke wali kelas.</p></div></div>
+    <div class="step"><div class="n">3</div><div><h4>Kelola data induk</h4><p>Menu <b>Sekolah</b>: kelas, jurusan, mapel, jadwal pelajaran, data eskul &amp; katalog perpus.</p></div></div>
+    <div class="step"><div class="n">4</div><div><h4>Catat SPP &amp; unduh rekap</h4><p>Menu <b>SPP</b>: input pembayaran per siswa; unduh rekap keuangan PDF/Excel tiap bulan.</p></div></div>
+    <div class="step"><div class="n">5</div><div><h4>Awasi konten &amp; riwayat</h4><p>Menu <b>Global Portal</b>: tinjau laporan konten; menu <b>Riwayat</b>: audit aktivitas pengguna mencurigakan.</p></div></div>
+  </div>
+  <div class="warn"><b>Admin Pusat</b> (pengelola multi-sekolah) memiliki menu tambahan: kelola daftar sekolah, admin sekolah, dan sakelar 12 modul fitur per sekolah.</div>
+  <div class="foot"><span>Panduan Penggunaan PAS</span><b>19</b></div>
+</div></div>
+
+<!-- 20 LANGKAH 19 + PENUTUP -->
+<div class="page"><div class="content">
+  <div class="eyebrow">Langkah 19 &mdash; Bantuan &amp; Masalah</div>
+  <h1 class="sec">Butuh Bantuan?</h1>
+  <p class="lead">Urutkan langkah ini sebelum panik — 90% kendala selesai di tiga baris pertama.</p>
+  <div class="steps">
+    <div class="step"><div class="n">1</div><div><h4>Cek koneksi &amp; muat ulang</h4><p>Pastikan online, lalu tarik-layar-untuk-refresh atau ketuk Coba Lagi.</p></div></div>
+    <div class="step"><div class="n">2</div><div><h4>Buka Pusat Bantuan / FAQ</h4><p>Profil → <b>Bantuan</b>: 32 jawaban + kebijakan (atau dari halaman depan tanpa login).</p></div></div>
+    <div class="step"><div class="n">3</div><div><h4>Hapus cache aplikasi</h4><p>Pengaturan HP → Aplikasi → PAS → <b>Hapus Cache</b> (bukan Hapus Data). Buka ulang.</p></div></div>
+    <div class="step"><div class="n">4</div><div><h4>Perbarui aplikasi</h4><p>Unduh APK terbaru dari situs resmi bila versi Anda lama (cek di menu Tentang).</p></div></div>
+    <div class="step"><div class="n">5</div><div><h4>Hubungi manusia</h4><p>Urutan: <b>wali kelas → guru pembimbing → TU/IT sekolah → adminpusat@pusat.com</b>. Sertakan screenshot + jam kejadian.</p></div></div>
+  </div>
+  <div style="margin-top:26px;background:linear-gradient(135deg,#0f172a,#1e1b4b);border-radius:20px;padding:28px;text-align:center;color:#fff">
+    <div style="font-size:15px;font-weight:900">Selamat memakai PAS! 🎓</div>
+    <div style="font-size:12px;color:rgba(255,255,255,.65);margin-top:6px">Satu portal untuk seluruh kegiatan sekolah Anda — absen pagi ini?</div>
+  </div>
+  <div class="foot"><span>Panduan Penggunaan PAS &bull; MIT &bull; 2026</span><b>20</b></div>
+</div></div>
+
+</body>
+</html>
