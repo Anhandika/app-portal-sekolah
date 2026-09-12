@@ -1110,7 +1110,7 @@
             iconEl.style.color=color;
             if(detailEl) detailEl.textContent=opts.detail || ('Error: '+(msg||'unknown'));
             if(metaEl) metaEl.textContent='Waktu: '+new Date().toLocaleString('id-ID')+' | URL: '+location.pathname + (navigator.onLine?' | Online':' | Offline');
-            if(traceEl) traceEl.textContent='Trace '+Math.random().toString(36).slice(2,8).toUpperCase()+' | '+location.href.slice(0,80);
+            if(traceEl) traceEl.textContent='Trace '+Math.random().toString(36).slice(2,8).toUpperCase()+' | '+location.pathname.slice(0,80);
             screenEl.style.display='flex';
             if(!navigator.onLine){
                 if(detailEl) detailEl.textContent='Anda sedang offline. Periksa koneksi internet lalu coba lagi.';
@@ -1130,7 +1130,7 @@
         }
         document.getElementById('error-retry').addEventListener('click', resetAndReload);
         document.getElementById('error-copy').addEventListener('click', function(){
-            var t=(detailEl?detailEl.textContent:'')+'\n'+(metaEl?metaEl.textContent:'')+'\n'+location.href;
+            var t=(detailEl?detailEl.textContent:'')+'\n'+(metaEl?metaEl.textContent:'')+'\n'+location.pathname;
             if(navigator.clipboard) navigator.clipboard.writeText(t).then(function(){ countdownEl.textContent='Disalin!'; setTimeout(function(){countdownEl.textContent='';},1500);});
         });
 
@@ -1173,6 +1173,111 @@
             }
         }, true);
         window.addEventListener('online', function(){ if(screenEl.style.display==='flex' && titleEl.textContent==='Tidak Ada Koneksi'){ screenEl.style.display='none'; shown=false; } });
+    })();
+    </script>
+
+    <!-- ===== PULL TO REFRESH global (semua halaman mobile) ===== -->
+    <style>
+        #ptr-indicator {
+            position: fixed; top: calc(10px + env(safe-area-inset-top)); left: 50%;
+            transform: translate(-50%, -80px); z-index: 10004;
+            display: flex; align-items: center; gap: 10px;
+            background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(12px);
+            border: 1px solid var(--line-strong); border-radius: 999px;
+            padding: 10px 18px 10px 12px;
+            box-shadow: 0 12px 30px rgba(15, 23, 42, 0.15);
+            font-size: 12px; font-weight: 800; color: var(--ink);
+            transition: transform 0.18s ease; pointer-events: none; white-space: nowrap;
+        }
+        #ptr-spinner {
+            width: 22px; height: 22px; border-radius: 50%; flex-shrink: 0;
+            border: 3px solid #fee2e2; border-top-color: #dc2626;
+            transition: transform 0.1s linear;
+        }
+        #ptr-indicator.ready #ptr-spinner { border-color: #dc2626; border-top-color: #fff; animation: ptrSpin 0.7s linear infinite; }
+        #ptr-indicator.loading #ptr-spinner { border-color: rgba(220, 38, 38, 0.2); border-top-color: #dc2626; animation: ptrSpin 0.7s linear infinite; }
+        @keyframes ptrSpin { to { transform: rotate(360deg); } }
+    </style>
+    <div id="ptr-indicator" aria-hidden="true">
+        <div id="ptr-spinner"></div>
+        <span id="ptr-label">Tarik untuk memuat ulang</span>
+    </div>
+    <script>
+    (function () {
+        // Hanya perangkat sentuh — desktop tidak butuh PTR.
+        if (!('ontouchstart' in window) && !navigator.maxTouchPoints) return;
+
+        var PULL_THRESHOLD = 90;   // px tarikan untuk memicu reload
+        var MAX_PULL = 150;        // batas visual indikator
+        var startY = 0, startX = 0, pulling = false, ready = false;
+        var indicator = document.getElementById('ptr-indicator');
+        var label = document.getElementById('ptr-label');
+        var spinner = document.getElementById('ptr-spinner');
+        if (!indicator) return;
+
+        function overlaysOpen() {
+            if (document.body.style.overflow === 'hidden') return true;
+            var sels = ['.sheet.open', '#pui-file-overlay.on', '#app-lock-overlay'];
+            for (var i = 0; i < sels.length; i++) {
+                var el = document.querySelector(sels[i]);
+                if (el && getComputedStyle(el).display !== 'none') return true;
+            }
+            var err = document.getElementById('error-screen');
+            if (err && err.style.display === 'flex') return true;
+            return false;
+        }
+
+        function showIndicator(dy, isReady, isLoading) {
+            var y = Math.min(dy, MAX_PULL);
+            indicator.style.transform = 'translate(-50%, ' + (y - 80) + 'px)';
+            indicator.classList.toggle('ready', !!isReady);
+            indicator.classList.toggle('loading', !!isLoading);
+            if (isLoading) label.textContent = 'Memuat ulang...';
+            else if (isReady) label.textContent = 'Lepaskan untuk memuat ulang';
+            else label.textContent = 'Tarik untuk memuat ulang';
+            if (!isReady && !isLoading && spinner) spinner.style.transform = 'rotate(' + (dy * 2) + 'deg)';
+        }
+        function hideIndicator() {
+            indicator.style.transform = 'translate(-50%, -80px)';
+            indicator.classList.remove('ready', 'loading');
+        }
+
+        document.addEventListener('touchstart', function (e) {
+            if (e.touches.length !== 1) { pulling = false; return; }
+            if (window.scrollY > 0 || overlaysOpen()) { pulling = false; return; }
+            var t = e.touches[0];
+            startY = t.clientY; startX = t.clientX;
+            pulling = true; ready = false;
+        }, { passive: true });
+
+        document.addEventListener('touchmove', function (e) {
+            if (!pulling) return;
+            var t = e.touches[0];
+            var dy = t.clientY - startY;
+            var dx = Math.abs(t.clientX - startX);
+            // Geser horizontal / scroll ke atas / sudah scroll: bukan pull-refresh.
+            if (dx > 60 || dy <= 0 || window.scrollY > 0) {
+                if (dy <= 8) { pulling = false; hideIndicator(); }
+                return;
+            }
+            if (dy > 12) {
+                if (e.cancelable) e.preventDefault();
+                ready = dy >= PULL_THRESHOLD;
+                showIndicator(dy, ready, false);
+            }
+        }, { passive: false });
+
+        document.addEventListener('touchend', function () {
+            if (!pulling) return;
+            pulling = false;
+            if (ready) {
+                showIndicator(MAX_PULL, false, true);
+                setTimeout(function () { location.reload(); }, 350);
+            } else {
+                hideIndicator();
+            }
+            ready = false;
+        });
     })();
     </script>
 

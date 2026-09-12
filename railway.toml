@@ -1,0 +1,21 @@
+# Konfigurasi deploy Railway untuk App Portal Sekolah.
+#
+# TUJUAN UTAMA: healthcheckPath memaksa Railway menunggu aplikasi BENAR-BENAR
+# siap (HTTP 200 dari /up) sebelum memindahkan traffic ke deployment baru.
+# Tanpa ini, pengunjung bisa melihat halaman error bawaan Railway ("Application
+# failed to respond") selama proses deploy/restart.
+#
+# Catatan:
+# - Build tetap memakai nixpacks.toml (builder NIXPACKS) + Procfile yang ada.
+# - File ini HANYA menambah kebijakan deploy, tidak mengubah cara build/start.
+# - /up adalah endpoint health bawaan Laravel (cek DB + cache), tanpa auth.
+"$schema" = "https://railway.com/railway.schema.json"
+
+[build]
+builder = "NIXPACKS"
+
+[deploy]
+healthcheckPath = "/up"
+healthcheckTimeout = 300
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 10

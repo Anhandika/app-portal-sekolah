@@ -408,5 +408,25 @@ if ('serviceWorker' in navigator) {
     });
 }
 </script>
+
+<!-- ===== PULL TO REFRESH (mobile) ===== -->
+<style>
+#ptr-indicator{position:fixed;top:12px;left:50%;transform:translate(-50%,-80px);z-index:10004;display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.95);border:1px solid #e2e8f0;border-radius:999px;padding:10px 18px 10px 12px;box-shadow:0 12px 30px rgba(15,23,42,.15);font-size:12px;font-weight:800;color:#0f172a;transition:transform .18s ease;pointer-events:none;white-space:nowrap;font-family:'Inter',system-ui,sans-serif}
+#ptr-spinner{width:22px;height:22px;border-radius:50%;flex-shrink:0;border:3px solid #fee2e2;border-top-color:#dc2626;transition:transform .1s linear}
+#ptr-indicator.ready #ptr-spinner{border-color:#dc2626;border-top-color:#fff;animation:ptrSpin .7s linear infinite}
+#ptr-indicator.loading #ptr-spinner{border-color:rgba(220,38,38,.2);border-top-color:#dc2626;animation:ptrSpin .7s linear infinite}
+@keyframes ptrSpin{to{transform:rotate(360deg)}}
+</style>
+<div id="ptr-indicator" aria-hidden="true"><div id="ptr-spinner"></div><span id="ptr-label">Tarik untuk memuat ulang</span></div>
+<script>
+(function(){if(!('ontouchstart' in window)&&!navigator.maxTouchPoints)return;var TH=90,MAX=150,sY=0,sX=0,pulling=false,ready=false;var ind=document.getElementById('ptr-indicator'),lab=document.getElementById('ptr-label'),sp=document.getElementById('ptr-spinner');if(!ind)return;
+function show(dy,r,l){var y=Math.min(dy,MAX);ind.style.transform='translate(-50%,'+(y-80)+'px)';ind.classList.toggle('ready',!!r);ind.classList.toggle('loading',!!l);lab.textContent=l?'Memuat ulang...':(r?'Lepaskan untuk memuat ulang':'Tarik untuk memuat ulang');if(!r&&!l&&sp)sp.style.transform='rotate('+(dy*2)+'deg)';}
+function hide(){ind.style.transform='translate(-50%,-80px)';ind.classList.remove('ready','loading');}
+document.addEventListener('touchstart',function(e){if(e.touches.length!==1){pulling=false;return;}if(window.scrollY>0){pulling=false;return;}var t=e.touches[0];sY=t.clientY;sX=t.clientX;pulling=true;ready=false;},{passive:true});
+document.addEventListener('touchmove',function(e){if(!pulling)return;var t=e.touches[0],dy=t.clientY-sY,dx=Math.abs(t.clientX-sX);if(dx>60||dy<=0||window.scrollY>0){if(dy<=8){pulling=false;hide();}return;}if(dy>12){if(e.cancelable)e.preventDefault();ready=dy>=TH;show(dy,ready,false);}},{passive:false});
+document.addEventListener('touchend',function(){if(!pulling)return;pulling=false;if(ready){show(MAX,false,true);setTimeout(function(){location.reload();},350);}else hide();ready=false;});
+})();
+</script>
+
 </body>
 </html>
