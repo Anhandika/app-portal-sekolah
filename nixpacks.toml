@@ -13,6 +13,8 @@ cmds = [
     # `php artisan key:generate` (mis. Nixpacks/Composer) — mencegah error
     # "file_get_contents(/app/.env): Failed to open stream" saat deploy.
     "chmod +x ensure-env.sh && bash ensure-env.sh",
+    # Fail fast bila ekstensi GD tidak tersedia: laravolt/avatar butuh GD saat runtime.
+    "php -m | grep -qi '^gd$' && echo 'GD OK' || (echo 'FATAL: php-gd tidak terpasang' && exit 1)",
     "composer install --no-dev --optimize-autoloader",
     "npm ci",
     "npm run build"

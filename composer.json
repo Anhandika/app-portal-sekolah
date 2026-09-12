@@ -7,6 +7,10 @@
     "license": "MIT",
     "require": {
         "php": "^8.3",
+        "ext-exif": "*",
+        "ext-fileinfo": "*",
+        "ext-gd": "*",
+        "ext-mbstring": "*",
         "barryvdh/laravel-dompdf": "^3.1",
         "kreait/laravel-firebase": "^7.2",
         "laravel/framework": "^13.17",

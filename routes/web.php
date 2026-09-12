@@ -32,6 +32,18 @@ use Illuminate\Support\Facades\Route;
 // session; mobile/Capacitor mengirim token lewat header & dibawa $request->user()).
 Broadcast::routes();
 
+// Health check ekstensi image (GD/EXIF) untuk diagnostik deploy Railway.
+// Contoh: GET /health/gd -> {"gd":true,"exif":true,"php":"8.3.x"}
+Route::get('/health/gd', function () {
+    return response()->json([
+        'gd' => extension_loaded('gd'),
+        'gd_info' => extension_loaded('gd') ? gd_info()['GD Version'] ?? true : false,
+        'exif' => extension_loaded('exif'),
+        'imagick' => extension_loaded('imagick'),
+        'php' => PHP_VERSION,
+    ]);
+})->name('health.gd');
+
 Route::get('/', function () {
     if (session('user_id') || \Illuminate\Support\Facades\Auth::check()) return redirect()->route('dashboard');
     // Onboarding "Mulai" mengarah ke register bila ada sekolah buka, else login.
