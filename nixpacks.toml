@@ -1,8 +1,11 @@
 [variables]
 NIXPACKS_PHP_VERSION = "8.3"
 
+# PENTING: nixPkgs eksplisit MENIMPA auto-deteksi provider. Karena proyek ini
+# juga butuh Node (npm ci / npm run build dari package.json), paket "nodejs"
+# WAJIB dicantumkan di sini — tanpanya build gagal "npm: command not found".
 [phases.setup]
-nixPkgs = ["php83", "php83Packages.composer", "php83Extensions.gd", "php83Extensions.exif", "php83Extensions.pdo_mysql", "php83Extensions.zip", "php83Extensions.intl"]
+nixPkgs = ["php83", "php83Packages.composer", "php83Extensions.gd", "php83Extensions.exif", "php83Extensions.pdo_mysql", "php83Extensions.zip", "php83Extensions.intl", "nodejs"]
 cmds = [
     "bash ensure-env.sh"
 ]
