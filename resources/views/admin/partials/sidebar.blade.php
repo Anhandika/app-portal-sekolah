@@ -129,9 +129,9 @@ $sideSchoolId = (int) session('school_id');
                 <div class="text-muted" style="font-size:10px;">{{ $isSuper ? 'Admin Pusat' : 'Admin Sekolah' }}</div>
             </div>
         </div>
-        <form method="POST" action="{{ route('logout') }}" class="px-2 mt-2">
+        <form method="POST" action="{{ route('logout') }}" class="px-2 mt-2" id="sidebar-logout-form">
             @csrf
-            <button class="btn btn-sm btn-outline-light w-100" style="border-radius:10px;font-size:12px;">
+            <button type="button" class="btn btn-sm btn-outline-light w-100" style="border-radius:10px;font-size:12px;" onclick="event.preventDefault(); clearAllSessionData(); document.getElementById('sidebar-logout-form').submit();">
                 <i class="bi bi-box-arrow-right me-1"></i> Keluar
             </button>
         </form>

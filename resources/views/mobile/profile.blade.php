@@ -234,9 +234,9 @@
             <div style="font-size:13px;font-weight:700;color:#dc2626;">Keluar Akun?</div>
             <div style="font-size:11px;color:var(--faint);">Hentikan sesi aktif.</div>
         </div>
-        <form method="POST" action="{{ route('logout') }}">
+        <form method="POST" action="{{ route('logout') }}" id="profile-logout-form">
             @csrf
-            <button style="padding:8px 20px;border-radius:10px;background:#dc2626;color:#fff;font-weight:700;font-size:12px;border:none;cursor:pointer;">KELUAR</button>
+            <button type="button" style="padding:8px 20px;border-radius:10px;background:#dc2626;color:#fff;font-weight:700;font-size:12px;border:none;cursor:pointer;" onclick="event.preventDefault(); clearAllSessionData(); document.getElementById('profile-logout-form').submit();">KELUAR</button>
         </form>
     </div>
 </div>

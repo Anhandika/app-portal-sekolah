@@ -1,11 +1,8 @@
- // Naik ke v4: perbaiki cache.put yang meledak untuk respons parsial 206
-// (audio/video range request) + buang cache lama.
-const CACHE_NAME = 'portal-sekolah-v4';
+// Naik ke v5: fix session bugs - never cache navigation, no stale pages
+const CACHE_NAME = 'portal-sekolah-v5';
 
 // HANYA aset statis milik pihak ketiga.
-// JANGAN pernah me-precache '/' atau halaman HTML lain: responsnya bergantung
-// pada sesi login dan berubah tiap deploy, jadi menyimpannya membuat browser
-// menyajikan halaman lama selamanya.
+// JANGAN pernah me-precache '/' atau halaman HTML lain.
 const urlsToCache = [
   'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css',
   'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css',
@@ -39,17 +36,22 @@ self.addEventListener('fetch', event => {
 
   const url = new URL(req.url);
 
-  // Navigasi halaman (HTML): SELALU jaringan dulu. Cache hanya dipakai kalau
-  // koneksi mati, supaya perubahan setelah deploy langsung terlihat.
+  // Navigasi halaman (HTML): SELALU jaringan dulu, TIDAK PERNAH cache.
+  // Cache dihapus saat logout, dan bfcache dicegah via header HTTP.
   if (req.mode === 'navigate' || req.destination === 'document') {
     event.respondWith(
-      fetch(req).catch(() => caches.match('/'))
+      fetch(req).catch(() => {
+        // Offline: return a minimal offline page instead of cached authenticated page
+        return new Response('<!DOCTYPE html><html><head><title>Offline</title></head><body style="display:flex;align-items:center;justify-content:center;min-height:100vh;font-family:system-ui;background:#f6f7fb;"><div style="text-align:center;"><h2>Anda sedang offline</h2><p>Periksa koneksi internet Anda.</p></div></body></html>', {
+          headers: { 'Content-Type': 'text/html' }
+        });
+      })
     );
     return;
   }
 
   // Aset statis: cache dulu, baru jaringan.
-  // LEWATI request range & respons non-200: cache.put() melempar untuk 206 Partial.
+  // LEWATI request range & respons non-200.
   if (req.headers.has('range')) return;
   event.respondWith(
     caches.match(req).then(cached => cached || fetch(req).then(res => {
@@ -60,6 +62,15 @@ self.addEventListener('fetch', event => {
       return res;
     }))
   );
+});
+
+// Clear all caches on logout message from client
+self.addEventListener('message', event => {
+  if (event.data && event.data.type === 'CLEAR_CACHES') {
+    caches.keys().then(names => {
+      names.forEach(name => caches.delete(name));
+    });
+  }
 });
 
 // PUSH NOTIFICATION HANDLING

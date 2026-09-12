@@ -9,6 +9,9 @@
     <meta name="theme-color" content="#0f172a">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     @vite(['resources/js/app.js'])
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
@@ -99,11 +102,26 @@
         /* Loader */
         #page-loader {
             position: fixed; inset: 0; z-index: 9999;
-            background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px);
             display: none; align-items: center; justify-content: center;
+            flex-direction: column; gap: 12px;
         }
         .loader-logo { width: 60px; animation: pulse 2s infinite ease-in-out; }
+        .loader-text { font-size: 12px; font-weight: 700; color: var(--mist); animation: pulse 2s infinite ease-in-out; }
         @keyframes pulse { 0% { transform: scale(1); opacity: 0.8; } 50% { transform: scale(1.1); opacity: 1; } 100% { transform: scale(1); opacity: 0.8; } }
+
+        /* Page transition animation */
+        .page-transition { animation: pageSlideIn 0.3s ease-out; }
+        @keyframes pageSlideIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Data refresh indicator */
+        #refresh-indicator {
+            position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 10000;
+            background: var(--grad-primary); transform: scaleX(0); transform-origin: left;
+            transition: transform 0.3s ease; pointer-events: none;
+        }
+        #refresh-indicator.active { transform: scaleX(0.7); }
+        #refresh-indicator.done { transform: scaleX(1); transition: transform 0.15s ease; }
 
         .stagger > * { animation: fadeUp 0.5s both; }
         @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
@@ -231,9 +249,11 @@
 <body>
     <div id="page-loader">
         <img src="{{ asset('logo_sekolah.png') }}" class="loader-logo" alt="PAS" onerror="this.style.display='none'" style="width:80px;">
+        <div class="loader-text">Memuat...</div>
     </div>
+    <div id="refresh-indicator"></div>
 
-    <div class="mobile-shell">
+    <div class="mobile-shell page-transition">
         @yield('content')
     </div>
 
@@ -263,7 +283,7 @@
         </div>
 
         <div class="mt-5">
-            <a href="{{ route('logout') }}" onclick="event.preventDefault(); window.Capacitor.Plugins.NativeBridge.clearToken().then(function() { localStorage.removeItem('pin_set'); localStorage.removeItem('biometric_enabled'); sessionStorage.clear(); document.getElementById('logout-form').submit(); }).catch(function() { localStorage.removeItem('pin_set'); localStorage.removeItem('biometric_enabled'); sessionStorage.clear(); document.getElementById('logout-form').submit(); })" class="text-white-50 text-decoration-none small">Logout Akun</a>
+            <a href="{{ route('logout') }}" onclick="event.preventDefault(); clearAllSessionData(); document.getElementById('logout-form').submit();" class="text-white-50 text-decoration-none small">Logout Akun</a>
             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">@csrf</form>
         </div>
     </div>
@@ -312,6 +332,23 @@
     <audio id="notif-sound" src="{{ asset('sounds/doorbell.mp3') }}" preload="auto"></audio>
 
     <script>
+        // ===== Global session cleanup function =====
+        function clearAllSessionData() {
+            localStorage.removeItem('pin_set');
+            localStorage.removeItem('biometric_enabled');
+            localStorage.removeItem('auto_lock_seconds');
+            localStorage.removeItem('perm_hint_shown');
+            localStorage.removeItem('last_notif_count');
+            localStorage.removeItem('seenStories');
+            sessionStorage.clear();
+            if (window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.NativeBridge) {
+                try { window.Capacitor.Plugins.NativeBridge.clearToken(); } catch(e) {}
+            }
+            if ('caches' in window) {
+                caches.keys().then(function(names) { names.forEach(function(n) { caches.delete(n); }); });
+            }
+        }
+
         // ===== Sinkronisasi Izin & Download Mobile (APK/WebView) =====
         (function() {
             const isWebView = /wv|Android.*Version\/[\d\.]+/.test(navigator.userAgent);
@@ -446,8 +483,12 @@
                 const href = this.getAttribute('href');
                 if (!href || href==='#' || href.startsWith('javascript:') || href.startsWith('tel:') || href.startsWith('mailto:')) return;
                 if (href.length > 1 && href.startsWith('/') && !href.startsWith('//')) {
+                    // Show smooth refresh indicator
+                    var indicator = document.getElementById('refresh-indicator');
+                    if (indicator) { indicator.classList.add('active'); indicator.classList.remove('done'); }
                     var loader=document.getElementById('page-loader'); if(loader) loader.style.display='flex';
                     setTimeout(function(){ if(loader) loader.style.display='none'; }, 7000);
+                    setTimeout(function(){ if(indicator) { indicator.classList.remove('active'); indicator.classList.add('done'); } }, 600);
                 }
             });
         });
@@ -539,26 +580,40 @@
                     .then(function (r) { return r.json(); })
                     .then(function (d) {
                         if (!d.authenticated) {
-                            // Sesi habis/expired -> redirect ke login langsung
+                            clearAllSessionData();
                             if (d.redirect) window.location.href = d.redirect;
                             else window.location.href = LOGIN_URL;
                             return;
                         }
                         updateUnreadBadges(d.unread);
                     })
-                    .catch(function () { /* offline sementara, abaikan */ });
+                    .catch(function (err) {
+                        // Network error only: ignore. Server error (non-JSON): force re-check
+                        if (err && err.message && err.message.indexOf('Failed to fetch') === -1) {
+                            // Likely server returned non-JSON (e.g. 302 HTML redirect) -> session dead
+                            clearAllSessionData();
+                            window.location.href = LOGIN_URL;
+                        }
+                    });
             }
 
             function startHeartbeat() {
                 if (stdout) return;
                 heartbeat();
-                stdout = setInterval(heartbeat, 60000);   // setiap 60 detik
-                // Notifikasi di-poll lebih rapat untuk nuansa "langsung"
+                stdout = setInterval(heartbeat, 60000);
                 pollNotifications();
                 pollTimer = setInterval(pollNotifications, 15000);
-                // Kembali dari latar belakang → langsung cek notifikasi baru.
+                // Deduplicate: only fire once per visibility change
+                var lastVisCheck = 0;
                 document.addEventListener('visibilitychange', function () {
-                    if (!document.hidden) { heartbeat(); pollNotifications(); }
+                    if (!document.hidden) {
+                        var now = Date.now();
+                        if (now - lastVisCheck > 2000) {
+                            lastVisCheck = now;
+                            heartbeat();
+                            pollNotifications();
+                        }
+                    }
                 });
             }
             function stopHeartbeat() {
@@ -932,8 +987,25 @@
             });
 
             window.addEventListener('pageshow', function(e) {
-                if (e.persisted && localStorage.getItem('pin_set') === 'true') {
-                    lockApp();
+                if (e.persisted) {
+                    // Validate session immediately on bfcache restore
+                    fetch(SESSION_URL + '?t=' + Date.now(), { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+                        .then(function(r) { return r.json(); })
+                        .then(function(d) {
+                            if (!d.authenticated) {
+                                clearAllSessionData();
+                                window.location.href = LOGIN_URL;
+                                return;
+                            }
+                            if (localStorage.getItem('pin_set') === 'true') {
+                                lockApp();
+                            }
+                        })
+                        .catch(function() {
+                            if (localStorage.getItem('pin_set') === 'true') {
+                                lockApp();
+                            }
+                        });
                 }
             });
 

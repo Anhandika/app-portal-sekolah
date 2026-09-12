@@ -3,6 +3,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>{{ $title ?? 'Admin | PAS - Portal Academy Sekolah' }}</title>
     <link rel="manifest" href="/manifest.json">
     <meta name="theme-color" content="#246bfe">
@@ -142,9 +145,9 @@
                     <span class="text-white small fw-bold admin-nav-user">{{ session('admin_name') }}</span>
                     <span class="text-muted small" style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.05em;">{{ session('is_super_admin') ? 'Admin Pusat' : 'Administrator' }}</span>
                 </div>
-                <form method="POST" action="{{ route('logout') }}">
+                <form method="POST" action="{{ route('logout') }}" id="admin-logout-form">
                     @csrf
-                    <button class="btn btn-sm btn-outline-light rounded-pill px-3">Keluar</button>
+                    <button type="button" class="btn btn-sm btn-outline-light rounded-pill px-3" onclick="event.preventDefault(); clearAllSessionData(); document.getElementById('admin-logout-form').submit();">Keluar</button>
                 </form>
             </div>
         </div>
@@ -191,6 +194,12 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
+    // Global session cleanup
+    function clearAllSessionData() {
+        localStorage.clear();
+        sessionStorage.clear();
+    }
+
     var portalToastEl = document.getElementById('portal-toast');
     var toastTimer = null;
     var lastSoundAt = 0;

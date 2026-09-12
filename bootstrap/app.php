@@ -2,6 +2,7 @@
 
 use App\Http\Middleware\ApiRoleMiddleware;
 use App\Http\Middleware\BlockAdminOnMobile;
+use App\Http\Middleware\PreventStaleCache;
 use App\Http\Middleware\RoleMiddleware;
 use App\Http\Middleware\UpdateLastActivity;
 use Illuminate\Foundation\Application;
@@ -34,6 +35,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'last.activity' => UpdateLastActivity::class,
         ]);
         $middleware->appendToGroup('web', UpdateLastActivity::class);
+        $middleware->appendToGroup('web', PreventStaleCache::class);
 
     })
 
