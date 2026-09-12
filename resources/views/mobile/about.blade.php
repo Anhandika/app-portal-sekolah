@@ -2,7 +2,11 @@
 
 @section('content')
 <div class="pui-topbar">
+    @if(session('user_id'))
     <a href="{{ route('profile.show') }}" class="back"><i class="bi bi-chevron-left"></i> Profil</a>
+    @else
+    <a href="{{ url('/') }}" class="back"><i class="bi bi-chevron-left"></i> Beranda</a>
+    @endif
     <h1>Tentang PAS - Portal Academy Sekolah</h1>
 </div>
 

@@ -290,7 +290,7 @@
         </div>
     </div>
 
-    @if(!isset($hideNav) || !$hideNav)
+    @if((!isset($hideNav) || !$hideNav) && session('user_id'))
     <nav class="bottom-nav" style="gap:2px">
         <a class="{{ request()->routeIs('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}">
             <i class="bi bi-house-door nav-icon"></i>Beranda

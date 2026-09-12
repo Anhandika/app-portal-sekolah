@@ -104,6 +104,10 @@ Route::get('/register/syarat-ketentuan', [RegisterController::class, 'syarat'])-
 Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+// FAQ & Tentang bersifat PUBLIK (ditaut dari welcome page pra-login).
+Route::get('/help/faq', [HelpController::class, 'faq'])->name('help.faq');
+Route::get('/about', [HelpController::class, 'about'])->name('about.show');
+
 // Gerbang akses kini kolom `aktif` yang diset admin, diperiksa saat login.
 // Verifikasi email sudah dihapus sehingga tidak ada middleware 'verified'.
 Route::middleware('role:admin,guru,siswa')->group(function () {
@@ -186,9 +190,6 @@ Route::middleware('role:guru,siswa')->group(function () {
     Route::get('/tugas', [TugasController::class, 'index'])->name('tugas.index');
     Route::get('/tugas/{tugas}', [TugasController::class, 'show'])->whereNumber('tugas')->name('tugas.show');
 
-    // Help & FAQ (Premium Features)
-    Route::get('/help/faq', [HelpController::class, 'faq'])->name('help.faq');
-    Route::get('/about', [HelpController::class, 'about'])->name('about.show');
     Route::get('/legal/privacy', function() {
         return view('mobile.legal', [
             'title' => 'Kebijakan Privasi',
