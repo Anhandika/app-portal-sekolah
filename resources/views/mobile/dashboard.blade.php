@@ -195,6 +195,35 @@
     @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     .animate-up { animation: slideIn 0.5s ease both; }
 
+    /* ==== Tur onboarding (spotlight + tooltip) ==== */
+    #pas-spot {
+        position: fixed; z-index: 12000; display: none; pointer-events: none;
+        border: 2px solid rgba(255, 255, 255, 0.95); border-radius: 20px;
+        box-shadow: 0 0 0 9999px rgba(15, 23, 42, 0.75),
+                    0 0 0 4px rgba(220, 38, 38, 0.55),
+                    0 0 34px rgba(220, 38, 38, 0.45);
+        transition: top 0.3s ease, left 0.3s ease, width 0.3s ease, height 0.3s ease;
+    }
+    #pas-tip {
+        position: fixed; z-index: 12001; display: none;
+        width: min(300px, calc(100vw - 32px));
+        background: #fff; border-radius: 20px; padding: 18px;
+        box-shadow: 0 24px 60px rgba(15, 23, 42, 0.35);
+        animation: slideIn 0.3s ease both;
+    }
+    #pas-tip .t-cat { font-size: 10px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--red, #dc2626); }
+    #pas-tip .t-title { font-size: 16px; font-weight: 800; letter-spacing: -0.01em; margin: 4px 0 6px; color: var(--navy, #0f172a); }
+    #pas-tip .t-desc { font-size: 12.5px; line-height: 1.6; color: #64748b; }
+    #pas-tip .t-dots { display: flex; gap: 6px; margin: 12px 0; }
+    #pas-tip .t-dots span { width: 6px; height: 6px; border-radius: 99px; background: #e2e8f0; transition: all 0.25s; }
+    #pas-tip .t-dots span.on { width: 22px; background: #dc2626; }
+    #pas-tip .t-foot { display: flex; align-items: center; gap: 8px; }
+    #pas-tip .t-count { font-size: 11px; font-weight: 800; color: #94a3b8; margin-right: auto; }
+    #pas-tip .t-skip { background: none; border: 0; color: #94a3b8; font-size: 12px; font-weight: 700; cursor: pointer; padding: 8px 4px; }
+    #pas-tip .t-back { background: #f1f5f9; border: 0; color: #0f172a; font-size: 12px; font-weight: 800; border-radius: 10px; padding: 9px 14px; cursor: pointer; }
+    #pas-tip .t-next { background: linear-gradient(135deg, #dc2626, #ef4444); border: 0; color: #fff; font-size: 12px; font-weight: 800; border-radius: 10px; padding: 9px 16px; cursor: pointer; box-shadow: 0 6px 14px rgba(220, 38, 38, 0.35); }
+    #pas-tip .t-back:active, #pas-tip .t-next:active { transform: scale(0.96); }
+
     /* ==== Pengaman layar sangat kecil: cegah gepeng/overflow ==== */
     @media (max-width: 360px) {
         .hero-card { padding: 22px 18px; }
@@ -273,6 +302,7 @@
     <div class="pui-card db-section animate-up" style="animation-delay: 0.15s; margin-bottom: 24px;">
         <div class="section-header">
             <h3>Menu Utama</h3>
+            <a href="#" onclick="if(window.pasTourReplay){window.pasTourReplay();}return false;" style="font-size:11px;">✦ Tur Ulang</a>
         </div>
         <div class="menu-grid">
             <a href="{{ route('absensi.index') }}" class="menu-btn">
@@ -458,5 +488,141 @@
         } catch(e) {}
     }
     localStorage.setItem('last_notif_count', unreadCount);
+</script>
+
+{{-- Tur onboarding: spotlight perkenalan fitur (sekali per perangkat) --}}
+<div id="pas-spot" aria-hidden="true"></div>
+<div id="pas-tip" role="dialog" aria-label="Panduan fitur">
+    <div class="t-cat" id="pasTipCat">Beranda</div>
+    <div class="t-title" id="pasTipTitle"></div>
+    <div class="t-desc" id="pasTipDesc"></div>
+    <div class="t-dots" id="pasTipDots"></div>
+    <div class="t-foot">
+        <span class="t-count" id="pasTipCount"></span>
+        <button type="button" class="t-skip" id="pasTipSkip">Lewati</button>
+        <button type="button" class="t-back" id="pasTipBack" style="display:none;">Kembali</button>
+        <button type="button" class="t-next" id="pasTipNext">Lanjut</button>
+    </div>
+</div>
+<script>
+(function () {
+    var FLAG = 'pas_tour_v1_done';
+    var steps = [
+        { sel: '.hero-card', cat: 'Beranda', title: 'Halo! Ini Beranda Anda 👋',
+          desc: 'Foto, sapaan, nama kelas, dan status akun tampil di kartu ini. Semua aktivitas harian dimulai dari sini.' },
+        { sel: '.hero-bell', cat: 'Notifikasi', title: 'Lonceng Notifikasi 🔔',
+          desc: 'Angka merah = info belum dibaca (tugas baru, nilai, pengumuman). Ketuk untuk membuka kotak masuk.' },
+        { sel: '.stat-grid', cat: 'Statistik', title: 'Angka Sekilas 📊',
+          desc: 'Tugas aktif, persen kehadiran bulan ini, dan jumlah teman sekelas. Ketuk kartunya untuk detail.' },
+        { sel: '.menu-grid', cat: 'Menu Utama', title: '8 Pintu Fitur 🧭',
+          desc: 'Absensi, Tugas, SPP, Chat, Perpus, Jadwal, Nilai, Eskul — masing-masing ikon membawa ke satu fitur.' },
+        { sel: '.lms-row', cat: 'Belajar', title: 'Mata Pelajaran 📚',
+          desc: 'Daftar mapel Anda. Masuk ke dalamnya untuk materi, tugas, dan nilai per pelajaran.', optional: true },
+        { sel: '.absen-summary', cat: 'Kehadiran', title: 'Ringkasan Bulanan ✅',
+          desc: 'Total Hadir, Sakit/Izin, Alpha, dan persen kehadiran bulan berjalan.', optional: true },
+        { sel: '.bottom-nav', cat: 'Navigasi', title: 'Navigasi Jempol 👍',
+          desc: 'Beranda, Global, Absen, Chat, Tugas, Profil — ikon menyala menandai posisi Anda. Bisa juga tarik layar ke bawah untuk memuat ulang!' }
+    ];
+    var idx = 0, active = [];
+    var spot = document.getElementById('pas-spot');
+    var tip = document.getElementById('pas-tip');
+
+    function lockVisible() {
+        var l = document.getElementById('app-lock-overlay');
+        return l && getComputedStyle(l).display !== 'none';
+    }
+    function collect() {
+        active = steps.filter(function (s) { return document.querySelector(s.sel); });
+    }
+    function place() {
+        var s = active[idx];
+        if (!s) return endTour(false);
+        var el = document.querySelector(s.sel);
+        if (!el) { next(); return; }
+        var r = el.getBoundingClientRect();
+        var pad = 8;
+        spot.style.display = 'block';
+        spot.style.top = Math.max(8, r.top - pad) + 'px';
+        spot.style.left = Math.max(8, r.left - pad) + 'px';
+        spot.style.width = Math.min(window.innerWidth - 16, r.width + pad * 2) + 'px';
+        spot.style.height = (r.height + pad * 2) + 'px';
+        document.getElementById('pasTipCat').textContent = s.cat;
+        document.getElementById('pasTipTitle').textContent = s.title;
+        document.getElementById('pasTipDesc').textContent = s.desc;
+        document.getElementById('pasTipCount').textContent = (idx + 1) + ' / ' + active.length;
+        document.getElementById('pasTipBack').style.display = idx === 0 ? 'none' : '';
+        document.getElementById('pasTipNext').textContent = idx === active.length - 1 ? 'Mulai! 🚀' : 'Lanjut';
+        var dots = document.getElementById('pasTipDots');
+        dots.innerHTML = '';
+        active.forEach(function (_, i) {
+            var d = document.createElement('span');
+            if (i === idx) d.className = 'on';
+            dots.appendChild(d);
+        });
+        tip.style.display = 'block';
+        var tw = Math.min(300, window.innerWidth - 32);
+        var below = r.bottom + 12 + 230 < window.innerHeight;
+        tip.style.top = (below ? r.bottom + 12 : Math.max(12, r.top - 242)) + 'px';
+        tip.style.left = Math.max(16, Math.min(window.innerWidth - tw - 16, r.left)) + 'px';
+    }
+    function show(i) {
+        idx = i;
+        var s = active[idx];
+        if (!s) return endTour(false);
+        var el = document.querySelector(s.sel);
+        if (el && el.scrollIntoView) {
+            try { el.scrollIntoView({ block: 'center', behavior: 'smooth' }); } catch (e) {}
+        }
+        setTimeout(place, 450);
+    }
+    function next() {
+        if (idx >= active.length - 1) { endTour(true); return; }
+        show(idx + 1);
+    }
+    function back() { if (idx > 0) show(idx - 1); }
+    function endTour(done) {
+        spot.style.display = 'none';
+        tip.style.display = 'none';
+        if (done) { try { localStorage.setItem(FLAG, '1'); } catch (e) {} }
+    }
+    document.getElementById('pasTipNext').addEventListener('click', next);
+    document.getElementById('pasTipBack').addEventListener('click', back);
+    document.getElementById('pasTipSkip').addEventListener('click', function () { endTour(true); });
+    var raf = null;
+    window.addEventListener('scroll', function () {
+        if (tip.style.display !== 'block') return;
+        if (raf) cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(place);
+    }, { passive: true });
+    window.addEventListener('resize', function () {
+        if (tip.style.display === 'block') place();
+    });
+
+    function startTour() {
+        collect();
+        if (!active.length) return;
+        idx = 0;
+        show(0);
+    }
+    window.pasTourReplay = function () {
+        if (lockVisible()) return;
+        startTour();
+    };
+
+    // Otomatis sekali per perangkat, setelah halaman siap & tidak terkunci.
+    try {
+        if (localStorage.getItem(FLAG)) return;
+    } catch (e) { return; }
+    var waited = 0;
+    var timer = setInterval(function () {
+        waited += 500;
+        if (!lockVisible() && document.readyState === 'complete') {
+            clearInterval(timer);
+            setTimeout(startTour, 900);
+        } else if (waited > 20000) {
+            clearInterval(timer);
+        }
+    }, 500);
+})();
 </script>
 @endsection
