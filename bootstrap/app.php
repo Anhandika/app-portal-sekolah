@@ -83,6 +83,21 @@ return Application::configure(basePath: dirname(__DIR__))
             }
         });
 
+        // Semua HttpException lain (401, 405, 408, ...) → halaman error branded
+        // supaya TIDAK PERNAH tampil halaman default framework (bocor info server).
+        $exceptions->render(function (\Symfony\Component\HttpKernel\Exception\HttpException $e, Request $request) {
+            $code = $e->getStatusCode();
+            if ($request->is('api/*') || $request->expectsJson()) {
+                return response()->json(['message' => 'Terjadi kesalahan ('.$code.')'], $code);
+            }
+            $view = 'errors.'.$code;
+            if (! view()->exists($view)) {
+                $view = 'errors.500';
+            }
+
+            return response()->view($view, [], $code);
+        });
+
         // Catch-all: uncaught exceptions → 500 (but don't swallow known HttpExceptions)
         $exceptions->renderable(function (\Throwable $e, Request $request) {
             if ($e instanceof \Symfony\Component\HttpKernel\Exception\HttpException) return null;

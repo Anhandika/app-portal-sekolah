@@ -1,12 +1,15 @@
-// Naik ke v5: fix session bugs - never cache navigation, no stale pages
-const CACHE_NAME = 'portal-sekolah-v5';
+// Naik ke v6: fallback navigasi gagal -> halaman offline branded (/offline),
+// BUKAN halaman inline generik. /offline aman di-cache: statis & tanpa sesi.
+const CACHE_NAME = 'portal-sekolah-v6';
+const OFFLINE_URL = '/offline';
 
-// HANYA aset statis milik pihak ketiga.
-// JANGAN pernah me-precache '/' atau halaman HTML lain.
+// HANYA aset statis milik pihak ketiga + halaman offline branded.
+// JANGAN pernah me-precache '/' atau halaman HTML lain yang bergantung sesi.
 const urlsToCache = [
   'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css',
   'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css',
-  'https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css'
+  'https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css',
+  OFFLINE_URL
 ];
 
 self.addEventListener('install', event => {
@@ -36,15 +39,20 @@ self.addEventListener('fetch', event => {
 
   const url = new URL(req.url);
 
-  // Navigasi halaman (HTML): SELALU jaringan dulu, TIDAK PERNAH cache.
-  // Cache dihapus saat logout, dan bfcache dicegah via header HTTP.
+  // Navigasi halaman (HTML): SELALU jaringan dulu.
+  // Bila jaringan/server mati (termasuk 5xx/proxy error Railway), sajikan
+  // halaman offline branded milik sendiri — user TIDAK PERNAH melihat
+  // halaman error bawaan infrastruktur.
   if (req.mode === 'navigate' || req.destination === 'document') {
     event.respondWith(
-      fetch(req).catch(() => {
-        // Offline: return a minimal offline page instead of cached authenticated page
-        return new Response('<!DOCTYPE html><html><head><title>Offline</title></head><body style="display:flex;align-items:center;justify-content:center;min-height:100vh;font-family:system-ui;background:#f6f7fb;"><div style="text-align:center;"><h2>Anda sedang offline</h2><p>Periksa koneksi internet Anda.</p></div></body></html>', {
-          headers: { 'Content-Type': 'text/html' }
-        });
+      fetch(req).then(function (res) {
+        // Respons error server (500/502/503/504) -> ganti halaman offline.
+        if (res && res.status >= 500) {
+          return caches.match(OFFLINE_URL).then(function (fb) { return fb || res; });
+        }
+        return res;
+      }).catch(function () {
+        return caches.match(OFFLINE_URL);
       })
     );
     return;

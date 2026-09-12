@@ -36,15 +36,12 @@
                     <button type="button" class="btn btn-ghost" data-action="copy"><i class="bi bi-clipboard"></i> Salin Detail</button>
                     <button type="button" class="btn btn-ghost" data-action="toggle"><i class="bi bi-code-slash"></i> Detail</button>
                 </div>
-                <div class="details" id="err-details">@yield('debug_detail')URL: {{ request()->fullUrl() }}
-Method: {{ request()->method() }}
-IP: {{ request()->ip() }}
-UA: {{ request()->userAgent() }}
-@if(isset($exception) && $exception)
+                <div class="details" id="err-details">@yield('debug_detail')Halaman: /{{ ltrim(request()->path(), '/') }}
+Metode: {{ request()->method() }}
+@if(config('app.debug') && isset($exception) && $exception)
 Error: {{ $exception->getMessage() }}
-File: {{ $exception->getFile() }}:{{ $exception->getLine() }}
 @endif
-Trace ID: {{ substr(md5(request()->fullUrl().microtime()),0,8) }}</div>
+Trace ID: {{ substr(md5(request()->path().microtime()),0,8) }}</div>
                 @if(config('app.debug') && isset($exception) && $exception)
                 <div class="details on" style="margin-top:10px;background:#fef2f2;color:#7f1d1d;border:1px solid #fecaca">{{ $exception->getMessage() }}</div>
                 @endif
