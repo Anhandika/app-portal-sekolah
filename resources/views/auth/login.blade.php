@@ -46,7 +46,7 @@
         .welcome-logo {
             width: 100px; height: 100px; border-radius: 30px;
             margin: 0 auto 24px;
-            background: transparent;
+            background: #fff;
             display: flex; align-items: center; justify-content: center;
             overflow: hidden;
             filter: drop-shadow(0 6px 16px rgba(0,0,0,0.25));

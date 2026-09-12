@@ -248,7 +248,7 @@
 </head>
 <body>
     <div id="page-loader">
-        <img src="{{ asset('logo_sekolah.png') }}" class="loader-logo" alt="PAS" onerror="this.style.display='none'" style="width:80px;">
+        <span style="width:96px;height:96px;border-radius:28px;background:#fff;display:grid;place-items:center;overflow:hidden;padding:8px;box-shadow:0 12px 32px rgba(15,23,42,.15);"><img src="{{ asset('logo_sekolah.png') }}" class="loader-logo" alt="PAS" onerror="this.style.display='none'" style="width:100%;height:100%;object-fit:contain;animation:pulse 2s infinite ease-in-out;"></span>
         <div class="loader-text">Memuat...</div>
     </div>
     <div id="refresh-indicator"></div>

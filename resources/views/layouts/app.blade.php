@@ -41,7 +41,7 @@
 
         .brand-mark {
             width: 40px; height: 40px; border-radius: 12px;
-            background: transparent;
+            background: #fff;
             display: grid; place-items: center; overflow: hidden;
             box-shadow: 0 4px 12px rgba(36,107,254,0.3);
         }
