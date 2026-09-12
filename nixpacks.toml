@@ -2,7 +2,7 @@
 NIXPACKS_PHP_VERSION = "8.3"
 
 [phases.setup]
-nixPkgs = ["php83", "php83Packages.composer", "php83Extensions.gd", "php83Extensions.pdo_mysql", "php83Extensions.zip", "php83Extensions.intl"]
+nixPkgs = ["php83", "php83Packages.composer", "php83Extensions.gd", "php83Extensions.exif", "php83Extensions.pdo_mysql", "php83Extensions.zip", "php83Extensions.intl"]
 cmds = [
     "bash ensure-env.sh"
 ]
@@ -17,26 +17,18 @@ cmds = [
     "php -m | grep -qi '^gd$' && echo 'GD OK' || (echo 'FATAL: php-gd tidak terpasang' && exit 1)",
     "composer install --no-dev --optimize-autoloader",
     "npm ci",
-    "npm run build"
+    "npm run build",
+    "php artisan view:clear",
+    "php artisan cache:clear"
 ]
 
-# db:seed sengaja DIHAPUS dari fase deploy: dulu dijalankan tiap cold start
-# sehingga data seed bisa dobel / deploy gagal. Seed cukup dijalankan manual sekali.
-# storage:link diberi || true karena perintah ini exit non-zero bila symlink sudah ada.
-# PENTING: ensure-env.sh WAJIB jalan SEBELUM config:cache agar .env terisi Railway vars.
-[phases.deploy]
-cmds = [
-    "bash ensure-env.sh",
-    "php artisan config:clear",
-    "php artisan route:clear",
-    "php artisan view:clear",
-    "php artisan cache:clear",
-    "php artisan migrate --force || true",
-    "php artisan storage:link || true",
-    "php artisan config:cache",
-    "php artisan route:cache",
-    "php artisan view:cache"
-]
+# CATATAN PENTING: JANGAN menambahkan [phases.deploy] di file ini.
+# "deploy" BUKAN fase resmi Nixpacks (resmi: setup/install/build) — builder
+# mengeksekusi fase tak dikenal di AWAL, SEBELUM composer install membuat
+# vendor/, sehingga `php artisan ...` gagal dengan
+# "require(/app/vendor/autoload.php): No such file" dan BUILD FAILED.
+# Semua pekerjaan deploy (migrate, seed, config:cache) SUDAH ditangani
+# start-web.sh yang jalan saat container START (lihat Procfile).
 
 # Start command disamakan dengan Procfile (web: bash start-web.sh).
 # php-fpm + nginx SENGAJA tidak dipakai: riwayat deploy menunjukkan binary
