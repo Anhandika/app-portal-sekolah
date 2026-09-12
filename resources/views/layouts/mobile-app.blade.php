@@ -514,9 +514,12 @@
     <script>
         // ===== Sesi realtime + Notifikasi langsung (seperti aplikasi native) =====
         (function () {
-            var SESSION_URL = "{{ route('session.status') }}";
+            // Expose globally: pageshow handler (di script lain) juga membutuhkannya
+            window.PAS_SESSION_URL = "{{ route('session.status') }}";
+            window.PAS_LOGIN_URL = "{{ route('login') }}";
+            var SESSION_URL = window.PAS_SESSION_URL;
             var POLL_URL = "{{ route('notifications.poll') }}";
-            var LOGIN_URL = "{{ route('login') }}";
+            var LOGIN_URL = window.PAS_LOGIN_URL;
             var MAX_RETRY = 3;
 
             // Update badge notifikasi bila ada elemen ber-peringatan unread live.
@@ -988,22 +991,24 @@
 
             window.addEventListener('pageshow', function(e) {
                 if (e.persisted) {
+                    var sUrl = window.PAS_SESSION_URL || '/session/status';
+                    var lUrl = window.PAS_LOGIN_URL || '/login';
                     // Validate session immediately on bfcache restore
-                    fetch(SESSION_URL + '?t=' + Date.now(), { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+                    fetch(sUrl + '?t=' + Date.now(), { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
                         .then(function(r) { return r.json(); })
                         .then(function(d) {
                             if (!d.authenticated) {
-                                clearAllSessionData();
-                                window.location.href = LOGIN_URL;
+                                if (typeof clearAllSessionData === 'function') clearAllSessionData();
+                                window.location.href = d.redirect || lUrl;
                                 return;
                             }
-                            if (localStorage.getItem('pin_set') === 'true') {
-                                lockApp();
+                            if (localStorage.getItem('pin_set') === 'true' && typeof window.lockApp === 'function') {
+                                window.lockApp();
                             }
                         })
                         .catch(function() {
-                            if (localStorage.getItem('pin_set') === 'true') {
-                                lockApp();
+                            if (localStorage.getItem('pin_set') === 'true' && typeof window.lockApp === 'function') {
+                                window.lockApp();
                             }
                         });
                 }
