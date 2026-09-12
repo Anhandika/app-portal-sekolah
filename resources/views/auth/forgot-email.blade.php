@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Cari Email | PAS - Portal Academy Sekolah</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="{{ asset('logo_sekolah.png?v=3') }}">
+    <link rel="apple-touch-icon" href="{{ asset('logo_sekolah.png?v=3') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <style>
         body { min-height: 100vh; background: linear-gradient(135deg, #14213d, #246bfe); display: flex; align-items: center; justify-content: center; padding: 20px; }
