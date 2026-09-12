@@ -79,8 +79,8 @@ self.addEventListener('push', event => {
 
   const options = {
     body: data.body,
-    icon: '/logo_sekolah.png',
-    badge: '/logo_sekolah.png',
+    icon: '/logo_sekolah.png?v=3',
+    badge: '/logo_sekolah.png?v=3',
     vibrate: [100, 50, 100],
     data: {
       url: data.url || '/'

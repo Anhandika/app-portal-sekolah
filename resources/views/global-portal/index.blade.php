@@ -89,7 +89,7 @@ $mySchoolName = $me?->school?->name ?? ($isSuper ? 'Admin Pusat (Umum)' : 'Umum'
                 <form method="POST" action="{{ route('global.portal.store') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="d-flex gap-3 align-items-center mb-3">
-                        <img src="{{ $me?->avatar_url ?? asset('logo_sekolah.png') }}" class="gp-avatar" alt="">
+                        <img src="{{ $me?->avatar_url ?? asset('logo_sekolah.png?v=3') }}" class="gp-avatar" alt="">
                         <div>
                             <div class="fw-bold" style="font-size:14px;">{{ $me?->name ?? session('admin_name') }}</div>
                             <div class="text-muted small">Diposting sebagai <b>{{ $mySchoolName }}</b> (otomatis)</div>

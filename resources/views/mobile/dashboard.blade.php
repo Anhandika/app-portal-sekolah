@@ -28,7 +28,7 @@
     /* ==== Hero premium with enhanced Glassmorphism ==== */
     .hero-card {
         background: var(--grad-hero);
-        background-image: url('{{ asset("logo_background.png") }}');
+        background-image: url('{{ asset("logo_background.png?v=3") }}');
         background-size: cover;
         background-position: center;
         background-blend-mode: overlay;

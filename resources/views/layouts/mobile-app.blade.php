@@ -248,7 +248,7 @@
 </head>
 <body>
     <div id="page-loader">
-        <img src="{{ asset('logo_sekolah.png') }}" class="loader-logo" alt="PAS" onerror="this.style.display='none'" style="width:80px;filter:drop-shadow(0 4px 12px rgba(15,23,42,.25));">
+        <img src="{{ asset('logo_sekolah.png?v=3') }}" class="loader-logo" alt="PAS" onerror="this.style.display='none'" style="width:80px;filter:drop-shadow(0 4px 12px rgba(15,23,42,.25));">
         <div class="loader-text">Memuat...</div>
     </div>
     <div id="refresh-indicator"></div>

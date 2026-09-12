@@ -10,7 +10,7 @@
 </head>
 <body>
     <div class="topbar">
-        <div class="logo" style="background:transparent;filter:drop-shadow(0 2px 5px rgba(0,0,0,.25));"><img src="{{ asset('logo_sekolah.png') }}" style="width:100%;height:100%;object-fit:contain;border-radius:8px;" alt="PAS"></div>
+        <div class="logo" style="background:transparent;filter:drop-shadow(0 2px 5px rgba(0,0,0,.25));"><img src="{{ asset('logo_sekolah.png?v=3') }}" style="width:100%;height:100%;object-fit:contain;border-radius:8px;" alt="PAS"></div>
         <div class="brand">PAS - Portal Academy Sekolah</div>
         <div class="time">{{ now()->translatedFormat('d M Y, H:i') }} WIB</div>
     </div>

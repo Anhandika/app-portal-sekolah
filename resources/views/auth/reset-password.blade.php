@@ -20,7 +20,7 @@
 <div class="recovery-card">
     <div class="p-4 p-md-5">
         <div class="logo-tile">
-            <img src="{{ asset('logo_sekolah.png') }}" alt="PAS" onerror="this.style.display='none'" style="width:100%;height:100%;object-fit:contain;">
+            <img src="{{ asset('logo_sekolah.png?v=3') }}" alt="PAS" onerror="this.style.display='none'" style="width:100%;height:100%;object-fit:contain;">
         </div>
         <h1 class="h4 fw-bold text-center mb-2">Atur Ulang Password</h1>
         <p class="text-secondary small text-center mb-4">Buat password baru untuk akun Anda.</p>

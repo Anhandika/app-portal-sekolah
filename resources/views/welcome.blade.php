@@ -67,7 +67,7 @@ body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:#f6f7fb;c
 <body>
 <div class="hero">
   <nav class="nav">
-    <div class="logo"><img src="{{ asset('logo_sekolah.png') }}" alt="PAS"></div>
+    <div class="logo"><img src="{{ asset('logo_sekolah.png?v=3') }}" alt="PAS"></div>
     <div style="font-weight:900;letter-spacing:-.02em">PAS - Portal Academy Sekolah</div>
     <div style="font-size:11px;opacity:.7;margin-left:6px">v2026</div>
     <div class="nav-links">

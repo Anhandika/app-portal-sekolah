@@ -47,7 +47,7 @@ $sideSchoolId = (int) session('school_id');
 @endphp
 <aside class="admin-cp-sidebar" id="adminSidebar">
     <div class="admin-cp-sidebar-brand" onclick="document.getElementById('adminSidebar').classList.toggle('collapsed')">
-        <img src="{{ asset('logo_sekolah.png') }}" alt="PAS" style="width:44px;height:44px;object-fit:contain;flex-shrink:0;filter:drop-shadow(0 2px 5px rgba(0,0,0,.3));">
+        <img src="{{ asset('logo_sekolah.png?v=3') }}" alt="PAS" style="width:44px;height:44px;object-fit:contain;flex-shrink:0;filter:drop-shadow(0 2px 5px rgba(0,0,0,.3));">
         <div class="ms-2">
             <div class="fw-bold text-white" style="font-size:15px;letter-spacing:-0.02em;">PAS Admin</div>
             <div class="text-muted" style="font-size:10px;text-transform:uppercase;letter-spacing:0.08em;">Control Center</div>
