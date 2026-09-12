@@ -11,8 +11,8 @@
     <meta name="theme-color" content="#246bfe">
     @vite(['resources/js/app.js'])
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="icon" type="image/png" href="{{ asset('logo_sekolah.png?v=3') }}">
-    <link rel="apple-touch-icon" href="{{ asset('logo_sekolah.png?v=3') }}">
+    <link rel="icon" type="image/png" href="{{ asset('logo-pas.png?v=1') }}">
+    <link rel="apple-touch-icon" href="{{ asset('logo-pas.png?v=1') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <style>
@@ -102,7 +102,7 @@
 <nav class="navbar navbar-expand-lg admin-nav navbar-dark">
     <div class="container admin-container">
         <a class="navbar-brand d-flex align-items-center gap-3 fw-bold" href="{{ route('dashboard') }}">
-            <div class="brand-mark"><img src="{{ asset('logo_sekolah.png?v=3') }}" alt="PAS"></div>
+            <div class="brand-mark"><img src="{{ asset('logo-pas.png?v=1') }}" alt="PAS"></div>
             <span>PAS - Portal Academy Sekolah</span>
         </a>
         <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#adminMenu">

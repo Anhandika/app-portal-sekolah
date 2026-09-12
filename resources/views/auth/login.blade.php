@@ -7,8 +7,8 @@
     <link rel="manifest" href="/manifest.json">
     <meta name="theme-color" content="#1e3a5f">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="icon" type="image/png" href="{{ asset('logo_sekolah.png?v=3') }}">
-    <link rel="apple-touch-icon" href="{{ asset('logo_sekolah.png?v=3') }}">
+    <link rel="icon" type="image/png" href="{{ asset('logo-pas.png?v=1') }}">
+    <link rel="apple-touch-icon" href="{{ asset('logo-pas.png?v=1') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <style>
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -196,7 +196,7 @@
     <div class="auth-screen active" id="welcomeScreen">
         <div class="welcome-card">
             <div class="welcome-logo">
-                <img src="{{ asset('logo_sekolah.png?v=3') }}" alt="PAS" onerror="this.style.display='none'" style="width:100%;height:100%;object-fit:contain;">
+                <img src="{{ asset('logo-pas.png?v=1') }}" alt="PAS" onerror="this.style.display='none'" style="width:100%;height:100%;object-fit:contain;">
             </div>
             <div class="welcome-title">PAS - Portal Academy Sekolah</div>
             <div class="welcome-sub">Portal Akademik Digital Multi-Sekolah</div>
@@ -295,7 +295,7 @@
         <div class="login-card">
             <div class="login-header">
                 <div class="login-header-logo">
-                    <img src="{{ asset('logo_sekolah.png?v=3') }}" alt="PAS" onerror="this.style.display='none'" style="width:100%;height:100%;object-fit:contain;">
+                    <img src="{{ asset('logo-pas.png?v=1') }}" alt="PAS" onerror="this.style.display='none'" style="width:100%;height:100%;object-fit:contain;">
                 </div>
                 <h1>PAS - Portal Academy Sekolah</h1>
                 <p>Portal Akademik Digital Multi-Sekolah</p>

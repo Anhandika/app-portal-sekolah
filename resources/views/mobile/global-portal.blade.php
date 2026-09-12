@@ -89,7 +89,7 @@
             <!-- Komentar akan dimuat di sini -->
         </div>
         <form class="cmt-f" id="cmt-sheet-form">
-            <img src="{{ $me?->avatar_url ?? asset('logo_sekolah.png?v=3') }}" class="cmt-avatar">
+            <img src="{{ $me?->avatar_url ?? asset('logo-pas.png?v=1') }}" class="cmt-avatar">
             <input type="text" name="body" class="cmt-input" placeholder="Tambahkan komentar..." required maxlength="500">
             <button type="submit" class="cmt-send">Kirim</button>
         </form>
@@ -113,7 +113,7 @@
     <div class="ig-story">
       <form method="POST" action="{{ route('global.portal.story.store') }}" enctype="multipart/form-data" id="storyForm">@csrf
         <div class="ig-ring add" style="cursor:pointer" title="Tambah cerita" id="storyAddRing">
-          <img src="{{ $me?->avatar_url ?? asset('logo_sekolah.png?v=3') }}" style="width:60px;height:60px;border-radius:50%;object-fit:cover;pointer-events:none;">
+          <img src="{{ $me?->avatar_url ?? asset('logo-pas.png?v=1') }}" style="width:60px;height:60px;border-radius:50%;object-fit:cover;pointer-events:none;">
           <span class="ig-plus" style="pointer-events:none;"><i class="bi bi-plus-lg"></i></span>
           <input type="file" name="image" id="storyFile" accept="image/*" hidden>
         </div>
@@ -198,7 +198,7 @@
     @endif    <form method="POST" action="{{ route('global.portal.store') }}" enctype="multipart/form-data">
       @csrf
       <div style="display:flex;gap:10px;align-items:center;margin-bottom:8px">
-        <img src="{{ $me?->avatar_url ?? asset('logo_sekolah.png?v=3') }}" style="width:32px;height:32px;border-radius:50%;object-fit:cover">
+        <img src="{{ $me?->avatar_url ?? asset('logo-pas.png?v=1') }}" style="width:32px;height:32px;border-radius:50%;object-fit:cover">
         <div style="font-size:13px;font-weight:700">{{ $me?->name ?? session('admin_name') }}</div>
         <span style="margin-left:auto;font-size:10px;font-weight:700;color:#0095f6;background:#eef6ff;padding:5px 10px;border-radius:99px;">{{ $me?->school?->name ?? 'Umum' }} • otomatis</span>
       </div>

@@ -14,8 +14,8 @@
     <meta http-equiv="Expires" content="0">
     @vite(['resources/js/app.js'])
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="icon" type="image/png" href="{{ asset('logo_sekolah.png?v=3') }}">
-    <link rel="apple-touch-icon" href="{{ asset('logo_sekolah.png?v=3') }}">
+    <link rel="icon" type="image/png" href="{{ asset('logo-pas.png?v=1') }}">
+    <link rel="apple-touch-icon" href="{{ asset('logo-pas.png?v=1') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <style>
@@ -250,7 +250,7 @@
 </head>
 <body>
     <div id="page-loader">
-        <img src="{{ asset('logo_sekolah.png?v=3') }}" class="loader-logo" alt="PAS" onerror="this.style.display='none'" style="width:80px;filter:drop-shadow(0 4px 12px rgba(15,23,42,.25));">
+        <img src="{{ asset('logo-pas.png?v=1') }}" class="loader-logo" alt="PAS" onerror="this.style.display='none'" style="width:80px;filter:drop-shadow(0 4px 12px rgba(15,23,42,.25));">
         <div class="loader-text">Memuat...</div>
     </div>
     <div id="refresh-indicator"></div>

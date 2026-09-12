@@ -9,7 +9,7 @@
 <div class="p-4 text-center">
     <div class="mb-4">
         <div style="width:110px;height:110px;margin:0 auto;display:grid;place-items:center;filter:drop-shadow(0 4px 10px rgba(15,23,42,0.2));">
-            <img src="{{ asset('logo_sekolah.png?v=3') }}" style="width:100%;height:100%;object-fit:contain;" alt="PAS" onerror="this.src='https://ui-avatars.com/api/?name=PAS&background=dc2626&color=fff'">
+            <img src="{{ asset('logo-pas.png?v=1') }}" style="width:100%;height:100%;object-fit:contain;" alt="PAS" onerror="this.src='https://ui-avatars.com/api/?name=PAS&background=dc2626&color=fff'">
         </div>
     </div>
 

@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0f172a">
 <title>PAS - Portal Academy Sekolah — Platform Digital Antar Sekolah</title>
-<link rel="icon" type="image/png" href="{{ asset('logo_sekolah.png?v=3') }}">
-    <link rel="apple-touch-icon" href="{{ asset('logo_sekolah.png?v=3') }}">
+<link rel="icon" type="image/png" href="{{ asset('logo-pas.png?v=1') }}">
+    <link rel="apple-touch-icon" href="{{ asset('logo-pas.png?v=1') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -69,7 +69,7 @@ body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:#f6f7fb;c
 <body>
 <div class="hero">
   <nav class="nav">
-    <div class="logo"><img src="{{ asset('logo_sekolah.png?v=3') }}" alt="PAS"></div>
+    <div class="logo"><img src="{{ asset('logo-pas.png?v=1') }}" alt="PAS"></div>
     <div style="font-weight:900;letter-spacing:-.02em">PAS - Portal Academy Sekolah</div>
     <div style="font-size:11px;opacity:.7;margin-left:6px">v2026</div>
     <div class="nav-links">
