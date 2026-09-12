@@ -12,8 +12,8 @@ body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:#f6f7fb;c
 .hero{background:linear-gradient(135deg,#0f172a 0%,#1e1b4b 45%,#4f46e5 100%);color:#fff;position:relative;overflow:hidden}
 .hero::after{content:'';position:absolute;top:-80px;right:-60px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(99,102,241,.35),transparent 70%)}
 .nav{max-width:1120px;margin:0 auto;padding:16px 20px;display:flex;align-items:center;gap:12px;position:relative;z-index:1}
-.logo{width:44px;height:44px;border-radius:12px;background:#fff;display:grid;place-items:center;overflow:hidden;padding:3px;box-shadow:0 4px 14px rgba(0,0,0,.25)}
-.logo img{width:100%;height:100%;object-fit:contain}
+.logo{width:44px;height:44px;display:grid;place-items:center;background:transparent}
+.logo img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 2px 6px rgba(0,0,0,.35))}
 .nav-links{margin-left:auto;display:flex;gap:10px}
 .btn{appearance:none;border:0;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;padding:11px 18px;border-radius:12px;font-weight:800;font-size:13px}
 .btn-ghost{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.18);backdrop-filter:blur(8px)}

@@ -46,10 +46,10 @@
         .welcome-logo {
             width: 100px; height: 100px; border-radius: 30px;
             margin: 0 auto 24px;
-            background: #fff;
+            background: transparent;
             display: flex; align-items: center; justify-content: center;
-            overflow: hidden;
-            filter: drop-shadow(0 6px 16px rgba(0,0,0,0.25));
+            overflow: visible;
+            filter: drop-shadow(0 4px 12px rgba(0,0,0,0.35));
         }
         .welcome-logo img { width: 100%; height: 100%; object-fit: contain; }
         .welcome-title {
@@ -109,11 +109,11 @@
             position: relative;
         }
         .login-header-logo {
-            width: 64px; height: 64px; border-radius: 20px;
-            margin: 0 auto 14px; overflow: hidden;
-            background: #fff;
+            width: 72px; height: 72px;
+            margin: 0 auto 14px; overflow: visible;
+            background: transparent;
             display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 4px 14px rgba(15,23,42,0.10);
+            filter: drop-shadow(0 3px 8px rgba(15,23,42,0.2));
         }
         .login-header-logo img { width: 100%; height: 100%; object-fit: contain; }
         .login-header h1 { font-size: 18px; font-weight: 800; color: #1e293b; margin: 0; }
