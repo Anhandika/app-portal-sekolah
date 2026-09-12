@@ -17,7 +17,7 @@
     </div>
 
     <div class="mt-4 text-center">
-        <p class="small text-muted">Portal Sekolah Digital - Premium Edition</p>
+        <p class="small text-muted">PAS - Portal Academy Sekolah - Premium Edition</p>
     </div>
 </div>
 @endsection

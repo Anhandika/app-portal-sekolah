@@ -1,11 +1,11 @@
 {
-    "name": "App Portal Sekolah",
-    "short_name": "PortalSekolah",
-    "description": "Sistem Akademik Sekolah Terintegrasi",
+    "name": "PAS - Portal Academy Sekolah",
+    "short_name": "PAS",
+    "description": "Portal Akademik Digital Multi-Sekolah",
     "start_url": "/",
     "display": "standalone",
-    "background_color": "#14213d",
-    "theme_color": "#246bfe",
+    "background_color": "#0f172a",
+    "theme_color": "#dc2626",
     "orientation": "portrait",
     "categories": ["education", "productivity"],
     "icons": [

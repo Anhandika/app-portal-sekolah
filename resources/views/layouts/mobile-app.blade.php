@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ $title ?? 'Portal Sekolah' }}</title>
+    <title>{{ $title ?? 'PAS - Portal Academy Sekolah' }}</title>
     <link rel="manifest" href="/manifest.json">
     <meta name="theme-color" content="#0f172a">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -230,7 +230,7 @@
 </head>
 <body>
     <div id="page-loader">
-        <img src="{{ asset('logo_sekolah.png') }}" class="loader-logo" alt="Logo" onerror="this.style.display='none'">
+        <img src="{{ asset('logo_sekolah.png') }}" class="loader-logo" alt="PAS" onerror="this.style.display='none'" style="width:80px;">
     </div>
 
     <div class="mobile-shell">

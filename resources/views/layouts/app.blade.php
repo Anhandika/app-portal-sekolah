@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ $title ?? 'Admin | App Mahasiswa' }}</title>
+    <title>{{ $title ?? 'Admin | PAS - Portal Academy Sekolah' }}</title>
     <link rel="manifest" href="/manifest.json">
     <meta name="theme-color" content="#246bfe">
     @vite(['resources/js/app.js'])
@@ -38,10 +38,11 @@
 
         .brand-mark {
             width: 40px; height: 40px; border-radius: 12px;
-            background: linear-gradient(135deg, var(--blue), #60a5fa);
-            display: grid; place-items: center; font-weight: 800; color: #fff;
+            background: transparent;
+            display: grid; place-items: center; overflow: hidden;
             box-shadow: 0 4px 12px rgba(36,107,254,0.3);
         }
+        .brand-mark img { width: 100%; height: 100%; object-fit: contain; }
 
         .admin-nav .nav-link {
             color: #94a3b8; font-size: 14px; font-weight: 500;
@@ -96,8 +97,8 @@
 <nav class="navbar navbar-expand-lg admin-nav navbar-dark">
     <div class="container admin-container">
         <a class="navbar-brand d-flex align-items-center gap-3 fw-bold" href="{{ route('dashboard') }}">
-            <div class="brand-mark">A</div>
-            <span>App Mahasiswa</span>
+            <div class="brand-mark"><img src="{{ asset('logo_sekolah.png') }}" alt="PAS"></div>
+            <span>PAS - Portal Academy Sekolah</span>
         </a>
         <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#adminMenu">
             <span class="navbar-toggler-icon"></span>
@@ -184,7 +185,7 @@
 
 <footer class="container admin-container pb-5 text-center">
     <div class="admin-footer">
-        App Mahasiswa &bull; Panel Administrasi Terintegrasi &bull; &copy; {{ date('Y') }}
+        PAS - Portal Academy Sekolah &bull; Panel Administrasi &bull; &copy; {{ date('Y') }}
     </div>
 </footer>
 

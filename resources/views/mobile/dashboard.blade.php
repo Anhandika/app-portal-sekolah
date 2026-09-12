@@ -28,6 +28,10 @@
     /* ==== Hero premium with enhanced Glassmorphism ==== */
     .hero-card {
         background: var(--grad-hero);
+        background-image: url('{{ asset("logo_background.png") }}');
+        background-size: cover;
+        background-position: center;
+        background-blend-mode: overlay;
         border-radius: var(--radius-lg);
         padding: 28px 24px;
         margin-bottom: 24px;
@@ -37,15 +41,11 @@
         box-shadow: 0 20px 40px rgba(15, 23, 42, 0.2);
     }
     .hero-card::before {
-        content: ''; position: absolute; top: -50px; right: -50px; width: 220px; height: 220px;
-        background: radial-gradient(circle, rgba(99, 102, 241, 0.4) 0%, transparent 70%);
+        content: ''; position: absolute; inset: 0;
+        background: linear-gradient(135deg, rgba(15,23,42,0.82) 0%, rgba(30,27,75,0.75) 100%);
         pointer-events: none;
     }
-    .hero-card::after {
-        content: ''; position: absolute; bottom: -40px; left: -40px; width: 180px; height: 180px;
-        background: radial-gradient(circle, rgba(37, 99, 235, 0.3) 0%, transparent 70%);
-        pointer-events: none;
-    }
+    .hero-card > * { position: relative; z-index: 1; }
 
     .hero-avatar-wrap { position: relative; }
     .hero-avatar {

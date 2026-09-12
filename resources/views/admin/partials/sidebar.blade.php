@@ -9,6 +9,7 @@
         display: flex; flex-direction: column; gap: 14px; max-height: calc(100vh - 48px);
     }
     .admin-cp-sidebar-brand { display: flex; align-items: center; padding: 4px 8px 12px; border-bottom: 1px solid rgba(255,255,255,.08); }
+    .admin-cp-sidebar-brand img { width: 44px; height: 44px; object-fit: contain; border-radius: 14px; }
     .admin-cp-sidebar-nav { display: flex; flex-direction: column; gap: 2px; overflow-y: auto; }
     .admin-cp-sidebar-nav a {
         display: flex; align-items: center; gap: 12px; padding: 10px 12px;
@@ -46,11 +47,9 @@ $sideSchoolId = (int) session('school_id');
 @endphp
 <aside class="admin-cp-sidebar" id="adminSidebar">
     <div class="admin-cp-sidebar-brand" onclick="document.getElementById('adminSidebar').classList.toggle('collapsed')">
-        <div class="brand-mark" style="width:44px;height:44px;border-radius:14px;display:grid;place-items:center;">
-            <span style="font-size:18px;font-weight:800;color:#fff;">A</span>
-        </div>
+        <img src="{{ asset('logo_sekolah.png') }}" alt="PAS" style="width:44px;height:44px;border-radius:14px;">
         <div class="ms-2">
-            <div class="fw-bold text-white" style="font-size:15px;letter-spacing:-0.02em;">Admin Panel</div>
+            <div class="fw-bold text-white" style="font-size:15px;letter-spacing:-0.02em;">PAS Admin</div>
             <div class="text-muted" style="font-size:10px;text-transform:uppercase;letter-spacing:0.08em;">Control Center</div>
         </div>
         <span class="cp-toggle-btn btn btn-sm btn-outline-light ms-auto" style="border-radius:10px;"><i class="bi bi-list"></i></span>

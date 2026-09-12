@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <title>Masuk | Portal Sekolah Digital</title>
+    <title>Masuk | PAS - Portal Academy Sekolah</title>
     <link rel="manifest" href="/manifest.json">
     <meta name="theme-color" content="#1e3a5f">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -186,7 +186,7 @@
 <div id="loading-overlay">
     <div class="loader-ring"></div>
     <div style="font-weight:700;margin-top:16px;font-size:14px;">Menghubungkan...</div>
-    <div style="font-size:12px;opacity:0.5;margin-top:4px;">Menyiapkan App portal akademik</div>
+    <div style="font-size:12px;opacity:0.5;margin-top:4px;">Menyiapkan PAS - Portal Academy Sekolah</div>
 </div>
 
 <div class="auth-container">
@@ -194,10 +194,10 @@
     <div class="auth-screen active" id="welcomeScreen">
         <div class="welcome-card">
             <div class="welcome-logo">
-                <img src="{{ asset('logo_sekolah.png') }}" alt="Logo" onerror="this.style.display='none'">
+                <img src="{{ asset('logo_sekolah.png') }}" alt="PAS" onerror="this.style.display='none'" style="width:100%;height:100%;object-fit:contain;">
             </div>
-            <div class="welcome-title">Portal Sekolah Digital</div>
-            <div class="welcome-sub">Portal Akademik Mahasiswa & Guru</div>
+            <div class="welcome-title">PAS - Portal Academy Sekolah</div>
+            <div class="welcome-sub">Portal Akademik Digital Multi-Sekolah</div>
 
             <div class="welcome-features">
                 <div class="welcome-feature">
@@ -293,10 +293,10 @@
         <div class="login-card">
             <div class="login-header">
                 <div class="login-header-logo">
-                    <img src="{{ asset('logo_sekolah.png') }}" alt="Logo" onerror="this.style.display='none'">
+                    <img src="{{ asset('logo_sekolah.png') }}" alt="PAS" onerror="this.style.display='none'" style="width:100%;height:100%;object-fit:contain;">
                 </div>
-                <h1>Portal Sekolah Digital</h1>
-                <p>Portal Akademik Mahasiswa & Guru</p>
+                <h1>PAS - Portal Academy Sekolah</h1>
+                <p>Portal Akademik Digital Multi-Sekolah</p>
             </div>
 
             <div class="login-body">

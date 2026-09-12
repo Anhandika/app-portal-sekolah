@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Reset Password | Portal Sekolah Digital</title>
+    <title>Reset Password | PAS - Portal Academy Sekolah</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <style>
@@ -20,7 +20,7 @@
 <div class="recovery-card">
     <div class="p-4 p-md-5">
         <div class="logo-tile">
-            <img src="{{ asset('logo_sekolah.png') }}" alt="Logo" onerror="this.style.display='none'">
+            <img src="{{ asset('logo_sekolah.png') }}" alt="PAS" onerror="this.style.display='none'" style="width:100%;height:100%;object-fit:contain;">
         </div>
         <h1 class="h4 fw-bold text-center mb-2">Atur Ulang Password</h1>
         <p class="text-secondary small text-center mb-4">Buat password baru untuk akun Anda.</p>

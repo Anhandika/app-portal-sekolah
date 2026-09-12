@@ -27,7 +27,7 @@
             </p>
         </div>
         <div class="footer">
-            <p>Pesan ini dikirim secara otomatis oleh sistem Portal Akademik Sekolah.</p>
+            <p>Pesan ini dikirim secara otomatis oleh sistem PAS - Portal Academy Sekolah.</p>
         </div>
     </div>
 </body>

@@ -3,17 +3,17 @@
 @section('content')
 <div class="pui-topbar">
     <a href="{{ route('profile.show') }}" class="back"><i class="bi bi-chevron-left"></i> Profil</a>
-    <h1>Tentang Aplikasi Portal Sekolah</h1>
+    <h1>Tentang PAS - Portal Academy Sekolah</h1>
 </div>
 
 <div class="p-4 text-center">
     <div class="mb-4">
-        <div style="width:100px;height:100px;background:#fff;border-radius:28px;margin:0 auto;display:grid;place-items:center;box-shadow:var(--shadow-card);">
-            <img src="{{ asset('logo_sekolah.png') }}" style="width:70%;" alt="Logo" onerror="this.src='https://ui-avatars.com/api/?name=PS&background=0f172a&color=fff'">
+        <div style="width:100px;height:100px;background:#fff;border-radius:28px;margin:0 auto;display:grid;place-items:center;box-shadow:var(--shadow-card);overflow:hidden;">
+            <img src="{{ asset('logo_sekolah.png') }}" style="width:100%;height:100%;object-fit:contain;" alt="PAS" onerror="this.src='https://ui-avatars.com/api/?name=PAS&background=dc2626&color=fff'">
         </div>
     </div>
 
-    <h3 class="fw-bold mb-1">Portal Sekolah</h3>
+    <h3 class="fw-bold mb-1">PAS - Portal Academy Sekolah</h3>
     <p class="text-muted small mb-4">Versi 1.1.0 (Applikasi Build)</p>
 
     <div class="pui-card text-start stagger">
@@ -23,7 +23,7 @@
         </div>
         <div class="p-3 border-bottom d-flex justify-content-between">
             <span class="text-muted small">Pengembang Developer</span>
-            <span class="fw-bold small">Aplikasi Portal Sekolah</span>
+            <span class="fw-bold small">Portal Academy Sekolah</span>
         </div>
         <div class="p-3 d-flex justify-content-between">
             <span class="text-muted small">Lisensi</span>
@@ -32,7 +32,7 @@
     </div>
 
     <div class="mt-5 small text-muted px-3" style="line-height:1.6;">
-        Aplikasi Portal Sekolah dirancang untuk memudahkan interaksi antara siswa dan guru dalam ekosistem pendidikan digital yang terintegrasi.
+        Aplikasi PAS - Portal Academy Sekolah dirancang untuk memudahkan interaksi antara siswa dan guru dalam ekosistem pendidikan digital yang terintegrasi.
     </div>
 
     <div class="mt-4 px-4 py-3" style="background:var(--surface); border-radius:var(--radius-sm); border:1px solid var(--line);">
@@ -45,6 +45,6 @@
         <a href="{{ route('legal.privacy') }}" class="text-decoration-none small fw-bold text-primary">Kebijakan Privasi</a>
     </div>
 
-    <p class="mt-4 text-muted" style="font-size:10px;">&copy; 2026 App Portal Sekolah. All rights reserved.</p>
+    <p class="mt-4 text-muted" style="font-size:10px;">&copy; 2026 PAS - Portal Academy Sekolah. All rights reserved.</p>
 </div>
 @endsection
