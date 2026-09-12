@@ -103,6 +103,8 @@ class FcmService
         }
         $n = DeviceToken::count();
 
-        return "Aktif • project data01-c6d26 • {$n} perangkat terdaftar";
+        $project = (string) config('firebase.project_id', 'firebase');
+
+        return "Aktif • project {$project} • {$n} perangkat terdaftar";
     }
 }

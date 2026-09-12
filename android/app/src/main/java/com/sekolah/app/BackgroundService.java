@@ -297,6 +297,12 @@ public class BackgroundService extends Service {
                     .putBoolean(AppConfig.KEY_NOTIFICATION_INITIALIZED, false);
         }
         editor.apply();
+        // Token API baru (login) = kredensial Bearer tersedia. Bila token FCM
+        // sudah diperoleh saat launch (sebelum login), daftarkan SEKARANG ke
+        // backend agar push aktif tanpa menunggu restart aplikasi.
+        if (token != null && !token.isEmpty()) {
+            registerFcmToken(context);
+        }
     }
 
     public static String getToken(Context context) {

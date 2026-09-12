@@ -503,11 +503,19 @@
         @if(session('api_token'))
         (function() {
             if (window.Capacitor && window.Capacitor.Plugins.NativeBridge) {
-                window.Capacitor.Plugins.NativeBridge.saveToken({
+                var NB = window.Capacitor.Plugins.NativeBridge;
+                NB.saveToken({
                     token: '{{ session('api_token') }}',
                     baseUrl: window.location.origin
                 });
-                window.Capacitor.Plugins.NativeBridge.saveUserId({ userId: {{ (int) session('user_id') }} });
+                NB.saveUserId({ userId: {{ (int) session('user_id') }} });
+                // Pastikan token FCM terdaftar ke backend di sesi login ini.
+                // (Token FCM sering diperoleh sebelum login sehingga belum terkirim.)
+                try {
+                    if (typeof NB.requestFcmToken === 'function') {
+                        NB.requestFcmToken().catch(function(){});
+                    }
+                } catch (e) {}
             }
         })();
         @endif
