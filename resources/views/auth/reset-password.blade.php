@@ -12,8 +12,8 @@
         body { min-height: 100vh; background: linear-gradient(135deg, #0f172a, #1e3a5f); display: flex; align-items: center; justify-content: center; padding: 20px; font-family: system-ui, -apple-system, sans-serif; }
         .recovery-card { max-width: 440px; width: 100%; border: none; border-radius: 28px; background: #fff; box-shadow: 0 20px 45px rgba(0,0,0,0.25); overflow: hidden; }
         .form-control { border-radius: 14px; padding: 12px 18px; border: 1.5px solid #e2e8f0; background: #fbfcfe; }
-        .form-control:focus { box-shadow: 0 0 0 3px rgba(36,107,254,0.1); border-color: #246bfe; }
-        .btn-recovery { background: linear-gradient(135deg, #246bfe, #1d59d4); border: none; border-radius: 14px; padding: 14px; font-weight: 700; color: #fff; width: 100%; }
+        .form-control:focus { box-shadow: 0 0 0 3px rgba(136,175,236,0.35); border-color: #88afec; }
+        .btn-recovery { background: linear-gradient(135deg, #5e9ff0, #88afec); border: none; border-radius: 14px; padding: 14px; font-weight: 700; color: #fff; width: 100%; }
         .logo-tile { width: 72px; height: 72px; margin: 0 auto 14px; overflow: visible; background: transparent; display: flex; align-items: center; justify-content: center; filter: drop-shadow(0 3px 8px rgba(15,23,42,0.2)); }
         .logo-tile img { width: 100%; height: 100%; object-fit: contain; }
     </style>

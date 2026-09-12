@@ -27,8 +27,8 @@
         .terms-scroll h6:first-child { margin-top: 0; }
         .terms-scroll ul { padding-left: 18px; margin-bottom: 6px; }
         .agree-box { display: flex; gap: 12px; align-items: flex-start; background: #eff6ff; border: 1px dashed #93c5fd; border-radius: 16px; padding: 16px; margin-top: 18px; cursor: pointer; }
-        .agree-box input { width: 20px; height: 20px; margin-top: 2px; accent-color: #246bfe; flex-shrink: 0; }
-        .btn-cta { border-radius: 16px; padding: 15px; font-weight: 800; background: linear-gradient(135deg, #246bfe, #1e40af); border: none; box-shadow: 0 8px 20px rgba(36,107,254,.25); }
+        .agree-box input { width: 20px; height: 20px; margin-top: 2px; accent-color: #5e9ff0; flex-shrink: 0; }
+        .btn-cta { border-radius: 16px; padding: 15px; font-weight: 800; background: linear-gradient(135deg, #5e9ff0, #88afec); border: none; box-shadow: 0 8px 20px rgba(136,175,236,.45), inset 0 1px 0 rgba(255,255,255,.35); text-shadow: 0 1px 2px rgba(30,58,95,.25); }
         .btn-cta:disabled { opacity: .45; box-shadow: none; }
         @media (max-width: 576px) { .terms-body { padding: 22px 20px; } .terms-hero { padding: 28px 22px; } }
     </style>

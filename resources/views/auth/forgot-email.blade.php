@@ -9,11 +9,11 @@
     <link rel="apple-touch-icon" href="{{ asset('logo-pas.png?v=1') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <style>
-        body { min-height: 100vh; background: linear-gradient(135deg, #14213d, #246bfe); display: flex; align-items: center; justify-content: center; padding: 20px; }
+        body { min-height: 100vh; background: linear-gradient(135deg, #1e293b 0%, #5e9ff0 60%, #88afec 100%); display: flex; align-items: center; justify-content: center; padding: 20px; }
         .recovery-card { max-width: 440px; width: 100%; border: none; border-radius: 28px; background: #fff; box-shadow: 0 20px 45px rgba(0,0,0,0.25); overflow: hidden; }
         .form-control { border-radius: 14px; padding: 12px 18px; border: 1px solid #e2e8f0; background: #fbfcfe; }
-        .btn-recovery { background: #246bfe; border: none; border-radius: 14px; padding: 14px; font-weight: 700; color: #fff; transition: all 0.3s; }
-        .btn-recovery:hover { background: #1d59d4; transform: translateY(-2px); }
+        .btn-recovery { background: linear-gradient(135deg, #5e9ff0, #88afec); border: none; border-radius: 14px; box-shadow: 0 8px 20px rgba(136,175,236,.45), inset 0 1px 0 rgba(255,255,255,.35); text-shadow: 0 1px 2px rgba(30,58,95,.25); padding: 14px; font-weight: 700; color: #fff; transition: all 0.3s; }
+        .btn-recovery:hover { filter: brightness(1.05); transform: translateY(-2px); }
         .result-box { background: #ecfdf5; border: 1px solid #10b981; border-radius: 15px; padding: 15px; margin-bottom: 20px; }
     </style>
 </head>

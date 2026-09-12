@@ -25,7 +25,7 @@
 {{-- Stats Row --}}
 <div class="row g-3 mb-4">
     <div class="col-md-3 col-6">
-        <div class="card stat-card" style="border-top-color: #246bfe;">
+        <div class="card stat-card" style="border-top-color: #88afec;">
             <div class="card-body">
                 <div class="metric-label">TOTAL TAGIHAN</div>
                 <div class="metric-value">{{ $stats['total'] }}</div>

@@ -65,7 +65,7 @@
         <button type="button" class="icon-btn" onclick="document.getElementById('mtDel').style.display='flex'" style="background:#fff5f6;border-color:#fecdd3;color:#d94b61;">
             <i class="bi bi-trash3"></i>
         </button>
-        <a href="{{ route('materi.edit', [$mapel, $materi]) }}" class="icon-btn" style="background:#eef4ff;border-color:#bfdbfe;color:#246bfe;">
+        <a href="{{ route('materi.edit', [$mapel, $materi]) }}" class="icon-btn" style="background:#eaf2fe;border-color:#c3d9f7;color:#5e9ff0;">
             <i class="bi bi-pencil-square"></i>
         </a>
     @endif

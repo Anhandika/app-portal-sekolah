@@ -98,7 +98,7 @@
     </div>
 
     <div class="col-lg-4">
-        <div class="card stat-card" style="border-top-color: #246bfe;">
+        <div class="card stat-card" style="border-top-color: #88afec;">
             <div class="card-body">
                 <h6 class="fw-bold mb-3">Panduan</h6>
                 <ul class="small text-secondary mb-0" style="line-height:2;">
@@ -136,7 +136,7 @@
             kekurangan.style.color = sisa <= 0 ? '#16a34a' : '#dc2626';
 
             pctEl.textContent = pct + '%';
-            pctEl.style.color = '#246bfe';
+            pctEl.style.color = '#5e9ff0';
         } else {
             preview.style.display = 'none';
         }

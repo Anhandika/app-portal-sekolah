@@ -129,17 +129,17 @@
             font-size: 14px; transition: all 0.2s;
         }
         .form-control:focus {
-            box-shadow: 0 0 0 3px rgba(36,107,254,0.1);
-            border-color: #246bfe; background: #fff;
+            box-shadow: 0 0 0 3px rgba(136,175,236,0.35);
+            border-color: #88afec; background: #fff;
         }
         .form-label { font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 6px; }
 
         .btn-login-submit {
             width: 100%; padding: 14px; border-radius: 14px;
-            background: linear-gradient(135deg, #246bfe, #1d59d4);
+            background: linear-gradient(135deg, #5e9ff0, #88afec);
             color: #fff; font-weight: 700; font-size: 14px;
             border: none; cursor: pointer; transition: all 0.2s;
-            box-shadow: 0 6px 20px rgba(36,107,254,0.25);
+            box-shadow: 0 8px 20px rgba(136,175,236,.45), inset 0 1px 0 rgba(255,255,255,.35); text-shadow: 0 1px 2px rgba(30,58,95,.25);
         }
         .btn-login-submit:active { transform: scale(0.97); }
         .btn-login-submit:disabled { opacity: 0.7; }
@@ -170,7 +170,7 @@
         #loading-overlay.show { display: flex; }
         .loader-ring {
             width: 44px; height: 44px; border: 3px solid rgba(255,255,255,0.1);
-            border-top-color: #60a5fa; border-radius: 50%;
+            border-top-color: #88afec; border-radius: 50%;
             animation: spin 0.8s linear infinite;
         }
         @keyframes spin { to { transform: rotate(360deg); } }
@@ -203,7 +203,7 @@
 
             <div class="welcome-features">
                 <div class="welcome-feature">
-                    <div class="welcome-feature-icon" style="background:rgba(59,130,246,0.2);color:#60a5fa;">
+                    <div class="welcome-feature-icon" style="background:rgba(136,175,236,0.25);color:#88afec;">
                         <i class="bi bi-journal-check"></i>
                     </div>
                     <div class="welcome-feature-title">Tugas</div>
@@ -327,10 +327,10 @@
                     <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:18px;">
                         <label style="display:flex;align-items:center;gap:7px;font-size:12px;color:#64748b;cursor:pointer;user-select:none;">
                             <input type="checkbox" name="remember" value="1" checked
-                                   style="width:16px;height:16px;accent-color:#246bfe;cursor:pointer;">
+                                   style="width:16px;height:16px;accent-color:#5e9ff0;cursor:pointer;">
                             <span><strong>Tetap masuk</strong> di perangkat ini</span>
                         </label>
-                        <a href="{{ route('password.request') }}" style="font-size:11px;font-weight:600;color:#246bfe;text-decoration:none;">Lupa Password?</a>
+                        <a href="{{ route('password.request') }}" style="font-size:11px;font-weight:600;color:#5e9ff0;text-decoration:none;">Lupa Password?</a>
                     </div>
                     <div style="text-align:right;margin:-8px 0 16px;">
                         <a href="{{ route('email.request') }}" style="font-size:11px;font-weight:600;color:#94a3b8;text-decoration:none;">Lupa Email?</a>
@@ -352,7 +352,7 @@
                 </div>
                 <div class="info-box">
                     <div style="display:flex;gap:8px;align-items:start;">
-                        <i class="bi bi-info-circle" style="color:#3b82f6;flex-shrink:0;margin-top:1px;"></i>
+                        <i class="bi bi-info-circle" style="color:#88afec;flex-shrink:0;margin-top:1px;"></i>
                         <div>
                             <div style="margin-top:2px;color:#94a3b8;">Butuh bantuan akses? Hubungi Admin IT sekolah / adminpusat@pusat.com</div>
                         </div>
@@ -362,7 +362,7 @@
                 @if(\App\Models\Setting::getValue('registration_guru_enabled', false) || \App\Models\Setting::getValue('registration_siswa_enabled', false))
                     <div style="text-align:center;margin-top:16px;padding-top:16px;border-top:1px solid #f1f5f9;">
                         <span style="font-size:12px;color:#94a3b8;">Belum punya akun?</span>
-                        <a href="{{ route('register') }}" style="font-size:12px;font-weight:700;color:#246bfe;text-decoration:none;margin-left:4px;">Daftar Sekarang</a>
+                        <a href="{{ route('register') }}" style="font-size:12px;font-weight:700;color:#5e9ff0;text-decoration:none;margin-left:4px;">Daftar Sekarang</a>
                     </div>
                 @endif
             </div>

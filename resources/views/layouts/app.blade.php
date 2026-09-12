@@ -8,7 +8,7 @@
     <meta http-equiv="Expires" content="0">
     <title>{{ $title ?? 'Admin | PAS - Portal Academy Sekolah' }}</title>
     <link rel="manifest" href="/manifest.json">
-    <meta name="theme-color" content="#246bfe">
+    <meta name="theme-color" content="#88afec">
     @vite(['resources/js/app.js'])
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="icon" type="image/png" href="{{ asset('logo-pas.png?v=1') }}">
@@ -18,7 +18,7 @@
     <style>
         :root {
             --navy: #0f172a;
-            --blue: #246bfe;
+            --blue: #5e9ff0;
             --blue-soft: #e8f0fe;
             --surface: #f8fafc;
             --muted: #64748b;

@@ -24,7 +24,7 @@
             --navy-2: #1e1b4b;
             --indigo: #6366f1;
             --blue: #2563eb;
-            --blue-bright: #246bfe;
+            --blue-bright: #5e9ff0;
             --surface: #f6f7fb;
             --surface-card: #ffffff;
             --ink: #0f172a;

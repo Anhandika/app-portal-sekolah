@@ -27,11 +27,11 @@
             border: 1.5px solid #e2e8f0; background: #f8fafc;
             font-size: 14px;
         }
-        .form-control:focus { border-color: #246bfe; background: #fff; box-shadow: 0 0 0 3px rgba(36,107,254,0.1); }
+        .form-control:focus { border-color: #88afec; background: #fff; box-shadow: 0 0 0 3px rgba(136,175,236,0.35); }
         .form-label { font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; }
         .btn-primary {
             border-radius: 16px; padding: 16px; font-weight: 800;
-            background: linear-gradient(135deg, #246bfe, #1e40af);
+            background: linear-gradient(135deg, #5e9ff0, #88afec);
             border: none; box-shadow: 0 8px 20px rgba(36, 107, 254, 0.25);
         }
         .password-toggle { cursor: pointer; color: #94a3b8; position: absolute; right: 16px; top: 50%; transform: translateY(-50%); font-size: 16px; }
@@ -44,7 +44,7 @@
             display: grid; place-items: center; font-weight: 800; font-size: 14px;
             background: #f1f5f9; color: #94a3b8; transition: all .3s;
         }
-        .step.active .step-dot { background: linear-gradient(135deg, #246bfe, #1e40af); color: #fff; box-shadow: 0 6px 16px rgba(36,107,254,.35); }
+        .step.active .step-dot { background: linear-gradient(135deg, #5e9ff0, #88afec); color: #fff; box-shadow: 0 8px 20px rgba(136,175,236,.45), inset 0 1px 0 rgba(255,255,255,.35); text-shadow: 0 1px 2px rgba(30,58,95,.25); }
         .step.done .step-dot { background: #dcfce7; color: #166534; }
         .step-lbl { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; color: #94a3b8; }
         .step.active .step-lbl { color: #1d4ed8; }
