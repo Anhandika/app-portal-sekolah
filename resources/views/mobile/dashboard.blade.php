@@ -25,27 +25,29 @@
     .db-body { padding: 12px 16px 120px; max-width: 640px; margin: 0 auto; }
     .db-section { padding: 20px 18px; }
 
-    /* ==== Hero premium with enhanced Glassmorphism ==== */
+    /* ==== Hero 3D: gradient + orb CSS + highlight dalam (tanpa gambar eksternal) ==== */
     .hero-card {
         background: var(--grad-hero);
-        background-image: url('{{ asset("logo_background.png?v=3") }}');
-        background-size: cover;
-        background-position: center;
-        background-blend-mode: overlay;
+        border: 1px solid rgba(255, 255, 255, 0.08);
         border-radius: var(--radius-lg);
         padding: 28px 24px;
         margin-bottom: 24px;
         color: #fff;
         position: relative;
         overflow: hidden;
-        box-shadow: 0 20px 40px rgba(15, 23, 42, 0.2);
+        box-shadow: 0 20px 40px rgba(15, 23, 42, 0.25),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.15);
     }
     .hero-card::before {
-        content: ''; position: absolute; inset: 0;
-        background: linear-gradient(135deg, rgba(15,23,42,0.82) 0%, rgba(30,27,75,0.75) 100%);
+        content: ''; position: absolute; top: -60px; right: -60px; width: 220px; height: 220px;
+        background: radial-gradient(circle, rgba(99, 102, 241, 0.4) 0%, transparent 70%);
         pointer-events: none;
     }
-    .hero-card > * { position: relative; z-index: 1; }
+    .hero-card::after {
+        content: ''; position: absolute; bottom: -50px; left: -50px; width: 180px; height: 180px;
+        background: radial-gradient(circle, rgba(37, 99, 235, 0.3) 0%, transparent 70%);
+        pointer-events: none;
+    }
 
     .hero-avatar-wrap { position: relative; }
     .hero-avatar {
@@ -53,7 +55,9 @@
         overflow: hidden; display: flex; align-items: center; justify-content: center;
         background: rgba(255, 255, 255, 0.15);
         backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.2);
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25),
+                    0 0 0 3px rgba(255, 255, 255, 0.12),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.25);
     }
     .hero-avatar img { width: 100%; height: 100%; object-fit: cover; }
 
@@ -66,10 +70,10 @@
         font-size: 12px; color: #fff; box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     }
 
-    .hero-greeting { font-size: 13px; opacity: 0.8; font-weight: 600; color: #cbd5e1; }
-    .hero-name { font-size: 26px; font-weight: 900; letter-spacing: -0.03em; margin-top: 2px; }
+    .hero-greeting { font-size: 13px; opacity: 0.8; font-weight: 600; color: #cbd5e1; text-shadow: 0 1px 6px rgba(0, 0, 0, 0.3); }
+    .hero-name { font-size: 26px; font-weight: 900; letter-spacing: -0.03em; margin-top: 2px; text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35); }
 
-    .hero-badge-row { display: flex; gap: 8px; margin-top: 18px; }
+    .hero-badge-row { display: flex; gap: 8px; margin-top: 18px; flex-wrap: wrap; }
     .hero-badge {
         display: inline-flex; align-items: center; gap: 6px;
         background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.15);
@@ -85,15 +89,21 @@
     }
     .hero-bell:active { transform: scale(0.92); background: rgba(255, 255, 255, 0.15); }
 
-    /* ==== Enhanced Stat Cards ==== */
+    /* ==== Stat Cards 3D: highlight atas + bayangan berlapis ==== */
     .stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 24px; }
     .stat-item {
-        background: #fff; border-radius: 20px; padding: 18px 12px;
-        border: 1px solid var(--line); box-shadow: var(--shadow-card);
+        background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+        border-radius: 20px; padding: 18px 12px;
+        border: 1px solid var(--line);
+        box-shadow: 0 1px 0 rgba(255, 255, 255, 0.9) inset,
+                    0 8px 20px rgba(15, 23, 42, 0.06);
         text-align: center; text-decoration: none; position: relative;
         overflow: hidden; transition: transform 0.2s, box-shadow 0.2s;
     }
-    .stat-item:active { transform: translateY(2px); box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+    .stat-item:active { transform: translateY(2px) scale(0.98); box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+    @media (hover: hover) {
+        .stat-item:hover { transform: translateY(-3px); box-shadow: 0 1px 0 rgba(255, 255, 255, 0.9) inset, 0 14px 28px rgba(15, 23, 42, 0.1); }
+    }
     .stat-item .ico {
         width: 40px; height: 40px; border-radius: 12px; margin: 0 auto 10px;
         display: flex; align-items: center; justify-content: center; font-size: 18px;
@@ -105,18 +115,21 @@
     .menu-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
     .menu-btn {
         display: flex; flex-direction: column; align-items: center; gap: 8px;
-        text-decoration: none; transition: transform 0.2s;
+        text-decoration: none; transition: transform 0.18s ease;
     }
-    .menu-btn:active { transform: scale(0.9); }
+    .menu-btn:active { transform: scale(0.9) translateY(1px); }
     .menu-btn-ico {
         width: 56px; height: 56px; border-radius: 18px;
         display: flex; align-items: center; justify-content: center;
-        font-size: 24px; position: relative;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+        font-size: 24px; position: relative; color: #fff;
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+                    inset 0 -2px 4px rgba(0, 0, 0, 0.12);
     }
     .menu-btn-ico::after {
-        content: ''; position: absolute; inset: 0; border-radius: 18px;
-        background: linear-gradient(180deg, rgba(255,255,255,0.2) 0%, transparent 100%);
+        content: ''; position: absolute; inset: 0; border-radius: 18px; pointer-events: none;
+        background: linear-gradient(180deg, rgba(255,255,255,0.22) 0%, transparent 45%);
     }
     .menu-btn-lab { font-size: 11px; font-weight: 700; color: #64748b; }
 
@@ -125,23 +138,36 @@
     .section-header a { font-size: 13px; font-weight: 700; color: var(--blue); text-decoration: none; }
 
     .lms-row {
-        background: #fff; border-radius: 18px; padding: 12px;
+        background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+        border-radius: 18px; padding: 12px;
         display: flex; align-items: center; gap: 12px; margin-bottom: 12px;
         border: 1px solid var(--line); text-decoration: none; color: inherit;
-        transition: background 0.2s;
+        box-shadow: 0 1px 0 rgba(255, 255, 255, 0.9) inset,
+                    0 6px 16px rgba(15, 23, 42, 0.04);
+        transition: transform 0.2s, background 0.2s, box-shadow 0.2s;
     }
-    .lms-row:active { background: #f8fafc; }
+    .lms-row:active { background: #f8fafc; transform: scale(0.99); }
+    @media (hover: hover) {
+        .lms-row:hover { transform: translateX(3px); box-shadow: 0 1px 0 rgba(255, 255, 255, 0.9) inset, 0 10px 22px rgba(15, 23, 42, 0.08); }
+    }
     .lms-ico {
         width: 48px; height: 48px; border-radius: 14px; flex-shrink: 0;
-        display: flex; align-items: center; justify-content: center; font-size: 20px;
+        display: flex; align-items: center; justify-content: center; font-size: 20px; color: #fff;
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3),
+                    inset 0 -2px 4px rgba(0, 0, 0, 0.1),
+                    0 6px 14px rgba(15, 23, 42, 0.12);
     }
     .lms-info { flex: 1; min-width: 0; }
     .lms-title { font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .lms-meta { font-size: 11px; color: #94a3b8; font-weight: 600; }
 
     .absen-summary {
-        background: #f8fafc; border-radius: 16px; padding: 12px;
+        background: linear-gradient(180deg, #f8fafc 0%, #eef2f7 100%);
+        border: 1px solid var(--line); border-radius: 16px; padding: 12px;
         display: flex; align-items: center; justify-content: space-between;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8),
+                    inset 0 -1px 2px rgba(15, 23, 42, 0.04);
     }
     .absen-item { text-align: center; flex: 1; }
     .absen-val { font-size: 16px; font-weight: 800; color: var(--navy); }
@@ -168,6 +194,17 @@
 
     @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     .animate-up { animation: slideIn 0.5s ease both; }
+
+    /* ==== Pengaman layar sangat kecil: cegah gepeng/overflow ==== */
+    @media (max-width: 360px) {
+        .hero-card { padding: 22px 18px; }
+        .hero-name { font-size: 22px; }
+        .menu-grid { gap: 10px; }
+        .menu-btn-ico { width: 50px; height: 50px; border-radius: 16px; font-size: 22px; }
+        .menu-btn-lab { font-size: 10px; }
+        .stat-item { padding: 14px 8px; }
+        .stat-item .val { font-size: 19px; }
+    }
 </style>
 
 <div class="db-body">
