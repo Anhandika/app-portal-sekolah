@@ -3,6 +3,7 @@
 use App\Http\Middleware\ApiRoleMiddleware;
 use App\Http\Middleware\BlockAdminOnMobile;
 use App\Http\Middleware\PreventStaleCache;
+use App\Http\Middleware\RedirectLegacyHost;
 use App\Http\Middleware\RoleMiddleware;
 use App\Http\Middleware\UpdateLastActivity;
 use Illuminate\Foundation\Application;
@@ -36,6 +37,10 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
         $middleware->appendToGroup('web', UpdateLastActivity::class);
         $middleware->appendToGroup('web', PreventStaleCache::class);
+        // Paksa domain lama -> domain kanonis (APP_URL). Prepend agar jalan
+        // sebelum middleware sesi/CSRF (hemat 1 query + hindari cookie nyasar).
+        $middleware->prependToGroup('web', RedirectLegacyHost::class);
+        $middleware->prependToGroup('api', RedirectLegacyHost::class);
 
     })
 

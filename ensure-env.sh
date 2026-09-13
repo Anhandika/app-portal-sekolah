@@ -173,6 +173,7 @@ echo "[ensure-env] DB_HOST=${DB_HOST:-<kosong>} DB_DATABASE=${DB_DATABASE:-<koso
 
 # 6) APP settings — skip template strings
 safe_inject APP_URL       "${APP_URL:-}"
+safe_inject LEGACY_HOSTS  "${LEGACY_HOSTS:-}"
 safe_inject APP_ENV       "${APP_ENV:-}"
 safe_inject APP_DEBUG     "${APP_DEBUG:-}"
 safe_inject APP_NAME      "${APP_NAME:-}"
