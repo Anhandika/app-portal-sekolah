@@ -1,11 +1,14 @@
 [variables]
 NIXPACKS_PHP_VERSION = "8.3"
+NIXPACKS_NODE_VERSION = "22"
 
 # PENTING: nixPkgs eksplisit MENIMPA auto-deteksi provider. Karena proyek ini
-# juga butuh Node (npm ci / npm run build dari package.json), paket "nodejs"
+# juga butuh Node (npm install / npm run build dari package.json), paket "nodejs_22"
 # WAJIB dicantumkan di sini — tanpanya build gagal "npm: command not found".
+# Versi 22 wajib karena Vite 8 butuh Node >=20.19 / >=22.12 (default nixpacks
+# masih Node 20.18 yang memicu error rolldown "Cannot find native binding").
 [phases.setup]
-nixPkgs = ["php83", "php83Packages.composer", "php83Extensions.gd", "php83Extensions.exif", "php83Extensions.pdo_mysql", "php83Extensions.zip", "php83Extensions.intl", "nodejs"]
+nixPkgs = ["php83", "php83Packages.composer", "php83Extensions.gd", "php83Extensions.exif", "php83Extensions.pdo_mysql", "php83Extensions.zip", "php83Extensions.intl", "nodejs_22"]
 cmds = [
     "bash ensure-env.sh"
 ]
@@ -19,10 +22,10 @@ cmds = [
     # Fail fast bila ekstensi GD tidak tersedia: laravolt/avatar butuh GD saat runtime.
     "php -m | grep -qi '^gd$' && echo 'GD OK' || (echo 'FATAL: php-gd tidak terpasang' && exit 1)",
     "composer install --no-dev --optimize-autoloader",
-    # FIX rolldown "Cannot find native binding" (npm/cli#4828): npm ci kadang
-    # melewatkan optional deps native. Paksa include optional + rebuild.
-    "npm ci --include=optional || npm install --include=optional",
-    "npm rebuild rolldown --include=optional || true",
+    # FIX rolldown "Cannot find native binding" (npm/cli#4828) + Vite 8 butuh
+    # Node >=20.19 / >=22.12: pakai npm install (bukan ci) agar optional deps
+    # native (rolldown linux-x64-gnu) selalu ikut terinstal di image Linux.
+    "npm install --include=optional --no-audit --no-fund",
     "npm run build",
     "php artisan view:clear",
     "php artisan cache:clear"
