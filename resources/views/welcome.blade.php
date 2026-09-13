@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0f172a">
 <title>PAS - Portal Academy Sekolah — Platform Digital Antar Sekolah</title>
-<link rel="icon" type="image/png" href="{{ asset('logo-pas.png?v=1') }}">
-    <link rel="apple-touch-icon" href="{{ asset('logo-pas.png?v=1') }}">
+<link rel="icon" type="image/png" href="{{ asset('logo_sekolah.png?v=2') }}">
+    <link rel="apple-touch-icon" href="{{ asset('logo_sekolah.png?v=2') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -14,8 +14,8 @@ body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:#f6f7fb;c
 .hero{background:linear-gradient(135deg,#0f172a 0%,#1e1b4b 45%,#4f46e5 100%);color:#fff;position:relative;overflow:hidden}
 .hero::after{content:'';position:absolute;top:-80px;right:-60px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(99,102,241,.35),transparent 70%)}
 .nav{max-width:1120px;margin:0 auto;padding:16px 20px;display:flex;align-items:center;gap:12px;position:relative;z-index:1}
-.logo{width:44px;height:44px;display:grid;place-items:center;background:transparent}
-.logo img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 2px 6px rgba(0,0,0,.35))}
+.logo{width:56px;height:56px;display:grid;place-items:center;background:#fff;border-radius:14px;padding:3px}
+.logo img{width:100%;height:100%;object-fit:contain;filter:none}
 .nav-links{margin-left:auto;display:flex;gap:10px}
 .btn{appearance:none;border:0;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;padding:11px 18px;border-radius:12px;font-weight:800;font-size:13px}
 .btn-ghost{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.18);backdrop-filter:blur(8px)}
@@ -69,7 +69,7 @@ body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:#f6f7fb;c
 <body>
 <div class="hero">
   <nav class="nav">
-    <div class="logo"><img src="{{ asset('logo-pas.png?v=1') }}" alt="PAS"></div>
+    <div class="logo"><img src="{{ asset('logo_sekolah.png?v=2') }}" alt="PAS - Portal Academy Sekolah"></div>
     <div style="font-weight:900;letter-spacing:-.02em">PAS - Portal Academy Sekolah</div>
     <div style="font-size:11px;opacity:.7;margin-left:6px">v2026</div>
     <div class="nav-links">
@@ -93,7 +93,7 @@ body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:#f6f7fb;c
     <div class="onboard" id="onboard">
       <div class="slides" id="slides">
         <div class="slide">
-          <div class="orb orb-1"><i class="bi bi-globe2"></i></div>
+          <div class="orb orb-1" style="background:#fff;padding:8px"><img src="{{ asset('logo_sekolah.png?v=2') }}" alt="Logo PAS" style="width:100%;height:100%;object-fit:contain;border-radius:28px"></div>
           <h3>PAS - Portal Academy Sekolah</h3>
           <p>Portal akademik untuk guru & siswa: absensi, tugas, nilai, SPP, chat, dan linimasa antar sekolah dalam satu genggaman.</p>
           <div class="chips"><span class="chip">Absensi</span><span class="chip">Tugas</span><span class="chip">Nilai</span><span class="chip">SPP</span><span class="chip">Global Portal</span></div>
@@ -116,6 +116,46 @@ body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:#f6f7fb;c
         <button class="ob-skip" id="obSkip">Lewati</button>
         <button class="ob-next" id="obNext">Lanjut <i class="bi bi-arrow-right"></i></button>
       </div>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="background:#fff;border:1px solid rgba(15,23,42,.07);border-radius:24px;box-shadow:0 12px 30px rgba(15,23,42,.06);margin-top:16px">
+  <div class="eyebrow" style="color:#4f46e5"><i class="bi bi-signpost-2"></i> Tur Aplikasi — Dari Nol Sampai Masuk Kelas Digital</div>
+  <div class="h2">Alur Login & Pendaftaran (5 Langkah)</div>
+  <p style="font-size:13px;color:#64748b;margin-top:8px;line-height:1.6">Untuk <b>masyarakat sekolah</b> (siswa, guru, orang tua & admin): cukup sekali daftar dengan <b>Kode Pendaftaran</b> resmi dari sekolah, selanjutnya tinggal login tiap hari.</p>
+  <div class="steps" style="grid-template-columns:repeat(5,1fr);">
+    <div class="step"><div class="num">1</div><div style="font-weight:800"><i class="bi bi-upc-scan"></i> Minta Kode</div><div style="font-size:12px;color:#64748b;margin-top:4px">Datangi / chat <b>Admin Sekolah</b> → minta <b>Kode Pendaftaran</b> (ID sekolah + kode kota, mis. <b>1851372</b>). Satu kode untuk satu sekolah.</div></div>
+    <div class="step"><div class="num">2</div><div style="font-weight:800"><i class="bi bi-person-plus"></i> Daftar Akun</div><div style="font-size:12px;color:#64748b;margin-top:4px">Buka <b>Daftar Akun</b> → masukkan kode (nama sekolah terisi otomatis) → pilih peran <b>Guru / Siswa</b> → isi nama, NIS/NIP, password.</div></div>
+    <div class="step"><div class="num">3</div><div style="font-weight:800"><i class="bi bi-patch-check"></i> Verifikasi Admin</div><div style="font-size:12px;color:#64748b;margin-top:4px">Akun menunggu <b>persetujuan Admin Sekolah</b>. Cek status lewat halaman login. Biasanya &lt; 1×24 jam.</div></div>
+    <div class="step"><div class="num">4</div><div style="font-weight:800"><i class="bi bi-box-arrow-in-right"></i> Login Harian</div><div style="font-size:12px;color:#64748b;margin-top:4px">Buka <b>Masuk Portal</b> → email + password → langsung ke <b>Dashboard</b> sesuai peran (siswa / guru / admin).</div></div>
+    <div class="step"><div class="num">5</div><div style="font-weight:800"><i class="bi bi-rocket-takeoff"></i> Jelajahi Portal</div><div style="font-size:12px;color:#64748b;margin-top:4px">Absen harian, kerjakan tugas, cek nilai & SPP, baca pengumuman, chat kelas, posting Global Portal.</div></div>
+  </div>
+  <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap"><span style="padding:6px 10px;background:#dcfce7;color:#166534;border-radius:999px;font-size:11px;font-weight:800"><i class="bi bi-check-circle"></i> Kode Valid = Bisa Daftar</span><span style="padding:6px 10px;background:#fee2e2;color:#991b1b;border-radius:999px;font-size:11px;font-weight:800"><i class="bi bi-x-circle"></i> Kode Salah/Tutup = Ditolak</span><span style="padding:6px 10px;background:#eef2ff;color:#4f46e5;border-radius:999px;font-size:11px;font-weight:800"><i class="bi bi-phone"></i> Bisa Web + Aplikasi Android (APK)</span></div>
+</div>
+
+<div class="section">
+  <div class="eyebrow" style="color:#059669"><i class="bi bi-megaphone"></i> Promosi Internal — Kenapa Sekolah Kita Pakai PAS?</div>
+  <div class="h2">Satu Aplikasi, Semua Kebutuhan Sekolah</div>
+  <p style="font-size:13px;color:#64748b;margin-top:8px">Sampaikan ke wali murid & dewan guru: tidak perlu banyak grup WA — semua tercatat rapi & transparan.</p>
+  <div class="grid">
+    <div class="card"><div class="ico" style="background:linear-gradient(135deg,#4f46e5,#2563eb)"><i class="bi bi-fingerprint"></i></div><div style="font-weight:800">Absensi Digital</div><div style="font-size:12px;color:#64748b">Absen harian siswa & guru, rekap otomatis per kelas. Orang tua bisa memantau kehadiran anak.</div></div>
+    <div class="card"><div class="ico" style="background:linear-gradient(135deg,#059669,#10b981)"><i class="bi bi-journal-check"></i></div><div style="font-weight:800">Tugas & Materi</div><div style="font-size:12px;color:#64748b">Guru upload materi & tugas per mapel/jadwal; siswa kumpulkan online, nilai langsung masuk.</div></div>
+    <div class="card"><div class="ico" style="background:linear-gradient(135deg,#d97706,#f59e0b)"><i class="bi bi-bar-chart-fill"></i></div><div style="font-weight:800">Nilai & Rapor Online</div><div style="font-size:12px;color:#64748b">Nilai real-time per mapel, wali & siswa pantau perkembangan tanpa menunggu rapor fisik.</div></div>
+    <div class="card"><div class="ico" style="background:linear-gradient(135deg,#db2777,#f472b6)"><i class="bi bi-wallet2"></i></div><div style="font-weight:800">SPP Transparan</div><div style="font-size:12px;color:#64748b">Tagihan & status bayar SPP tercatat; bendahara tertib, orang tua tenang.</div></div>
+    <div class="card"><div class="ico" style="background:linear-gradient(135deg,#7c3aed,#a78bfa)"><i class="bi bi-book"></i></div><div style="font-weight:800">Perpustakaan</div><div style="font-size:12px;color:#64748b">Katalog buku & pinjam-kembali digital. Minat baca naik, administrasi ringan.</div></div>
+    <div class="card"><div class="ico" style="background:linear-gradient(135deg,#0891b2,#22d3ee)"><i class="bi bi-trophy"></i></div><div style="font-weight:800">Eskul & Jadwal</div><div style="font-size:12px;color:#64748b">Jadwal pelajaran, kelas, jurusan & pendaftaran ekskul dalam satu kalender.</div></div>
+    <div class="card"><div class="ico" style="background:linear-gradient(135deg,#16a34a,#84cc16)"><i class="bi bi-chat-dots"></i></div><div style="font-weight:800">Chat Kelas</div><div style="font-size:12px;color:#64748b">Diskusi aman per kelas/sekolah — gantikan grup chat yang tenggelam & tidak terdokumentasi.</div></div>
+    <div class="card"><div class="ico" style="background:linear-gradient(135deg,#0f172a,#4f46e5)"><i class="bi bi-globe2"></i></div><div style="font-weight:800">Global Portal Antar Sekolah</div><div style="font-size:12px;color:#64748b">Linimasa + Cerita 24 jam antar sekolah: prestasi, pengumuman & kolaborasi — kebanggaan sekolah tersebar luas.</div></div>
+    <div class="card"><div class="ico" style="background:linear-gradient(135deg,#dc2626,#fb923c)"><i class="bi bi-bell-fill"></i></div><div style="font-weight:800">Pengumuman & Notifikasi</div><div style="font-size:12px;color:#64748b">Info resmi sekolah push ke semua warga — tidak ada lagi info yang terlewat.</div></div>
+  </div>
+  <div class="card" style="margin-top:14px;background:linear-gradient(135deg,#0f172a,#1e1b4b 60%,#4f46e5);color:#fff;border:0">
+    <div style="font-weight:900;font-size:15px"><i class="bi bi-heart-fill" style="color:#f472b6"></i> Pesan untuk Masyarakat Sekolah</div>
+    <div style="font-size:13px;opacity:.85;margin-top:6px;line-height:1.65">“Bapak/Ibu & anak-anak, mari beralih ke <b>PAS</b>: absen cukup dari HP, tugas tidak tercecer, nilai & SPP terpantau, kabar sekolah selalu sampai. Minta <b>Kode Pendaftaran</b> ke admin hari ini — gratis, ringan, bisa offline.”</div>
+    <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap">
+      <a href="{{ ($registrationOpen ?? true) ? route('register') : route('login') }}" class="btn" style="background:#fff;color:#4f46e5;border-radius:12px">{{ ($registrationOpen ?? true) ? 'Daftar Sekarang' : 'Masuk ke Portal' }}</a>
+      <a href="{{ route('help.faq') }}" class="btn" style="background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.2);border-radius:12px">Lihat FAQ</a>
+      <a href="{{ route('download.apk') }}" class="btn" style="background:transparent;color:#c7d2fe;border:1px dashed rgba(255,255,255,.3);border-radius:12px"><i class="bi bi-cloud-arrow-down"></i> Unduh APK</a>
     </div>
   </div>
 </div>
