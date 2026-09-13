@@ -15,7 +15,7 @@
     <link rel="apple-touch-icon" href="{{ asset('logo-pas.png?v=1') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-    <link rel="stylesheet" href="{{ asset('css/pas-ux.css?v=1') }}">
+    <link rel="stylesheet" href="{{ asset('css/pas-ux.css?v=2') }}">
     <style>
         :root {
             --navy: #0f172a;
@@ -337,6 +337,7 @@
             <div style="font-size:13px;color:#64748b;margin-top:6px">Login ulang untuk melanjutkan. Mengalihkan…</div>
         </div>
     </div>
-    <script src="{{ asset('js/pas-ux.js?v=1') }}"></script>
+    <script src="{{ asset('js/pas-ux.js?v=2') }}"></script>
+    <script>if('serviceWorker' in navigator && location.protocol.indexOf('http')===0){navigator.serviceWorker.register('/sw.js').catch(function(){});}</script>
 </body>
 </html>

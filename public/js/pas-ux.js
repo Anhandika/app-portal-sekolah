@@ -190,4 +190,74 @@
     window.PAS.toast = toast;
     window.PAS.apiFetch = apiFetch;
     window.PAS.sessionExpired = sessionExpired;
+
+    /* ---------- Outbox: antrean offline ala WhatsApp (pesan teks) ---------- */
+    var OUTBOX_KEY = 'pas_outbox_v1';
+    function outboxRead() {
+        try { return JSON.parse(localStorage.getItem(OUTBOX_KEY) || '[]'); } catch (e) { return []; }
+    }
+    function outboxWrite(q) {
+        try { localStorage.setItem(OUTBOX_KEY, JSON.stringify(q)); } catch (e) {}
+        updateOutboxBadge(q.length);
+    }
+    function updateOutboxBadge(n) {
+        var b = document.getElementById('pas-outbox-badge');
+        if (!b) return;
+        b.style.display = n > 0 ? 'inline-flex' : 'none';
+        b.textContent = n;
+    }
+    function csrf() {
+        var m = document.querySelector('meta[name="csrf-token"]');
+        return m ? m.getAttribute('content') : '';
+    }
+    function outboxEnqueue(item) {
+        var q = outboxRead();
+        item.id = 'q' + Date.now() + Math.floor(Math.random() * 1e6);
+        item.ts = Date.now();
+        item.tries = 0;
+        q.push(item);
+        outboxWrite(q);
+        toast('Offline — pesan diantrekan, terkirim otomatis saat online', 'warn');
+        return item.id;
+    }
+    function outboxFlush() {
+        var q = outboxRead();
+        if (!q.length || navigator.onLine === false) { updateOutboxBadge(q.length); return Promise.resolve(0); }
+        var sent = 0;
+        var chain = Promise.resolve();
+        q.forEach(function (item) {
+            chain = chain.then(function () {
+                return fetch(item.url, {
+                    method: item.method || 'POST',
+                    headers: { 'X-Requested-With': 'XMLHttpRequest', 'X-CSRF-TOKEN': csrf(), 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                    body: JSON.stringify(item.body || {})
+                }).then(function (res) {
+                    if (res.status === 401 || res.status === 419) { sessionExpired(); throw new Error('stop'); }
+                    if (res.ok) {
+                        sent++;
+                        document.dispatchEvent(new CustomEvent('pas:outbox-sent', { detail: item }));
+                        outboxWrite(outboxRead().filter(function (x) { return x.id !== item.id; }));
+                    } else if (res.status >= 500) {
+                        item.tries = (item.tries || 0) + 1; // coba lagi lain waktu
+                    } else {
+                        outboxWrite(outboxRead().filter(function (x) { return x.id !== item.id; })); // 4xx: buang, jangan macet
+                    }
+                }).catch(function (err) {
+                    if (err && err.message === 'stop') throw err;
+                    item.tries = (item.tries || 0) + 1; // jaringan gagal: tetap di antrean
+                });
+            });
+        });
+        return chain.then(function () {
+            var left = outboxRead().length;
+            updateOutboxBadge(left);
+            if (sent > 0) toast(sent + ' pesan tertunda terkirim', 'ok');
+            return sent;
+        }).catch(function () { return sent; });
+    }
+    window.addEventListener('online', function () { setTimeout(outboxFlush, 1500); });
+    setTimeout(outboxFlush, 4000); // flush saat buka aplikasi
+    window.PAS.outboxEnqueue = outboxEnqueue;
+    window.PAS.outboxFlush = outboxFlush;
+    window.PAS.outboxPending = function () { return outboxRead().length; };
 })();

@@ -661,9 +661,34 @@
         var formData = new FormData(chatForm);
         if(chatInput){ chatInput.value = ''; chatInput.style.height = ''; }
         clearFile();
-        fetch(chatForm.action, { method: 'POST', headers: { 'X-Requested-With': 'XMLHttpRequest' }, body: formData })
-            .then(function(){ setLoading(false); })
-            .catch(function(){ setLoading(false); });
+        if (!hasFile && window.PAS && window.PAS.outboxEnqueue) {
+            // Pesan teks: kirim JSON + antrekan offline ala WhatsApp (jam → centang)
+            var payload = { pesan: pesan, chat_group_id: formData.get('chat_group_id') };
+            var mineEl = (function(){ var all = msgList.querySelectorAll('.msg-item.mine'); return all.length ? all[all.length-1] : null; })();
+            function markPending(el){ if(!el || el.querySelector('.pas-clock')) return; el.classList.add('pas-pending'); var info = el.querySelector('.msg-info'); if(info) info.insertAdjacentHTML('beforeend', ' <i class="bi bi-clock pas-clock" title="Menunggu terkirim"></i>'); }
+            function markSent(qid){ if(!mineEl) return; if(mineEl.dataset.outboxId === qid){ mineEl.remove(); } }
+            if (navigator.onLine === false) {
+                var qid0 = window.PAS.outboxEnqueue({ url: chatForm.action, body: payload });
+                if (mineEl) mineEl.dataset.outboxId = qid0;
+                markPending(mineEl); setLoading(false);
+            } else {
+                fetch(chatForm.action, { method: 'POST', headers: { 'X-Requested-With': 'XMLHttpRequest', 'Content-Type': 'application/json', 'X-CSRF-TOKEN': csrf }, body: JSON.stringify(payload) })
+                    .then(function(r){ if(!r.ok) throw new Error('http'+r.status); return r.json(); })
+                    .then(function(){ setLoading(false); })
+                    .catch(function(){
+                        var qid = window.PAS.outboxEnqueue({ url: chatForm.action, body: payload });
+                        if (mineEl) mineEl.dataset.outboxId = qid;
+                        markPending(mineEl); setLoading(false);
+                    });
+            }
+            document.addEventListener('pas:outbox-sent', function handler(ev){
+                try { markSent(ev.detail && ev.detail.id); } catch(e){}
+            });
+        } else {
+            fetch(chatForm.action, { method: 'POST', headers: { 'X-Requested-With': 'XMLHttpRequest' }, body: formData })
+                .then(function(){ setLoading(false); })
+                .catch(function(){ setLoading(false); if(window.PAS) window.PAS.toast('Gagal mengirim gambar — periksa koneksi lalu coba lagi.', 'err'); });
+        }
     });
 
     // Sheet

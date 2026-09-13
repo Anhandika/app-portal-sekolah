@@ -18,7 +18,7 @@
     <link rel="apple-touch-icon" href="{{ asset('logo-pas.png?v=1') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-    <link rel="stylesheet" href="{{ asset('css/pas-ux.css?v=1') }}">
+    <link rel="stylesheet" href="{{ asset('css/pas-ux.css?v=2') }}">
     <style>
         :root {
             --navy: #0f172a;
@@ -305,7 +305,7 @@
             <i class="bi bi-calendar-check nav-icon"></i>Absen
         </a>
         <a class="{{ request()->routeIs('chat.*') ? 'active' : '' }}" href="{{ route('chat.index') }}">
-            <i class="bi bi-chat-dots nav-icon"></i>Chat
+            <i class="bi bi-chat-dots nav-icon"></i>Chat<span id="pas-outbox-badge" title="Pesan menunggu terkirim"></span>
         </a>
         <a class="{{ request()->routeIs('tugas.*') ? 'active' : '' }}" href="{{ route('tugas.index') }}">
             <i class="bi bi-journal-text nav-icon"></i>Tugas
@@ -1310,6 +1310,7 @@
             <div style="font-size:13px;color:#64748b;margin-top:6px">Login ulang untuk melanjutkan. Mengalihkan…</div>
         </div>
     </div>
-    <script src="{{ asset('js/pas-ux.js?v=1') }}"></script>
+    <script src="{{ asset('js/pas-ux.js?v=2') }}"></script>
+    <script>if('serviceWorker' in navigator && location.protocol.indexOf('http')===0){navigator.serviceWorker.register('/sw.js').catch(function(){});}</script>
 </body>
 </html>
