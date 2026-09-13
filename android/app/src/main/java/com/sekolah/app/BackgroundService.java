@@ -118,10 +118,24 @@ public class BackgroundService extends Service {
         });
     }
 
+    /**
+     * URL API efektif. Nilai tersimpan "api_base_url" berasal dari web saat
+     * saveToken — pada perangkat yang pernah memakai APK lama nilainya masih
+     * domain lama. Buang nilai basi itu agar ikut domain baru AppConfig.
+     */
+    private static String resolveBaseUrl(SharedPreferences prefs) {
+        String stored = prefs.getString("api_base_url", null);
+        if (stored != null && stored.contains("app-portal-sekolah-production")) {
+            prefs.edit().remove("api_base_url").apply();
+            return AppConfig.API_BASE_URL;
+        }
+        return stored != null ? stored : AppConfig.API_BASE_URL;
+    }
+
     private boolean pollNotifications() {
         SharedPreferences prefs = getSharedPreferences(AppConfig.PREFS_NAME, Context.MODE_PRIVATE);
         String token = prefs.getString(AppConfig.KEY_TOKEN, null);
-        String baseUrl = prefs.getString("api_base_url", AppConfig.API_BASE_URL);
+        String baseUrl = resolveBaseUrl(prefs);
         String lastIdStr = prefs.getString(AppConfig.KEY_LAST_NOTIFICATION_ID, "0");
         int lastId = lastIdStr.isEmpty() ? 0 : Integer.parseInt(lastIdStr);
         boolean initialized = prefs.getBoolean(AppConfig.KEY_NOTIFICATION_INITIALIZED, false);
@@ -186,7 +200,7 @@ public class BackgroundService extends Service {
     private void pollSessionStatus() {
         SharedPreferences prefs = getSharedPreferences(AppConfig.PREFS_NAME, Context.MODE_PRIVATE);
         String token = prefs.getString(AppConfig.KEY_TOKEN, null);
-        String baseUrl = prefs.getString("api_base_url", AppConfig.API_BASE_URL);
+        String baseUrl = resolveBaseUrl(prefs);
 
         if (token == null || token.isEmpty()) return;
 
