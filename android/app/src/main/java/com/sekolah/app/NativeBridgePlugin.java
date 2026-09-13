@@ -383,7 +383,7 @@ public class NativeBridgePlugin extends Plugin {
             // Resolve relative URL to full URL using WebView base
             String fullUrl = url;
             if (url.startsWith("/")) {
-                fullUrl = "http://10.0.2.2:8000" + url; // Laravel dev server
+                fullUrl = "https://web-production-3489c.up.railway.app" + url;
             }
 
             DownloadManager.Request request = new DownloadManager.Request(Uri.parse(fullUrl));
