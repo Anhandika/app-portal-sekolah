@@ -110,6 +110,33 @@
     }
     .pf-toast.show { display: flex; animation: fadeDown 0.3s ease; }
     @keyframes fadeDown { from { opacity:0; transform:translateY(-10px); } to { opacity:1; transform:translateY(0); } }
+
+    /* ==== Stat row 3D (pindahan dari dashboard): highlight atas + bayangan berlapis ==== */
+    .pf-stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 12px; }
+    .pf-stat-item {
+        background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+        border-radius: 20px; padding: 18px 12px;
+        border: 1px solid var(--line);
+        box-shadow: 0 1px 0 rgba(255, 255, 255, 0.9) inset,
+                    0 8px 20px rgba(15, 23, 42, 0.06);
+        text-align: center; text-decoration: none; position: relative;
+        overflow: hidden; transition: transform 0.2s, box-shadow 0.2s;
+        display: block; color: inherit;
+    }
+    .pf-stat-item:active { transform: translateY(2px) scale(0.98); box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+    @media (hover: hover) {
+        .pf-stat-item:hover { transform: translateY(-3px); box-shadow: 0 1px 0 rgba(255, 255, 255, 0.9) inset, 0 14px 28px rgba(15, 23, 42, 0.1); }
+    }
+    .pf-stat-item .ico {
+        width: 40px; height: 40px; border-radius: 12px; margin: 0 auto 10px;
+        display: flex; align-items: center; justify-content: center; font-size: 18px;
+    }
+    .pf-stat-item .val { font-size: 22px; font-weight: 900; color: var(--navy); line-height: 1; }
+    .pf-stat-item .lab { font-size: 10px; font-weight: 800; color: #94a3b8; text-transform: uppercase; margin-top: 6px; letter-spacing: 0.02em; }
+    @media (max-width: 360px) {
+        .pf-stat-item { padding: 14px 8px; }
+        .pf-stat-item .val { font-size: 19px; }
+    }
 </style>
 
 <div id="pfToast" class="pf-toast">
@@ -134,6 +161,33 @@
                 <i class="bi {{ $user->status_badge === 'online' ? 'bi-circle-fill' : 'bi-person' }}" style="font-size:8px;"></i>
                 <span id="pfStatusText">{{ ucfirst($user->status_label) }}</span>
             </span>
+        </div>
+    </div>
+
+    {{-- Statistik ringkas 3D (pindahan dari dashboard) --}}
+    @php
+        $pfHadir = (int) (($absensiBulan['hadir'] ?? $absensiBulan['Hadir'] ?? 0));
+        $pfIzin = (int) (($absensiBulan['izin'] ?? $absensiBulan['Izin'] ?? 0));
+        $pfSakit = (int) (($absensiBulan['sakit'] ?? $absensiBulan['Sakit'] ?? 0));
+        $pfAlpha = (int) (($absensiBulan['alpha'] ?? $absensiBulan['Alpha'] ?? 0));
+        $pfTotal = $pfHadir + $pfIzin + $pfSakit + $pfAlpha;
+        $pfPct = $pfTotal > 0 ? round(($pfHadir / $pfTotal) * 100) : 0;
+    @endphp
+    <div class="pf-stat-grid">
+        <a href="{{ route('tugas.index') }}" class="pf-stat-item">
+            <div class="ico" style="background: #eff6ff; color: #2563eb;"><i class="bi bi-journal-check"></i></div>
+            <div class="val">{{ $tugasAktif ?? 0 }}</div>
+            <div class="lab">Tugas</div>
+        </a>
+        <a href="{{ route('absensi.index') }}" class="pf-stat-item">
+            <div class="ico" style="background: #f0fdf4; color: #16a34a;"><i class="bi bi-graph-up"></i></div>
+            <div class="val">{{ $pfPct }}%</div>
+            <div class="lab">Hadir</div>
+        </a>
+        <div class="pf-stat-item">
+            <div class="ico" style="background: #fdf2f8; color: #db2777;"><i class="bi bi-people"></i></div>
+            <div class="val">{{ $totalSiswaKelas ?? 0 }}</div>
+            <div class="lab">Siswa</div>
         </div>
     </div>
 

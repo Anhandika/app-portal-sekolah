@@ -89,37 +89,34 @@
     }
     .hero-bell:active { transform: scale(0.92); background: rgba(255, 255, 255, 0.15); }
 
-    /* ==== Stat Cards 3D: highlight atas + bayangan berlapis ==== */
-    .stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 24px; }
-    .stat-item {
-        background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
-        border-radius: 20px; padding: 18px 12px;
-        border: 1px solid var(--line);
-        box-shadow: 0 1px 0 rgba(255, 255, 255, 0.9) inset,
-                    0 8px 20px rgba(15, 23, 42, 0.06);
-        text-align: center; text-decoration: none; position: relative;
-        overflow: hidden; transition: transform 0.2s, box-shadow 0.2s;
+    /* ==== Quick Menu geser (swipeable): sinkron dengan container 3D ==== */
+    .menu-swipe {
+        display: flex; gap: 14px; overflow-x: auto;
+        scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
+        scrollbar-width: none; padding: 6px 2px 14px;
+        margin: 0 -18px; padding-left: 18px; padding-right: 18px;
     }
-    .stat-item:active { transform: translateY(2px) scale(0.98); box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
-    @media (hover: hover) {
-        .stat-item:hover { transform: translateY(-3px); box-shadow: 0 1px 0 rgba(255, 255, 255, 0.9) inset, 0 14px 28px rgba(15, 23, 42, 0.1); }
-    }
-    .stat-item .ico {
-        width: 40px; height: 40px; border-radius: 12px; margin: 0 auto 10px;
-        display: flex; align-items: center; justify-content: center; font-size: 18px;
-    }
-    .stat-item .val { font-size: 22px; font-weight: 900; color: var(--navy); line-height: 1; }
-    .stat-item .lab { font-size: 10px; font-weight: 800; color: #94a3b8; text-transform: uppercase; margin-top: 6px; letter-spacing: 0.02em; }
-
-    /* ==== Quick Menu Grid ==== */
-    .menu-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .menu-swipe::-webkit-scrollbar { display: none; }
     .menu-btn {
+        flex: 0 0 auto; width: 76px; scroll-snap-align: start;
         display: flex; flex-direction: column; align-items: center; gap: 8px;
         text-decoration: none; transition: transform 0.18s ease;
+        background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+        border: 1px solid var(--line); border-radius: 20px; padding: 14px 6px 12px;
+        box-shadow: 0 1px 0 rgba(255, 255, 255, 0.9) inset,
+                    0 8px 20px rgba(15, 23, 42, 0.06);
+        position: relative; overflow: hidden;
     }
-    .menu-btn:active { transform: scale(0.9) translateY(1px); }
+    .menu-btn::before {
+        content: ''; position: absolute; inset: 0; border-radius: 20px; pointer-events: none;
+        background: linear-gradient(180deg, rgba(255,255,255,0.5) 0%, transparent 35%);
+    }
+    .menu-btn:active { transform: translateY(2px) scale(0.96); box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+    @media (hover: hover) {
+        .menu-btn:hover { transform: translateY(-3px); box-shadow: 0 1px 0 rgba(255, 255, 255, 0.9) inset, 0 14px 28px rgba(15, 23, 42, 0.1); }
+    }
     .menu-btn-ico {
-        width: 56px; height: 56px; border-radius: 18px;
+        width: 52px; height: 52px; border-radius: 17px;
         display: flex; align-items: center; justify-content: center;
         font-size: 24px; position: relative; color: #fff;
         text-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
@@ -132,6 +129,9 @@
         background: linear-gradient(180deg, rgba(255,255,255,0.22) 0%, transparent 45%);
     }
     .menu-btn-lab { font-size: 11px; font-weight: 700; color: #64748b; }
+    .menu-dots { display: flex; gap: 6px; justify-content: center; margin-top: 12px; }
+    .menu-dots span { width: 6px; height: 6px; border-radius: 99px; background: #e2e8f0; transition: all 0.25s; }
+    .menu-dots span.on { width: 22px; background: var(--blue, #2563eb); }
 
     .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
     .section-header h3 { font-size: 17px; font-weight: 800; color: var(--navy); margin: 0; }
@@ -228,11 +228,9 @@
     @media (max-width: 360px) {
         .hero-card { padding: 22px 18px; }
         .hero-name { font-size: 22px; }
-        .menu-grid { gap: 10px; }
-        .menu-btn-ico { width: 50px; height: 50px; border-radius: 16px; font-size: 22px; }
+        .menu-btn { width: 70px; padding: 12px 4px 10px; }
+        .menu-btn-ico { width: 46px; height: 46px; border-radius: 15px; font-size: 20px; }
         .menu-btn-lab { font-size: 10px; }
-        .stat-item { padding: 14px 8px; }
-        .stat-item .val { font-size: 19px; }
     }
 </style>
 
@@ -279,32 +277,13 @@
         </div>
     </div>
 
-    {{-- Refined Stat Grid --}}
-    <div class="stat-grid animate-up" style="animation-delay: 0.1s;">
-        <a href="{{ route('tugas.index') }}" class="stat-item">
-            <div class="ico" style="background: #eff6ff; color: #2563eb;"><i class="bi bi-journal-check"></i></div>
-            <div class="val">{{ $tugasAktif }}</div>
-            <div class="lab">Tugas</div>
-        </a>
-        <div class="stat-item">
-            <div class="ico" style="background: #f0fdf4; color: #16a34a;"><i class="bi bi-graph-up"></i></div>
-            <div class="val">{{ $pctHadir }}%</div>
-            <div class="lab">Hadir</div>
-        </div>
-        <a href="#" onclick="openClassmates(); return false;" class="stat-item">
-            <div class="ico" style="background: #fdf2f8; color: #db2777;"><i class="bi bi-people"></i></div>
-            <div class="val">{{ $totalSiswaKelas }}</div>
-            <div class="lab">Siswa</div>
-        </a>
-    </div>
-
-    {{-- Premium Quick Menu --}}
+    {{-- Premium Quick Menu (geser horizontal) --}}
     <div class="pui-card db-section animate-up" style="animation-delay: 0.15s; margin-bottom: 24px;">
         <div class="section-header">
             <h3>Menu Utama</h3>
             <a href="#" onclick="if(window.pasTourReplay){window.pasTourReplay();}return false;" style="font-size:11px;">✦ Tur Ulang</a>
         </div>
-        <div class="menu-grid">
+        <div class="menu-swipe" id="menuSwipe">
             <a href="{{ route('absensi.index') }}" class="menu-btn">
                 <div class="menu-btn-ico" style="background: linear-gradient(135deg, #60a5fa, #2563eb); color: #fff;">
                     <i class="bi bi-calendar-check"></i>
@@ -354,6 +333,8 @@
                 <div class="menu-btn-lab">Eskul</div>
             </a>
         </div>
+        <div class="menu-dots" id="menuDots" aria-hidden="true"></div>
+        <div class="text-center" style="font-size:10px;font-weight:700;color:#94a3b8;margin-top:6px;">← Geser untuk menu lainnya →</div>
     </div>
 
     {{-- Today's Summary / Absensi --}}
@@ -437,45 +418,30 @@
     @endif
 </div>
 
-{{-- Bottom Sheet Classmates --}}
-<div class="sheet" id="classmatesSheet" onclick="if(event.target===this)closeClassmates()">
-    <div class="sheet-card">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h3 class="h5 fw-bold mb-0">Siswa Kelas({{ $user->kelas->nama ?? '-' }})</h3>
-            <button type="button" class="btn-close" onclick="closeClassmates()"></button>
-        </div>
-        <div style="max-height: 60vh; overflow-y: auto; padding-right: 4px;">
-            @forelse($classmates as $cm)
-                <div class="classmate-row">
-                    <img src="{{ $cm->avatar_url }}" class="classmate-avatar">
-                    <div style="flex:1;">
-                        <div class="fw-bold" style="font-size:14px; color:var(--navy);">{{ $cm->name }}</div>
-                        <div class="small text-muted">NIS: {{ $cm->nik ?? '-' }}</div>
-                    </div>
-                    @if($cm->id !== $user->id)
-                        <a href="{{ route('chat.startPrivate', $cm->id) }}" class="pui-btn pui-btn-ghost pui-btn-sm pui-btn-round" style="width:36px;height:36px;padding:0;">
-                            <i class="bi bi-chat-text"></i>
-                        </a>
-                    @endif
-                </div>
-            @empty
-                <div class="text-center py-5 text-muted">Belum ada data teman sekelas.</div>
-            @endforelse
-        </div>
-    </div>
-</div>
-
 <script>
-    function openClassmates() {
-        var el=document.getElementById('classmatesSheet'); if(!el) return;
-        el.classList.add('open');
-        document.body.style.overflow = 'hidden';
-    }
-    function closeClassmates() {
-        var el=document.getElementById('classmatesSheet'); if(!el) return;
-        el.classList.remove('open');
-        document.body.style.overflow = '';
-    }
+    // Indikator dots untuk menu geser (sinkron dengan posisi scroll)
+    (function () {
+        var swipe = document.getElementById('menuSwipe');
+        var dots = document.getElementById('menuDots');
+        if (!swipe || !dots) return;
+        var pages = 3;
+        for (var i = 0; i < pages; i++) {
+            var d = document.createElement('span');
+            if (i === 0) d.className = 'on';
+            dots.appendChild(d);
+        }
+        function sync() {
+            var max = swipe.scrollWidth - swipe.clientWidth;
+            var p = max > 0 ? swipe.scrollLeft / max : 0;
+            var idx = Math.min(pages - 1, Math.round(p * (pages - 1)));
+            dots.querySelectorAll('span').forEach(function (s, j) {
+                s.className = j === idx ? 'on' : '';
+            });
+        }
+        swipe.addEventListener('scroll', function () { requestAnimationFrame(sync); }, { passive: true });
+        window.addEventListener('resize', sync);
+        sync();
+    })();
 
     // Voice notification if any unread
     var unreadCount = {{ $unreadNotificationsCount }};
@@ -512,10 +478,8 @@
           desc: 'Foto, sapaan, nama kelas, dan status akun tampil di kartu ini. Semua aktivitas harian dimulai dari sini.' },
         { sel: '.hero-bell', cat: 'Notifikasi', title: 'Lonceng Notifikasi 🔔',
           desc: 'Angka merah = info belum dibaca (tugas baru, nilai, pengumuman). Ketuk untuk membuka kotak masuk.' },
-        { sel: '.stat-grid', cat: 'Statistik', title: 'Angka Sekilas 📊',
-          desc: 'Tugas aktif, persen kehadiran bulan ini, dan jumlah teman sekelas. Ketuk kartunya untuk detail.' },
-        { sel: '.menu-grid', cat: 'Menu Utama', title: '8 Pintu Fitur 🧭',
-          desc: 'Absensi, Tugas, SPP, Chat, Perpus, Jadwal, Nilai, Eskul — masing-masing ikon membawa ke satu fitur.' },
+        { sel: '.menu-swipe', cat: 'Menu Utama', title: 'Geser Menu 🧭',
+          desc: 'Geser ke kiri untuk 8 fitur: Absensi, Tugas, SPP, Chat, Perpus, Jadwal, Nilai, Eskul. Titik di bawah menunjukkan posisi.' },
         { sel: '.lms-row', cat: 'Belajar', title: 'Mata Pelajaran 📚',
           desc: 'Daftar mapel Anda. Masuk ke dalamnya untuk materi, tugas, dan nilai per pelajaran.', optional: true },
         { sel: '.absen-summary', cat: 'Kehadiran', title: 'Ringkasan Bulanan ✅',

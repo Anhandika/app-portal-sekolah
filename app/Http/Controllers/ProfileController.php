@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Helpers\UserContextHelper;
 use App\Helpers\UserHistoryHelper;
+use App\Models\Absensi;
+use App\Models\Tugas;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -25,7 +27,28 @@ class ProfileController extends Controller
 
     public function show(Request $request): View
     {
-        return view('mobile.profile', ['user' => $this->resolveUser($request)]);
+        $user = $this->resolveUser($request);
+
+        // Statistik ringkas untuk kartu 3D di halaman profil (pindahan dari dashboard).
+        $tugasQuery = $user->role === 'guru'
+            ? Tugas::where('user_id', $user->id)
+            : Tugas::where('kelas_id', $user->kelas_id);
+        $tugasAktif = (clone $tugasQuery)->where(function ($q) {
+            $q->whereNull('batas_pengumpulan')->orWhere('batas_pengumpulan', '>=', today());
+        })->count();
+
+        $absensiBulan = Absensi::where('user_id', $user->id)
+            ->whereMonth('tanggal', now()->month)
+            ->selectRaw('status, count(*) as total')
+            ->groupBy('status')
+            ->pluck('total', 'status');
+
+        return view('mobile.profile', [
+            'user' => $user,
+            'tugasAktif' => $tugasAktif,
+            'absensiBulan' => $absensiBulan,
+            'totalSiswaKelas' => User::where('role', 'siswa')->where('kelas_id', $user->kelas_id)->count(),
+        ]);
     }
 
     public function edit(Request $request): View
