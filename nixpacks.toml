@@ -19,7 +19,10 @@ cmds = [
     # Fail fast bila ekstensi GD tidak tersedia: laravolt/avatar butuh GD saat runtime.
     "php -m | grep -qi '^gd$' && echo 'GD OK' || (echo 'FATAL: php-gd tidak terpasang' && exit 1)",
     "composer install --no-dev --optimize-autoloader",
-    "npm ci",
+    # FIX rolldown "Cannot find native binding" (npm/cli#4828): npm ci kadang
+    # melewatkan optional deps native. Paksa include optional + rebuild.
+    "npm ci --include=optional || npm install --include=optional",
+    "npm rebuild rolldown --include=optional || true",
     "npm run build",
     "php artisan view:clear",
     "php artisan cache:clear"
