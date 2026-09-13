@@ -9,11 +9,12 @@ bash ensure-env.sh
 mkdir -p storage/framework/{cache,sessions,views,testing} storage/logs storage/fonts storage/app/public bootstrap/cache
 
 echo "Linking public storage (storage:link)..."
-# Hapus dulu bila sudah ada (bisa symlink lama / file), lalu buat symlink baru.
+# Non-fatal: jangan biarkan set -e membunuh container bila symlink gagal
+# (mis. masalah izin volume) — aplikasi tetap bisa boot.
 if [ -e public/storage ] || [ -L public/storage ]; then
   rm -rf public/storage
 fi
-php artisan storage:link --no-interaction
+php artisan storage:link --no-interaction || echo "WARNING: storage:link gagal — lanjut boot"
 
 echo "Clearing stale caches..."
 php artisan config:clear --no-interaction || true
