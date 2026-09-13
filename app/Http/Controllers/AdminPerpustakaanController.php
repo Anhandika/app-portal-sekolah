@@ -43,11 +43,11 @@ class AdminPerpustakaanController extends Controller
         $data['slug'] = Str::slug($data['judul']).'-'.rand(100, 999);
 
         if ($request->hasFile('cover')) {
-            $data['cover'] = $request->file('cover')->store('perpustakaan/covers', 'public');
+            $data['cover'] = \App\Services\FirebaseStorageService::put('perpustakaan/covers', $request->file('cover'));
         }
 
         if ($request->hasFile('file_pdf')) {
-            $data['file_pdf'] = $request->file('file_pdf')->store('perpustakaan/pdfs', 'public');
+            $data['file_pdf'] = \App\Services\FirebaseStorageService::put('perpustakaan/pdfs', $request->file('file_pdf'));
         }
 
         Buku::create($data);
@@ -78,16 +78,16 @@ class AdminPerpustakaanController extends Controller
 
         if ($request->hasFile('cover')) {
             if ($buku->cover) {
-                Storage::disk('public')->delete($buku->cover);
+                \App\Services\FirebaseStorageService::delete($buku->cover);
             }
-            $data['cover'] = $request->file('cover')->store('perpustakaan/covers', 'public');
+            $data['cover'] = \App\Services\FirebaseStorageService::put('perpustakaan/covers', $request->file('cover'));
         }
 
         if ($request->hasFile('file_pdf')) {
             if ($buku->file_pdf) {
-                Storage::disk('public')->delete($buku->file_pdf);
+                \App\Services\FirebaseStorageService::delete($buku->file_pdf);
             }
-            $data['file_pdf'] = $request->file('file_pdf')->store('perpustakaan/pdfs', 'public');
+            $data['file_pdf'] = \App\Services\FirebaseStorageService::put('perpustakaan/pdfs', $request->file('file_pdf'));
         }
 
         $buku->update($data);
@@ -98,10 +98,10 @@ class AdminPerpustakaanController extends Controller
     public function destroy(Buku $buku): RedirectResponse
     {
         if ($buku->cover) {
-            Storage::disk('public')->delete($buku->cover);
+            \App\Services\FirebaseStorageService::delete($buku->cover);
         }
         if ($buku->file_pdf) {
-            Storage::disk('public')->delete($buku->file_pdf);
+            \App\Services\FirebaseStorageService::delete($buku->file_pdf);
         }
         $buku->delete();
 

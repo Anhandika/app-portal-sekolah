@@ -85,7 +85,7 @@
     <div class="hero-backdrop">
         <div class="cover-premium">
             @if($buku->cover)
-                <img src="{{ asset('storage/'.$buku->cover) }}" alt="Cover">
+                <img src="{{ \App\Services\FirebaseStorageService::url($buku->cover) }}" alt="Cover">
             @else
                 <div class="w-100 h-100 d-flex align-items-center justify-content-center" style="background:#f8fafc;">
                     <i class="bi bi-journal-text" style="font-size: 80px; color: var(--indigo); opacity:.2;"></i>

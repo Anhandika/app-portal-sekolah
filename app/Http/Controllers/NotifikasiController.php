@@ -86,7 +86,7 @@ class NotifikasiController extends Controller
                 'url' => $n->url,
                 'type' => $n->type ?? 'general',
                 'actor_name' => $n->actor_name,
-                'actor_photo' => $n->actor_photo ? asset('storage/' . $n->actor_photo) : null,
+                'actor_photo' => $n->actor_photo ? \App\Services\FirebaseStorageService::url( $n->actor_photo) : null,
                 'created_at' => $n->created_at?->diffForHumans(),
             ]),
         ]);

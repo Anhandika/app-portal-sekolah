@@ -3,7 +3,7 @@
         <div class="d-flex align-items-center gap-3">
             <div style="width: 40px; height: 40px; border-radius: 12px; overflow: hidden; position: relative; flex-shrink: 0;">
                 @if($user->foto)
-                    <img src="{{ asset('storage/'.$user->foto) }}" style="width:100%;height:100%;object-fit:cover;">
+                    <img src="{{ \App\Services\FirebaseStorageService::url($user->foto) }}" style="width:100%;height:100%;object-fit:cover;">
                 @else
                     <div style="width:100%;height:100%;background:linear-gradient(135deg, #3b82f6, #2563eb);display:grid;place-items:center;color:#fff;font-weight:800;font-size:16px;">
                         {{ strtoupper(substr($user->name, 0, 1)) }}

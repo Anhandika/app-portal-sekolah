@@ -80,7 +80,7 @@
                 <div class="d-flex align-items-center gap-3">
                     <div class="eskul-logo">
                         @if($eskul->logo)
-                            <img src="{{ asset('storage/'.$eskul->logo) }}" alt="{{ $eskul->nama }}"
+                            <img src="{{ \App\Services\FirebaseStorageService::url($eskul->logo) }}" alt="{{ $eskul->nama }}"
                                  data-name="{{ $eskul->nama }}" onerror="eskulLogoFallback(this);">
                         @else
                             <div class="eskul-logo-placeholder">

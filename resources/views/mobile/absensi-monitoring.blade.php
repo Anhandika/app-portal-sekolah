@@ -121,7 +121,7 @@
                 <div class="d-flex align-items-center gap-3">
                     <div class="student-avatar">
                         @if($student->foto)
-                            <img src="{{ asset('storage/'.$student->foto) }}" class="w-100 h-100 object-fit-cover">
+                            <img src="{{ \App\Services\FirebaseStorageService::url($student->foto) }}" class="w-100 h-100 object-fit-cover">
                         @else
                             {{ strtoupper(substr($student->name,0,1)) }}
                         @endif

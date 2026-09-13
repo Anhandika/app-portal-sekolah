@@ -63,7 +63,7 @@
                         <label class="form-label fw-bold">Sampul Buku (Image)</label>
                         @if(isset($buku) && $buku->cover)
                             <div class="mb-2">
-                                <img src="{{ asset('storage/'.$buku->cover) }}" class="rounded shadow-sm" style="width: 100px; aspect-ratio: 2/3; object-fit: cover;">
+                                <img src="{{ \App\Services\FirebaseStorageService::url($buku->cover) }}" class="rounded shadow-sm" style="width: 100px; aspect-ratio: 2/3; object-fit: cover;">
                             </div>
                         @endif
                         <input type="file" name="cover" class="form-control" accept="image/jpeg,image/png,image/jpg,image/webp">
@@ -74,7 +74,7 @@
                         <label class="form-label fw-bold">File Buku (PDF)</label>
                         @if(isset($buku) && $buku->file_pdf)
                             <div class="mb-2">
-                                <a href="{{ asset('storage/'.$buku->file_pdf) }}" target="_blank" class="btn btn-sm btn-info text-white"><i class="bi bi-file-pdf"></i> Lihat PDF Saat Ini</a>
+                                <a href="{{ \App\Services\FirebaseStorageService::url($buku->file_pdf) }}" target="_blank" class="btn btn-sm btn-info text-white"><i class="bi bi-file-pdf"></i> Lihat PDF Saat Ini</a>
                             </div>
                         @endif
                         <input type="file" name="file_pdf" class="form-control" accept=".pdf" {{ isset($buku) ? '' : 'required' }}>

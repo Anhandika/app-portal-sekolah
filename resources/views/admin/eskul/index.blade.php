@@ -29,7 +29,7 @@
                     <div class="d-flex align-items-center gap-3">
                         <div class="bg-light rounded p-2" style="width: 50px; height: 50px;">
                             @if($eskul->logo)
-                                <img src="{{ asset('storage/'.$eskul->logo) }}" data-name="{{ $eskul->nama }}" onerror="adminLogoFallback(this);" class="w-100 h-100 object-fit-cover rounded">
+                                <img src="{{ \App\Services\FirebaseStorageService::url($eskul->logo) }}" data-name="{{ $eskul->nama }}" onerror="adminLogoFallback(this);" class="w-100 h-100 object-fit-cover rounded">
                             @else
                                 <i class="bi bi-flag text-primary h4 mb-0"></i>
                             @endif

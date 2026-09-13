@@ -55,9 +55,9 @@ class ProfileController extends Controller
 
         if ($request->hasFile('foto')) {
             if ($user->foto) {
-                Storage::disk('public')->delete($user->foto);
+                \App\Services\FirebaseStorageService::delete($user->foto);
             }
-            $data['foto'] = $request->file('foto')->store('profile', 'public');
+            $data['foto'] = \App\Services\FirebaseStorageService::put('profile', $request->file('foto'));
         }
 
         $user->update($data);
@@ -76,7 +76,7 @@ class ProfileController extends Controller
                 'user' => [
                     'name' => $user->name,
                     'email' => $user->email,
-                    'foto' => $user->foto ? asset('storage/'.$user->foto) : null,
+                    'foto' => $user->foto ? \App\Services\FirebaseStorageService::url($user->foto) : null,
                     'foto_posisi_x' => $user->foto_posisi_x,
                     'foto_posisi_y' => $user->foto_posisi_y,
                     'role' => $user->role,
@@ -97,15 +97,15 @@ class ProfileController extends Controller
         ]);
 
         if ($user->foto) {
-            Storage::disk('public')->delete($user->foto);
+            \App\Services\FirebaseStorageService::delete($user->foto);
         }
 
-        $path = $request->file('foto')->store('profile', 'public');
+        $path = \App\Services\FirebaseStorageService::put('profile', $request->file('foto'));
         $user->update(['foto' => $path]);
 
         return response()->json([
             'ok' => true,
-            'url' => asset('storage/'.$path),
+            'url' => \App\Services\FirebaseStorageService::url($path),
             'message' => 'Foto berhasil diupload.',
         ]);
     }

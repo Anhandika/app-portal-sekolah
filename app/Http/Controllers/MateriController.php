@@ -42,7 +42,7 @@ class MateriController extends Controller
         $data['mata_pelajaran_id'] = $mapel->id;
 
         if ($request->hasFile('file_materi')) {
-            $data['file_materi'] = $request->file('file_materi')->store('materi', 'public');
+            $data['file_materi'] = \App\Services\FirebaseStorageService::put('materi', $request->file('file_materi'));
             $data['file_nama'] = $request->file('file_materi')->getClientOriginalName();
         } else {
             unset($data['file_materi'], $data['file_nama']);
@@ -101,16 +101,16 @@ class MateriController extends Controller
         $data['mata_pelajaran_id'] = $mapel->id;
 
         if ($request->boolean('hapus_file') && $materi->file_materi) {
-            Storage::disk('public')->delete($materi->file_materi);
+            \App\Services\FirebaseStorageService::delete($materi->file_materi);
             $data['file_materi'] = null;
             $data['file_nama'] = null;
         }
 
         if ($request->hasFile('file_materi')) {
             if ($materi->file_materi) {
-                Storage::disk('public')->delete($materi->file_materi);
+                \App\Services\FirebaseStorageService::delete($materi->file_materi);
             }
-            $data['file_materi'] = $request->file('file_materi')->store('materi', 'public');
+            $data['file_materi'] = \App\Services\FirebaseStorageService::put('materi', $request->file('file_materi'));
             $data['file_nama'] = $request->file('file_materi')->getClientOriginalName();
         }
 
@@ -124,7 +124,7 @@ class MateriController extends Controller
         $this->assertOwner($request, $materi);
 
         if ($materi->file_materi) {
-            Storage::disk('public')->delete($materi->file_materi);
+            \App\Services\FirebaseStorageService::delete($materi->file_materi);
         }
 
         $materi->delete();

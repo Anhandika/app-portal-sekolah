@@ -181,7 +181,7 @@
         <article class="p-card {{ $isPrivate ? 'priv' : '' }}" data-cat="{{ $cat }}">
             <div class="th {{ $isPrivate ? 'ink' : ($item->gambar ? '' : 'paper') }}">
                 @if($item->gambar)
-                    <img src="{{ asset('storage/'.$item->gambar) }}" alt="{{ $item->judul }}"
+                    <img src="{{ \App\Services\FirebaseStorageService::url($item->gambar) }}" alt="{{ $item->judul }}"
                          onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=Info&background=f1f5f9&color=94a3b8';">
                 @else
                     <i class="bi {{ $isPrivate ? 'bi-person-lock' : ($item->eskul_id ? 'bi-stars' : ($item->kelas_id ? 'bi-people-fill' : 'bi-megaphone')) }} big-ico"></i>

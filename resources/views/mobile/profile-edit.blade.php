@@ -143,7 +143,7 @@
 
 <script>
 var csrfToken = '{{ csrf_token() }}';
-var fotoUrl = @json($user->foto ? asset('storage/'.$user->foto) : null);
+var fotoUrl = @json($user->foto ? \App\Services\FirebaseStorageService::url($user->foto) : null);
 var posX = {{ $user->foto_posisi_x ?? 50 }};
 var posY = {{ $user->foto_posisi_y ?? 50 }};
 var isDragging = false;

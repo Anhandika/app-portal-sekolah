@@ -219,7 +219,7 @@
                     <div class="pui-card mb-3">
                         <div style="padding:16px;">
                             <div class="d-flex align-items-center gap-3 mb-3">
-                                <img src="{{ $siswa->foto ? asset('storage/'.$siswa->foto) : '' }}" data-name="{{ $siswa->name }}"
+                                <img src="{{ $siswa->foto ? \App\Services\FirebaseStorageService::url($siswa->foto) : '' }}" data-name="{{ $siswa->name }}"
                                      onerror="nilaiAvatarFallback(this);"
                                      class="lms-avatar" alt="{{ $siswa->name }}">
                                 <div class="grow" style="flex:1;min-width:0;">

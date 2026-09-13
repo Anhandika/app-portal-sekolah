@@ -198,7 +198,7 @@ class EskulController extends Controller
         }
 
         if ($request->hasFile('logo')) {
-            $data['logo'] = $request->file('logo')->store('eskul', 'public');
+            $data['logo'] = \App\Services\FirebaseStorageService::put('eskul', $request->file('logo'));
         }
 
         $eskul = Eskul::create($data);
@@ -252,9 +252,9 @@ class EskulController extends Controller
 
         if ($request->hasFile('logo')) {
             if ($eskul->logo && Storage::disk('public')->exists($eskul->logo)) {
-                Storage::disk('public')->delete($eskul->logo);
+                \App\Services\FirebaseStorageService::delete($eskul->logo);
             }
-            $data['logo'] = $request->file('logo')->store('eskul', 'public');
+            $data['logo'] = \App\Services\FirebaseStorageService::put('eskul', $request->file('logo'));
         }
 
         $eskul->update($data);
@@ -274,7 +274,7 @@ class EskulController extends Controller
         abort_unless(UserContextHelper::role($request) === 'admin', 403);
 
         if ($eskul->logo) {
-            Storage::disk('public')->delete($eskul->logo);
+            \App\Services\FirebaseStorageService::delete($eskul->logo);
         }
 
         // Remove chat group and its members

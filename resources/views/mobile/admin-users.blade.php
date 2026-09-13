@@ -114,7 +114,7 @@
                 <div class="au-avatar">
                     <div class="initial" style="background: {{ $avatarBg }};">
                         @if($u->foto)
-                            <img src="{{ asset('storage/'.$u->foto) }}">
+                            <img src="{{ \App\Services\FirebaseStorageService::url($u->foto) }}">
                         @else
                             {{ strtoupper(substr($u->name, 0, 1)) }}
                         @endif

@@ -107,7 +107,7 @@ class AbsensiController extends Controller
                 return back()->with('error', 'Anda sudah absen masuk hari ini.');
             }
 
-            $path = $request->file('foto')->store('absensi/'.$today, 'public');
+            $path = \App\Services\FirebaseStorageService::put('absensi/'.$today, $request->file('foto'));
 
             $lateTime = Setting::getValue('attendance_late_time', '07:30');
             $status = $now->gt(now()->setTimeFromTimeString($lateTime)) ? 'terlambat' : 'hadir';
@@ -141,7 +141,7 @@ class AbsensiController extends Controller
                 return back()->with('error', 'Anda sudah absen pulang hari ini.');
             }
 
-            $path = $request->file('foto')->store('absensi/'.$today, 'public');
+            $path = \App\Services\FirebaseStorageService::put('absensi/'.$today, $request->file('foto'));
             $attendance->update([
                 'waktu_pulang' => $now->format('H:i:s'),
                 'foto_pulang' => $path,

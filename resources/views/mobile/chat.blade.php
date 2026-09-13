@@ -225,7 +225,7 @@
                 <a href="{{ route('chat.show', $g) }}" class="chat-card chat-row animate-up" data-name="{{ strtolower($g->name) }}" style="animation-delay: 0.25s;">
                     <div class="chat-avatar" style="background: linear-gradient(135deg, #10b981, #059669);">
                         @if($g->avatar)
-                            <img src="{{ asset('storage/'.$g->avatar) }}">
+                            <img src="{{ \App\Services\FirebaseStorageService::url($g->avatar) }}">
                         @else
                             {{ strtoupper(substr($g->name, 0, 1)) }}
                         @endif
@@ -264,7 +264,7 @@
                     <a href="{{ route('chat.show', $g) }}" class="chat-card chat-row animate-up" data-name="{{ strtolower($g->name) }}" style="animation-delay: 0.35s;">
                         <div class="chat-avatar" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed);">
                             @if($g->avatar)
-                                <img src="{{ asset('storage/'.$g->avatar) }}">
+                                <img src="{{ \App\Services\FirebaseStorageService::url($g->avatar) }}">
                             @else
                                 {{ strtoupper(substr($g->name, 0, 1)) }}
                             @endif
@@ -302,7 +302,7 @@
                     <a href="{{ route('chat.show', $g) }}" class="chat-card chat-row animate-up" data-name="{{ strtolower($g->name) }}" style="animation-delay: 0.34s;">
                         <div class="chat-avatar" style="background: linear-gradient(135deg, #6366f1, #8b5cf6);">
                             @if($g->avatar)
-                                <img src="{{ asset('storage/'.$g->avatar) }}">
+                                <img src="{{ \App\Services\FirebaseStorageService::url($g->avatar) }}">
                             @else
                                 {{ strtoupper(substr($g->name, 0, 1)) }}
                             @endif

@@ -3,7 +3,7 @@
     $isPrivate = $group->type === 'private';
     $isCustom = $group->type === 'custom';
     $other = $group->other_user ?? null;
-    $hdrAvatar = $isPrivate && $other ? $other->avatar_url : ($group->avatar ? asset('storage/'.$group->avatar) : null);
+    $hdrAvatar = $isPrivate && $other ? $other->avatar_url : ($group->avatar ? \App\Services\FirebaseStorageService::url($group->avatar) : null);
 @endphp
 @extends('layouts.mobile-app')
 
@@ -235,7 +235,7 @@
                         @else
                             @if($msg->file)
                                 <div class="mb-2">
-                                    <img src="{{ asset('storage/'.$msg->file) }}" class="img-fluid rounded-3" style="max-height: 250px; width: 100%; object-fit: cover;">
+                                    <img src="{{ \App\Services\FirebaseStorageService::url($msg->file) }}" class="img-fluid rounded-3" style="max-height: 250px; width: 100%; object-fit: cover;">
                                 </div>
                             @endif
                             @if($msg->pesan)

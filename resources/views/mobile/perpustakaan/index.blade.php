@@ -147,7 +147,7 @@
                 <div class="book-card-premium">
                     <div class="cover-box">
                         @if($buku->cover)
-                            <img src="{{ asset('storage/'.$buku->cover) }}" class="cover-img" loading="lazy">
+                            <img src="{{ \App\Services\FirebaseStorageService::url($buku->cover) }}" class="cover-img" loading="lazy">
                         @else
                             <div class="w-100 h-100 d-flex flex-column align-items-center justify-content-center p-3 text-center" style="background:#f8fafc;">
                                 <i class="bi bi-journals mb-2" style="font-size: 32px; color: var(--indigo); opacity:.4;"></i>

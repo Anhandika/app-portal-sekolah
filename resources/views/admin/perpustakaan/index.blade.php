@@ -34,7 +34,7 @@
                     <tr>
                         <td>
                             @if($buku->cover)
-                                <img src="{{ asset('storage/'.$buku->cover) }}" class="rounded shadow-sm" style="width: 50px; aspect-ratio: 2/3; object-fit: cover;">
+                                <img src="{{ \App\Services\FirebaseStorageService::url($buku->cover) }}" class="rounded shadow-sm" style="width: 50px; aspect-ratio: 2/3; object-fit: cover;">
                             @else
                                 <div class="bg-light rounded d-flex align-items-center justify-content-center shadow-sm" style="width: 50px; aspect-ratio: 2/3;">
                                     <i class="bi bi-book text-muted small"></i>

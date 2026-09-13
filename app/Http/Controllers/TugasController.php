@@ -186,7 +186,7 @@ class TugasController extends Controller
         $data['user_id'] = $userId;
 
         if ($request->hasFile('lampiran')) {
-            $data['lampiran'] = $request->file('lampiran')->store('tugas', 'public');
+            $data['lampiran'] = \App\Services\FirebaseStorageService::put('tugas', $request->file('lampiran'));
             $data['lampiran_nama'] = $request->file('lampiran')->getClientOriginalName();
         }
 
@@ -214,16 +214,16 @@ class TugasController extends Controller
         }
 
         if ($request->boolean('hapus_lampiran') && $tugas->lampiran) {
-            Storage::disk('public')->delete($tugas->lampiran);
+            \App\Services\FirebaseStorageService::delete($tugas->lampiran);
             $data['lampiran'] = null;
             $data['lampiran_nama'] = null;
         }
 
         if ($request->hasFile('lampiran')) {
             if ($tugas->lampiran) {
-                Storage::disk('public')->delete($tugas->lampiran);
+                \App\Services\FirebaseStorageService::delete($tugas->lampiran);
             }
-            $data['lampiran'] = $request->file('lampiran')->store('tugas', 'public');
+            $data['lampiran'] = \App\Services\FirebaseStorageService::put('tugas', $request->file('lampiran'));
             $data['lampiran_nama'] = $request->file('lampiran')->getClientOriginalName();
         }
 
@@ -457,9 +457,9 @@ class TugasController extends Controller
 
             if ($request->hasFile('jawaban_file')) {
                 if ($existing?->jawaban_file) {
-                    Storage::disk('public')->delete($existing->jawaban_file);
+                    \App\Services\FirebaseStorageService::delete($existing->jawaban_file);
                 }
-                $updateData['jawaban_file'] = $request->file('jawaban_file')->store('jawaban', 'public');
+                $updateData['jawaban_file'] = \App\Services\FirebaseStorageService::put('jawaban', $request->file('jawaban_file'));
                 $updateData['jawaban_nama'] = $request->file('jawaban_file')->getClientOriginalName();
             }
         }
@@ -661,12 +661,12 @@ class TugasController extends Controller
     private function deleteTugasFiles(Tugas $tugas): void
     {
         if ($tugas->lampiran) {
-            Storage::disk('public')->delete($tugas->lampiran);
+            \App\Services\FirebaseStorageService::delete($tugas->lampiran);
         }
 
         foreach ($tugas->pengumpulan as $item) {
             if ($item->jawaban_file) {
-                Storage::disk('public')->delete($item->jawaban_file);
+                \App\Services\FirebaseStorageService::delete($item->jawaban_file);
             }
         }
     }

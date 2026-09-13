@@ -172,7 +172,7 @@ class PengumumanController extends Controller
         }
 
         if ($request->hasFile('gambar')) {
-            $data['gambar'] = $request->file('gambar')->store('pengumuman', 'public');
+            $data['gambar'] = \App\Services\FirebaseStorageService::put('pengumuman', $request->file('gambar'));
             $data['gambar_nama'] = $request->file('gambar')->getClientOriginalName();
         }
 
@@ -286,7 +286,7 @@ class PengumumanController extends Controller
         }
 
         if ($request->hasFile('gambar')) {
-            $data['gambar'] = $request->file('gambar')->store('pengumuman', 'public');
+            $data['gambar'] = \App\Services\FirebaseStorageService::put('pengumuman', $request->file('gambar'));
             $data['gambar_nama'] = $request->file('gambar')->getClientOriginalName();
         }
         $pengumuman->update($data);

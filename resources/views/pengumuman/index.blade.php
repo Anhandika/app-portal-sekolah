@@ -26,7 +26,7 @@
                     <div class="row g-0">
                         @if($item->gambar)
                             <div class="col-12 col-md-3 announcement-media">
-                                <img src="{{ asset('storage/'.$item->gambar) }}" alt="{{ $item->judul }}">
+                                <img src="{{ \App\Services\FirebaseStorageService::url($item->gambar) }}" alt="{{ $item->judul }}">
                             </div>
                         @endif
                         <div class="{{ $item->gambar ? 'col-12 col-md-9' : 'col-12' }}">

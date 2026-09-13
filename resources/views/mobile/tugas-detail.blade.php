@@ -123,7 +123,7 @@
         <div class="fw-bold mb-2" style="font-size:13px;color:var(--ink);"><i class="bi bi-info-circle" style="color:var(--indigo);"></i> Instruksi</div>
         <div style="font-size:13px;color:var(--mist);line-height:1.6;white-space:pre-line;">{{ $tugas->deskripsi ?: 'Tidak ada deskripsi.' }}</div>
         @if($tugas->lampiran)
-            <a href="{{ asset('storage/'.$tugas->lampiran) }}" target="_blank" style="display:flex;align-items:center;gap:10px;padding:10px;background:#f8fafc;border-radius:12px;margin-top:10px;text-decoration:none;color:var(--ink);">
+            <a href="{{ \App\Services\FirebaseStorageService::url($tugas->lampiran) }}" target="_blank" style="display:flex;align-items:center;gap:10px;padding:10px;background:#f8fafc;border-radius:12px;margin-top:10px;text-decoration:none;color:var(--ink);">
                 <i class="bi bi-file-earmark-fill" style="font-size:20px;color:var(--indigo);"></i>
                 <div style="flex:1;min-width:0;">
                     <div style="font-size:12px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{ $tugas->lampiran_nama }}</div>
@@ -177,7 +177,7 @@
 
                 {{-- File jawaban --}}
                 @if($item->jawaban_file)
-                    <a href="{{ asset('storage/'.$item->jawaban_file) }}" target="_blank" class="d-flex align-items-center gap-2" style="padding:8px 10px;background:#f8fafc;border-radius:10px;margin-bottom:8px;text-decoration:none;color:var(--ink);">
+                    <a href="{{ \App\Services\FirebaseStorageService::url($item->jawaban_file) }}" target="_blank" class="d-flex align-items-center gap-2" style="padding:8px 10px;background:#f8fafc;border-radius:10px;margin-bottom:8px;text-decoration:none;color:var(--ink);">
                         <i class="bi bi-file-earmark-fill" style="color:var(--indigo);"></i>
                         <span style="font-size:12px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;">{{ $item->jawaban_nama ?: 'File Jawaban' }}</span>
                         <i class="bi bi-box-arrow-up-right" style="font-size:10px;color:var(--faint);"></i>
