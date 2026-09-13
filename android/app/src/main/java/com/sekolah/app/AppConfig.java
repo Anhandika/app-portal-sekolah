@@ -2,7 +2,7 @@ package com.sekolah.app;
 
 public class AppConfig {
     // API base URL - adjust to your production or local IP
-    public static final String API_BASE_URL = "https://app-portal-sekolah-production.up.railway.app/api";
+    public static final String API_BASE_URL = "https://web-production-3489c.up.railway.app/api";
 
     // Polling intervals in milliseconds
     // Polling is only a fallback when push notifications are unavailable.  Polling every
