@@ -8,7 +8,7 @@ NIXPACKS_NODE_VERSION = "22"
 # Versi 22 wajib karena Vite 8 butuh Node >=20.19 / >=22.12 (default nixpacks
 # masih Node 20.18 yang memicu error rolldown "Cannot find native binding").
 [phases.setup]
-nixPkgs = ["php83", "php83Packages.composer", "php83Extensions.gd", "php83Extensions.exif", "php83Extensions.pdo_mysql", "php83Extensions.zip", "php83Extensions.intl", "nodejs_22"]
+nixPkgs = ["php83", "php83Packages.composer", "php83Extensions.gd", "php83Extensions.exif", "php83Extensions.pdo_mysql", "php83Extensions.pdo_pgsql", "php83Extensions.pgsql", "php83Extensions.pdo_sqlite", "php83Extensions.sqlite3", "php83Extensions.zip", "php83Extensions.intl", "php83Extensions.mbstring", "php83Extensions.fileinfo", "nodejs_22"]
 cmds = [
     "bash ensure-env.sh"
 ]

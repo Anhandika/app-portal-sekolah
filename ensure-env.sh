@@ -90,14 +90,17 @@ safe_inject() {
   fi
 }
 
-# 4) DB — parse DATABASE_URL (prioritas utama).
-_DB_URL="${DATABASE_URL:-${MYSQL_PRIVATE_URL:-${MYSQL_URL:-${MYSQL_URL_OLD:-}}}}"
+# 4) DB — parse DATABASE_URL (prioritas utama). Dukung Postgres + MySQL.
+_DB_URL="${DATABASE_URL:-${POSTGRES_PRIVATE_URL:-${POSTGRES_URL:-${MYSQL_PRIVATE_URL:-${MYSQL_URL:-${MYSQL_URL_OLD:-}}}}}}"
 if [ -n "$_DB_URL" ]; then
   DB_PARSE=$(DATABASE_URL="$_DB_URL" php -r '
     $u = getenv("DATABASE_URL");
     $p = parse_url($u);
     if (!$p || empty($p["host"])) { exit(1); }
-    echo implode("\n", [($p["user"] ?? ""), ($p["pass"] ?? ""), $p["host"], ($p["port"] ?? "3306"), ltrim($p["path"] ?? "", "/")]);
+    $scheme = strtolower($p["scheme"] ?? "");
+    $isPg = ($scheme === "postgres" || $scheme === "postgresql");
+    $defaultPort = $isPg ? "5432" : "3306";
+    echo implode("\n", [($p["user"] ?? ""), ($p["pass"] ?? ""), $p["host"], ($p["port"] ?? $defaultPort), ltrim($p["path"] ?? "", "/"), ($isPg ? "pgsql" : "mysql")]);
   ' 2>/dev/null) || DB_PARSE=""
 
   if [ -n "$DB_PARSE" ]; then
@@ -105,13 +108,15 @@ if [ -n "$_DB_URL" ]; then
     _DB_PASS=$(printf '%s\n' "$DB_PARSE" | sed -n '2p')
     _DB_HOST=$(printf '%s\n' "$DB_PARSE" | sed -n '3p')
     _DB_PORT=$(printf '%s\n' "$DB_PARSE" | sed -n '4p')
-    _DB_NAME=$(printf '%s\n' "$DB_PARSE" | sed -n '5p')
+    _DB_NAME=$(printf '%s\n' "$DB_PARSE" | sed -n '5p' | cut -d'?' -f1)
+    _DB_CONN=$(printf '%s\n' "$DB_PARSE" | sed -n '6p')
     [ -n "$_DB_USER" ]     && inject_env "DB_USERNAME" "$_DB_USER" && export DB_USERNAME="$_DB_USER"
     [ -n "$_DB_PASS" ]     && inject_env "DB_PASSWORD" "$_DB_PASS" && export DB_PASSWORD="$_DB_PASS"
     [ -n "$_DB_HOST" ]     && inject_env "DB_HOST" "$_DB_HOST" && export DB_HOST="$_DB_HOST"
     [ -n "$_DB_PORT" ]     && inject_env "DB_PORT" "$_DB_PORT" && export DB_PORT="$_DB_PORT"
     [ -n "$_DB_NAME" ]     && inject_env "DB_DATABASE" "$_DB_NAME" && export DB_DATABASE="$_DB_NAME"
-    echo "[ensure-env] DATABASE_URL di-parse: host=$_DB_HOST port=$_DB_PORT db=$_DB_NAME user=$_DB_USER"
+    [ -n "$_DB_CONN" ]     && inject_env "DB_CONNECTION" "$_DB_CONN" && export DB_CONNECTION="$_DB_CONN"
+    echo "[ensure-env] DATABASE_URL di-parse ($_DB_CONN): host=$_DB_HOST port=$_DB_PORT db=$_DB_NAME user=$_DB_USER"
   else
     echo "[ensure-env] WARNING: Tidak bisa parse DATABASE_URL"
   fi
@@ -119,26 +124,49 @@ else
   echo "[ensure-env] INFO: DATABASE_URL tidak diset"
 fi
 
-# 5) Fallback: auto-map MYSQL* vars → DB_* (jika DB_* belum terisi dari DATABASE_URL).
+# 5) Fallback: auto-map PG*/POSTGRES* dan MYSQL* vars → DB_* (jika DB_* belum terisi dari DATABASE_URL).
+# Postgres dulu (sesuai screenshot: service Postgres aktif di Railway).
 if [ -z "${DB_HOST:-}" ]; then
-  [ -n "${MYSQLHOST:-}" ]        && safe_inject DB_HOST "$MYSQLHOST"
+  [ -n "${PGHOST:-}" ]           && safe_inject DB_HOST "$PGHOST"
+  [ -z "${DB_HOST:-}" ] && [ -n "${POSTGRESHOST:-}" ] && safe_inject DB_HOST "$POSTGRESHOST"
+  [ -z "${DB_HOST:-}" ] && [ -n "${PG_HOST:-}" ] && safe_inject DB_HOST "$PG_HOST"
+  [ -z "${DB_HOST:-}" ] && [ -n "${MYSQLHOST:-}" ] && safe_inject DB_HOST "$MYSQLHOST"
   [ -z "${DB_HOST:-}" ] && [ -n "${MYSQL_HOST:-}" ] && safe_inject DB_HOST "$MYSQL_HOST"
 fi
 if [ -z "${DB_PORT:-}" ]; then
-  [ -n "${MYSQLPORT:-}" ]        && safe_inject DB_PORT "$MYSQLPORT"
+  [ -n "${PGPORT:-}" ]           && safe_inject DB_PORT "$PGPORT"
+  [ -z "${DB_PORT:-}" ] && [ -n "${POSTGRESPORT:-}" ] && safe_inject DB_PORT "$POSTGRESPORT"
+  [ -z "${DB_PORT:-}" ] && [ -n "${PG_PORT:-}" ] && safe_inject DB_PORT "$PG_PORT"
+  [ -z "${DB_PORT:-}" ] && [ -n "${MYSQLPORT:-}" ] && safe_inject DB_PORT "$MYSQLPORT"
   [ -z "${DB_PORT:-}" ] && [ -n "${MYSQL_PORT:-}" ] && safe_inject DB_PORT "$MYSQL_PORT"
 fi
 if [ -z "${DB_DATABASE:-}" ]; then
-  [ -n "${MYSQLDATABASE:-}" ]    && safe_inject DB_DATABASE "$MYSQLDATABASE"
+  [ -n "${PGDATABASE:-}" ]       && safe_inject DB_DATABASE "$PGDATABASE"
+  [ -z "${DB_DATABASE:-}" ] && [ -n "${POSTGRESDATABASE:-}" ] && safe_inject DB_DATABASE "$POSTGRESDATABASE"
+  [ -z "${DB_DATABASE:-}" ] && [ -n "${PG_DATABASE:-}" ] && safe_inject DB_DATABASE "$PG_DATABASE"
+  [ -z "${DB_DATABASE:-}" ] && [ -n "${MYSQLDATABASE:-}" ] && safe_inject DB_DATABASE "$MYSQLDATABASE"
   [ -z "${DB_DATABASE:-}" ] && [ -n "${MYSQL_DATABASE:-}" ] && safe_inject DB_DATABASE "$MYSQL_DATABASE"
 fi
 if [ -z "${DB_USERNAME:-}" ]; then
-  [ -n "${MYSQLUSER:-}" ]        && safe_inject DB_USERNAME "$MYSQLUSER"
+  [ -n "${PGUSER:-}" ]           && safe_inject DB_USERNAME "$PGUSER"
+  [ -z "${DB_USERNAME:-}" ] && [ -n "${POSTGRESUSER:-}" ] && safe_inject DB_USERNAME "$POSTGRESUSER"
+  [ -z "${DB_USERNAME:-}" ] && [ -n "${PG_USER:-}" ] && safe_inject DB_USERNAME "$PG_USER"
+  [ -z "${DB_USERNAME:-}" ] && [ -n "${MYSQLUSER:-}" ] && safe_inject DB_USERNAME "$MYSQLUSER"
   [ -z "${DB_USERNAME:-}" ] && [ -n "${MYSQL_USER:-}" ] && safe_inject DB_USERNAME "$MYSQL_USER"
 fi
 if [ -z "${DB_PASSWORD:-}" ]; then
-  [ -n "${MYSQLPASSWORD:-}" ]    && safe_inject DB_PASSWORD "$MYSQLPASSWORD"
+  [ -n "${PGPASSWORD:-}" ]       && safe_inject DB_PASSWORD "$PGPASSWORD"
+  [ -z "${DB_PASSWORD:-}" ] && [ -n "${POSTGRESPASSWORD:-}" ] && safe_inject DB_PASSWORD "$POSTGRESPASSWORD"
+  [ -z "${DB_PASSWORD:-}" ] && [ -n "${PG_PASSWORD:-}" ] && safe_inject DB_PASSWORD "$PG_PASSWORD"
+  [ -z "${DB_PASSWORD:-}" ] && [ -n "${MYSQLPASSWORD:-}" ] && safe_inject DB_PASSWORD "$MYSQLPASSWORD"
   [ -z "${DB_PASSWORD:-}" ] && [ -n "${MYSQL_PASSWORD:-}" ] && safe_inject DB_PASSWORD "$MYSQL_PASSWORD"
+fi
+# Jika host Postgres terdeteksi tapi DB_CONNECTION masih sqlite/mysql default, paksa pgsql.
+if [ -n "${DB_HOST:-}" ] && { [ -n "${PGHOST:-}${PGDATABASE:-}${POSTGRES_URL:-}${POSTGRES_PRIVATE_URL:-}" ] || [[ "${_DB_URL:-}" == postgres* ]]; }; then
+  if [ "${DB_CONNECTION:-}" != "pgsql" ]; then
+    inject_env "DB_CONNECTION" "pgsql" && export DB_CONNECTION="pgsql"
+    echo "[ensure-env] DB_CONNECTION dipaksa ke pgsql (Postgres terdeteksi)"
+  fi
 fi
 
 echo "[ensure-env] DB_HOST=${DB_HOST:-<kosong>} DB_DATABASE=${DB_DATABASE:-<kosong>}"

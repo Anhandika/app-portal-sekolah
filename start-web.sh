@@ -31,11 +31,18 @@ else
   echo "!!! FeatureFlagsSeeder GAGAL — periksa storage/logs/laravel.log"
 fi
 
-echo "Seeding data portal (idempotent via firstOrCreate)..."
-if php artisan db:seed --class="Database\Seeders\PortalFullSeeder" --force --no-interaction; then
-  echo "PortalFullSeeder OK"
+echo "Seeding akun admin pusat (idempotent, data lama)..."
+if php artisan db:seed --class="Database\Seeders\DatabaseSeeder" --force --no-interaction; then
+  echo "DatabaseSeeder OK (admin + demo + portal + lms + tugas + nilai)"
 else
-  echo "!!! PortalFullSeeder GAGAL — data test TIDAK terbuat. Periksa storage/logs/laravel.log dan jalankan manual via console Railway."
+  echo "!!! DatabaseSeeder GAGAL — fallback ke seed parsial satu per satu."
+  for SEEDER in "Database\Seeders\PortalDemoSeeder" "Database\Seeders\PortalFullSeeder" "Database\Seeders\LmsSeeder" "Database\Seeders\TugasTestDataSeeder" "Database\Seeders\CompleteTugasSeeder" "Database\Seeders\NilaiSeeder"; do
+    if php artisan db:seed --class="$SEEDER" --force --no-interaction; then
+      echo "$SEEDER OK"
+    else
+      echo "!!! $SEEDER GAGAL — lanjut seeder berikutnya."
+    fi
+  done
 fi
 
 echo "Caching config and routes..."
