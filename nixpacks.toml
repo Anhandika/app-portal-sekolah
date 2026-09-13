@@ -27,8 +27,12 @@ cmds = [
     # native (rolldown linux-x64-gnu) selalu ikut terinstal di image Linux.
     "npm install --include=optional --no-audit --no-fund",
     "npm run build",
-    "php artisan view:clear",
-    "php artisan cache:clear"
+    # Build jalan TANPA akses DB (hostname *.railway.internal hanya resolve
+    # saat runtime). Paksa cache/session file agar `cache:clear` tidak coba
+    # konek ke Postgres (CACHE_STORE=database di .env) -> BUILD FAILED
+    # "could not translate host name postgres.railway.internal".
+    "CACHE_STORE=file SESSION_DRIVER=file php artisan view:clear",
+    "CACHE_STORE=file SESSION_DRIVER=file php artisan cache:clear"
 ]
 
 # CATATAN PENTING: JANGAN menambahkan [phases.deploy] di file ini.
