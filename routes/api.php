@@ -57,6 +57,8 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::post('/login', [\App\Http\Controllers\Api\AuthApiController::class, 'login']);
+// Login via Firebase Authentication (email/password): tukar id_token -> Sanctum token.
+Route::post('/auth/firebase', [\App\Http\Controllers\Api\FirebaseAuthController::class, 'login'])->middleware('throttle:20,1');
 Route::post('/logout', [\App\Http\Controllers\Api\AuthApiController::class, 'logout'])->middleware('auth:sanctum');
 Route::get('/me', [\App\Http\Controllers\Api\AuthApiController::class, 'me'])->middleware('auth:sanctum');
 

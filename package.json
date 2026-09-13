@@ -26,6 +26,7 @@
         "@capacitor/cli": "^8.5.0",
         "@capacitor/core": "^8.5.0",
         "@capacitor/splash-screen": "^8.0.2",
-        "capacitor-native-biometric": "^4.2.2"
+        "capacitor-native-biometric": "^4.2.2",
+        "firebase": "^11.10.0"
     }
 }

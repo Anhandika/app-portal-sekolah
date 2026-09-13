@@ -224,6 +224,16 @@ safe_inject VITE_REVERB_HOST    "${VITE_REVERB_HOST:-}"
 safe_inject VITE_REVERB_PORT    "${VITE_REVERB_PORT:-$REVERB_PORT}"
 safe_inject VITE_REVERB_SCHEME  "${VITE_REVERB_SCHEME:-$REVERB_SCHEME}"
 
+# Vite Firebase Web SDK (project anproject-8968f).
+# Ditulis ke .env SEBELUM `npm run build` (fase build nixpacks) sehingga
+# Vite ikut membundelnya. Fallback ke FIREBASE_* bila VITE_* tidak diset.
+safe_inject VITE_FIREBASE_API_KEY             "${VITE_FIREBASE_API_KEY:-}"
+safe_inject VITE_FIREBASE_AUTH_DOMAIN         "${VITE_FIREBASE_AUTH_DOMAIN:-}"
+safe_inject VITE_FIREBASE_PROJECT_ID          "${VITE_FIREBASE_PROJECT_ID:-${FIREBASE_PROJECT_ID:-anproject-8968f}}"
+safe_inject VITE_FIREBASE_STORAGE_BUCKET      "${VITE_FIREBASE_STORAGE_BUCKET:-${FIREBASE_STORAGE_BUCKET:-}}"
+safe_inject VITE_FIREBASE_MESSAGING_SENDER_ID "${VITE_FIREBASE_MESSAGING_SENDER_ID:-}"
+safe_inject VITE_FIREBASE_APP_ID              "${VITE_FIREBASE_APP_ID:-}"
+
 # 10) Log & proxy
 safe_inject LOG_LEVEL     "${LOG_LEVEL:-}"
 safe_inject TRUSTED_PROXIES "${TRUSTED_PROXIES:-}"
