@@ -10,7 +10,7 @@
 
 <div class="card shadow-sm border-0">
     <div class="card-body p-4">
-        <form action="{{ isset($buku) ? route('admin.perpustakaan.update', $buku) : route('admin.perpustakaan.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ isset($buku) ? route('admin.perpustakaan.update', $buku) : route('admin.perpustakaan.store') }}" method="POST" enctype="multipart/form-data" data-pas-upload>
             @csrf
             @if(isset($buku)) @method('PUT') @endif
 

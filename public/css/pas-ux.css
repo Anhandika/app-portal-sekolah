@@ -1,0 +1,37 @@
+/* PAS UX global: offline banner, toast, upload progress, skeleton, button loading */
+#pas-offline{display:none;position:fixed;top:0;left:0;right:0;z-index:10005;background:#b91c1c;color:#fff;font-size:12.5px;font-weight:700;text-align:center;padding:10px 12px;box-shadow:0 4px 14px rgba(0,0,0,.2)}
+#pas-offline.on{display:block;animation:pasSlideDown .25s ease}
+@keyframes pasSlideDown{from{transform:translateY(-100%)}to{transform:translateY(0)}}
+#pas-toasts{position:fixed;bottom:calc(110px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);z-index:10006;display:flex;flex-direction:column;gap:8px;width:min(92vw,420px);pointer-events:none}
+.pas-toast{background:#0f172a;color:#fff;font-size:13px;font-weight:600;border-radius:14px;padding:12px 16px;box-shadow:0 12px 30px rgba(15,23,42,.3);display:flex;gap:10px;align-items:flex-start;animation:pasToastIn .25s ease;pointer-events:auto}
+.pas-toast.ok{background:#065f46}.pas-toast.err{background:#991b1b}.pas-toast.warn{background:#92400e}
+@keyframes pasToastIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+#pas-upload{position:fixed;inset:0;z-index:10007;display:none;align-items:flex-end;justify-content:center;padding:16px;background:rgba(15,23,42,.5);backdrop-filter:blur(4px)}
+#pas-upload.on{display:flex}
+.pas-upload-box{width:100%;max-width:440px;background:#fff;border-radius:24px;overflow:hidden;box-shadow:0 24px 60px rgba(15,23,42,.3);animation:pasSlideUp .25s ease}
+@keyframes pasSlideUp{from{transform:translateY(30px);opacity:0}to{transform:none;opacity:1}}
+.pas-upload-head{display:flex;align-items:center;gap:12px;padding:16px 18px;background:linear-gradient(135deg,#0f172a,#1e293b);color:#fff}
+.pas-upload-ring{width:44px;height:44px;flex-shrink:0}
+.pas-upload-ring circle{fill:none;stroke-width:5}
+.pas-upload-ring .bg{stroke:rgba(255,255,255,.2)}
+.pas-upload-ring .fg{stroke:#34d399;stroke-linecap:round;transition:stroke-dashoffset .15s linear}
+.pas-upload-title{font-weight:800;font-size:14px}
+.pas-upload-sub{font-size:12px;color:rgba(255,255,255,.65)}
+.pas-upload-body{padding:16px 18px}
+.pas-upload-bar{height:10px;border-radius:99px;background:#f1f5f9;overflow:hidden}
+.pas-upload-fill{height:100%;width:0%;border-radius:99px;background:linear-gradient(90deg,#4f46e5,#22d3ee);transition:width .15s linear}
+.pas-upload-meta{display:flex;justify-content:space-between;font-size:12px;color:#64748b;margin-top:8px;font-weight:700}
+.pas-upload-actions{display:flex;justify-content:flex-end;gap:8px;padding:0 18px 16px}
+.pas-btn{border:0;border-radius:12px;padding:10px 18px;font-weight:800;font-size:13px;cursor:pointer}
+.pas-btn-ghost{background:#f1f5f9;color:#0f172a}
+.pas-btn-danger{background:#fee2e2;color:#991b1b}
+.pas-btn-loading{position:relative;pointer-events:none;opacity:.75}
+.pas-btn-loading::after{content:'';display:inline-block;width:14px;height:14px;margin-left:8px;vertical-align:-2px;border-radius:50%;border:2px solid rgba(255,255,255,.4);border-top-color:#fff;animation:pasSpin .7s linear infinite}
+.pas-btn-ghost.pas-btn-loading::after,.btn-light.pas-btn-loading::after,.btn-outline-primary.pas-btn-loading::after{border-color:rgba(15,23,42,.2);border-top-color:#0f172a}
+@keyframes pasSpin{to{transform:rotate(360deg)}}
+.pas-skeleton{position:relative;overflow:hidden;background:#e9edf3;border-radius:10px;min-height:14px}
+.pas-skeleton::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.7),transparent);animation:pasShimmer 1.4s infinite}
+@keyframes pasShimmer{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
+#pas-session{position:fixed;inset:0;z-index:10008;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(15,23,42,.6);backdrop-filter:blur(4px)}
+#pas-session.on{display:flex}
+.pas-session-box{background:#fff;border-radius:24px;padding:28px 24px;max-width:360px;text-align:center;box-shadow:0 24px 60px rgba(0,0,0,.3)}

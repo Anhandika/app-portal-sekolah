@@ -111,7 +111,7 @@
 
   <div class="ig-stories">
     <div class="ig-story">
-      <form method="POST" action="{{ route('global.portal.story.store') }}" enctype="multipart/form-data" id="storyForm">@csrf
+      <form method="POST" action="{{ route('global.portal.story.store') }}" enctype="multipart/form-data" id="storyForm" data-pas-upload>@csrf
         <div class="ig-ring add" style="cursor:pointer" title="Tambah cerita" id="storyAddRing">
           <img src="{{ $me?->avatar_url ?? asset('logo-pas.png?v=1') }}" style="width:60px;height:60px;border-radius:50%;object-fit:cover;pointer-events:none;">
           <span class="ig-plus" style="pointer-events:none;"><i class="bi bi-plus-lg"></i></span>
@@ -195,7 +195,7 @@
     <div style="background:#fef2f2;border:1px solid #fecaca;color:#991b1b;border-radius:12px;padding:10px 12px;font-size:12px;margin-bottom:10px;">
       <ul style="margin:0;padding-left:18px;">@foreach($errors->all() as $e)<li>{{ $e }}</li>@endforeach</ul>
     </div>
-    @endif    <form method="POST" action="{{ route('global.portal.store') }}" enctype="multipart/form-data">
+    @endif    <form method="POST" action="{{ route('global.portal.store') }}" enctype="multipart/form-data" data-pas-upload>
       @csrf
       <div style="display:flex;gap:10px;align-items:center;margin-bottom:8px">
         <img src="{{ $me?->avatar_url ?? asset('logo-pas.png?v=1') }}" style="width:32px;height:32px;border-radius:50%;object-fit:cover">

@@ -79,7 +79,7 @@
     <!-- Edit Modal -->
     <div class="modal fade" id="editModal{{ $eskul->id }}" tabindex="-1">
         <div class="modal-dialog">
-            <form action="{{ route('admin.eskul.update', $eskul) }}" method="POST" enctype="multipart/form-data" class="modal-content border-0 shadow">
+            <form action="{{ route('admin.eskul.update', $eskul) }}" method="POST" enctype="multipart/form-data" data-pas-upload class="modal-content border-0 shadow">
                 @csrf @method('PUT')
                 <div class="modal-header border-0">
                     <h5 class="modal-title fw-bold">Edit Eskul: {{ $eskul->nama }}</h5>
@@ -175,7 +175,7 @@
 <!-- Create Modal -->
 <div class="modal fade" id="createModal" tabindex="-1">
     <div class="modal-dialog">
-        <form action="{{ route('admin.eskul.store') }}" method="POST" enctype="multipart/form-data" class="modal-content border-0 shadow">
+        <form action="{{ route('admin.eskul.store') }}" method="POST" enctype="multipart/form-data" data-pas-upload class="modal-content border-0 shadow">
             @csrf
             <div class="modal-header border-0">
                 <h5 class="modal-title fw-bold">Tambah Eskul Baru</h5>

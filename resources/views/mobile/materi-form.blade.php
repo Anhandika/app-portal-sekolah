@@ -52,7 +52,7 @@
         <div style="font-size:11px;opacity:0.6;margin-top:4px;">Bagikan dokumen, video, atau catatan pembelajaran kepada siswa.</div>
     </div>
 
-    <form method="POST" action="{{ $isEdit ? route('materi.update', [$mapel, $materi]) : route('materi.store', $mapel) }}" enctype="multipart/form-data">
+    <form method="POST" action="{{ $isEdit ? route('materi.update', [$mapel, $materi]) : route('materi.store', $mapel) }}" enctype="multipart/form-data" data-pas-upload>
         @csrf
         @if($isEdit) @method('PUT') @endif
 

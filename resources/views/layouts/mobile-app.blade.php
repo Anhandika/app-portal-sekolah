@@ -18,6 +18,7 @@
     <link rel="apple-touch-icon" href="{{ asset('logo-pas.png?v=1') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="stylesheet" href="{{ asset('css/pas-ux.css?v=1') }}">
     <style>
         :root {
             --navy: #0f172a;
@@ -1282,5 +1283,33 @@
     </script>
 
     @yield('scripts')
+
+    <!-- ===== PAS-UX global (offline banner, toast, upload progress, sesi) ===== -->
+    <div id="pas-offline"><i class="bi bi-wifi-off"></i> Offline — menunggu koneksi. Aksi akan dicoba ulang otomatis.</div>
+    <div id="pas-toasts"></div>
+    <div id="pas-upload">
+        <div class="pas-upload-box">
+            <div class="pas-upload-head">
+                <svg class="pas-upload-ring" viewBox="0 0 40 40"><circle class="bg" cx="20" cy="20" r="17"/><circle class="fg" id="pas-upload-fg" cx="20" cy="20" r="17"/></svg>
+                <div><div class="pas-upload-title">Mengunggah…</div><div class="pas-upload-sub" id="pas-upload-name">Berkas</div></div>
+            </div>
+            <div class="pas-upload-body">
+                <div class="pas-upload-bar"><div class="pas-upload-fill" id="pas-upload-fill"></div></div>
+                <div class="pas-upload-meta"><span id="pas-upload-status">Menyiapkan…</span><span id="pas-upload-pct">0%</span></div>
+            </div>
+            <div class="pas-upload-actions">
+                <button type="button" class="pas-btn pas-btn-ghost" onclick="pasCloseUpload()">Tutup</button>
+                <button type="button" class="pas-btn pas-btn-danger" onclick="pasCancelUpload()">Batalkan</button>
+            </div>
+        </div>
+    </div>
+    <div id="pas-session">
+        <div class="pas-session-box">
+            <div style="font-size:40px">🔄</div>
+            <div style="font-weight:900;font-size:16px;margin-top:8px">Sesi berakhir</div>
+            <div style="font-size:13px;color:#64748b;margin-top:6px">Login ulang untuk melanjutkan. Mengalihkan…</div>
+        </div>
+    </div>
+    <script src="{{ asset('js/pas-ux.js?v=1') }}"></script>
 </body>
 </html>

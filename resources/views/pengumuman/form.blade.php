@@ -193,7 +193,7 @@
         </div>
     @endif
 
-    <form class="f-card" method="POST" action="{{ $pengumuman->exists ? route('pengumuman.update', $pengumuman) : route('pengumuman.store') }}" enctype="multipart/form-data">
+    <form class="f-card" method="POST" action="{{ $pengumuman->exists ? route('pengumuman.update', $pengumuman) : route('pengumuman.store') }}" enctype="multipart/form-data" data-pas-upload>
         @csrf
         @if($pengumuman->exists) @method('PUT') @endif
 
