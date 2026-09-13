@@ -38,8 +38,10 @@ else
 fi
 
 echo "Caching config and routes..."
-php artisan config:cache --no-interaction
-php artisan route:cache --no-interaction
+# NOTE: route:cache GAGAL bila ada closure route (welcome, health, fitur-terkunci
+# memakai closure) -> jangan biarkan set -e membunuh container (crash loop Railway).
+php artisan config:cache --no-interaction || true
+php artisan route:cache --no-interaction || { echo "route:cache skip (closure route)"; php artisan route:clear --no-interaction || true; }
 
 echo "Starting web server on port ${PORT:-8080}..."
 echo "Workers: ${PHP_CLI_SERVER_WORKERS:-4}"
