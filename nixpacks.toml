@@ -27,8 +27,7 @@ cmds = [
     # native (rolldown linux-x64-gnu) selalu ikut terinstal di image Linux.
     "npm install --include=optional --no-audit --no-fund",
     "npm run build",
-    "php artisan view:clear",
-    "php artisan cache:clear"
+    "php artisan view:clear"
 ]
 
 # CATATAN PENTING: JANGAN menambahkan [phases.deploy] di file ini.
@@ -47,3 +46,4 @@ cmds = [
 # lalu `php artisan serve` di $PORT dinamis Railway.
 [start]
 cmd = "bash start-web.sh"
+
