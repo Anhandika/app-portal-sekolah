@@ -244,6 +244,33 @@
 
 {{-- Modal / Offcanvas for Editing can be added here, or keep the collapse mechanism --}}
 @foreach($users as $user)
+    <div class="modal fade" id="resetModal{{ $user->id }}" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0" style="border-radius:20px;">
+                <div class="modal-header border-0 px-4 pt-4">
+                    <div>
+                        <h6 class="fw-extrabold mb-0"><i class="bi bi-key-fill me-2 text-warning"></i>Reset Password</h6>
+                        <div class="small text-muted">{{ $user->name }} · {{ $user->email }}</div>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form method="POST" action="{{ route('admin.user.reset-password', $user) }}">
+                    @csrf @method('PATCH')
+                    <div class="modal-body px-4">
+                        <label class="small fw-bold mb-1">Password Baru (min. 8 karakter)</label>
+                        <input type="password" name="password" class="form-control mb-3" style="border-radius:12px;" required minlength="8" placeholder="Masukkan password baru">
+                        <label class="small fw-bold mb-1">Konfirmasi Password Baru</label>
+                        <input type="password" name="password_confirmation" class="form-control" style="border-radius:12px;" required minlength="8" placeholder="Ulangi password baru">
+                        <div class="alert alert-warning small mt-3 mb-0" style="border-radius:12px;">Siswa akan logout dari semua perangkat & wajib login ulang.</div>
+                    </div>
+                    <div class="modal-footer border-0 px-4 pb-4">
+                        <button type="button" class="btn btn-light px-4" data-bs-dismiss="modal" style="border-radius:12px;">Batal</button>
+                        <button class="btn btn-warning px-4 fw-bold" style="border-radius:12px;">Reset Password</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <div class="modal fade" id="editModal{{ $user->id }}" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content border-0" style="border-radius: 24px; box-shadow: var(--shadow-xl);">

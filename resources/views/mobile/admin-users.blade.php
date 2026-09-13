@@ -152,6 +152,15 @@
                     <button class="au-btn au-btn-delete" type="submit" style="padding:10px 14px;"><i class="bi bi-trash3"></i></button>
                 </form>
             </div>
+            <details style="margin-top:10px;background:#fffbeb;border:1px solid #fde68a;border-radius:12px;padding:10px 12px;">
+                <summary style="font-size:13px;font-weight:800;color:#92400e;cursor:pointer;"><i class="bi bi-key-fill me-1"></i> Reset password {{ $u->name }}</summary>
+                <form action="{{ route('admin.user.reset-password', $u) }}" method="POST" style="margin-top:10px;display:grid;gap:8px;">
+                    @csrf @method('PATCH')
+                    <input type="password" name="password" required minlength="8" placeholder="Password baru (min. 8)" style="border:1px solid #e2e8f0;border-radius:10px;padding:10px 12px;font-size:14px;">
+                    <input type="password" name="password_confirmation" required minlength="8" placeholder="Konfirmasi password baru" style="border:1px solid #e2e8f0;border-radius:10px;padding:10px 12px;font-size:14px;">
+                    <button class="au-btn" type="submit" style="background:#f59e0b;color:#fff;border-radius:10px;padding:10px;font-weight:800;"><i class="bi bi-key-fill"></i> Reset Password</button>
+                </form>
+            </details>
         </div>
     @empty
         <div class="au-empty">

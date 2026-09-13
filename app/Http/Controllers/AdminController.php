@@ -275,6 +275,7 @@ class AdminController extends Controller
     public function destroyUser(User $user): RedirectResponse
     {
         abort_unless(in_array($user->role, ['guru', 'siswa'], true), 404);
+        $this->assertSameSchool($user);
 
         try {
             $user->delete();
@@ -283,6 +284,46 @@ class AdminController extends Controller
         }
 
         return back()->with('success', 'Akun berhasil dihapus permanen beserta seluruh data tautannya.');
+    }
+
+    /**
+     * Reset password akun siswa (admin sekolah hanya untuk sekolahnya sendiri).
+     * Password baru langsung di-hash (cast `hashed`) dan sesi/token lama dicabut.
+     */
+    public function resetUserPassword(Request $request, User $user): RedirectResponse
+    {
+        abort_unless(in_array($user->role, ['guru', 'siswa'], true), 404);
+        $this->assertSameSchool($user);
+
+        $data = $request->validate([
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ], [
+            'password.confirmed' => 'Konfirmasi password tidak sama.',
+        ]);
+
+        $user->forceFill(['password' => $data['password']])->save();
+        // Cabut semua token API agar perangkat lama wajib login ulang.
+        try { $user->tokens()->delete(); } catch (\Throwable $e) {}
+        // Catat aktivitas reset untuk audit.
+        try {
+            UserHistory::create([
+                'user_id' => $user->id,
+                'activity_type' => 'reset_password',
+                'description' => 'Password direset oleh admin sekolah',
+                'ip_address' => $request->ip(),
+            ]);
+        } catch (\Throwable $e) {}
+
+        return back()->with('success', "Password {$user->name} berhasil direset. Sampaikan password baru secara aman.");
+    }
+
+    /** Admin sekolah hanya boleh kelola user satu sekolah dengannya. */
+    private function assertSameSchool(User $user): void
+    {
+        $me = UserContextHelper::user();
+        if ($me && ! $me->isSuperAdmin() && $me->school_id) {
+            abort_unless((int) $user->school_id === (int) $me->school_id, 403, 'Akun ini bukan dari sekolah Anda.');
+        }
     }
 
     public function toggleRegistration(Request $request): RedirectResponse

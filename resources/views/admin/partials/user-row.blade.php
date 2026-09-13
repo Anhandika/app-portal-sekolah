@@ -85,6 +85,10 @@
                 <i class="bi bi-pencil-square"></i>
             </button>
 
+            <button class="btn-action" data-bs-toggle="modal" data-bs-target="#resetModal{{ $user->id }}" title="Reset Password" style="color:#d97706;border-color:#fde68a;">
+                <i class="bi bi-key-fill"></i>
+            </button>
+
             <form method="POST" action="{{ route('admin.user.destroy', $user) }}" onsubmit="return confirm('Hapus akun ini secara permanen?')">
                 @csrf @method('DELETE')
                 <button class="btn-action btn-delete" title="Hapus Permanen">
