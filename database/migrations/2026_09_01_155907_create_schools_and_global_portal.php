@@ -18,7 +18,8 @@ return new class extends Migration
         });
 
         Schema::table('users', function (Blueprint $table) {
-            $table->foreignId('school_id')->nullable()->after('kelas_id')->constrained('schools')->nullOnDelete();
+            // Tanpa ->after(): sintaks after() khusus MySQL, diabaikan/error di Postgres.
+            $table->foreignId('school_id')->nullable()->constrained('schools')->nullOnDelete();
         });
 
         Schema::create('global_posts', function (Blueprint $table) {

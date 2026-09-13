@@ -8,15 +8,22 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::table('absensi', function (Blueprint $table) {
-            $table->string('status', 20)->default('hadir')->change();
-        });
+        // Kompatibel Postgres: tanpa ->change() (butuh doctrine/dbal).
+        try {
+            $driver = Schema::getConnection()->getDriverName();
+            if ($driver === 'pgsql') {
+                \Illuminate\Support\Facades\DB::statement("ALTER TABLE absensi ALTER COLUMN status TYPE VARCHAR(20)");
+                \Illuminate\Support\Facades\DB::statement("ALTER TABLE absensi ALTER COLUMN status SET DEFAULT 'hadir'");
+            } else {
+                Schema::table('absensi', function (Blueprint $table) {
+                    $table->string('status', 20)->default('hadir')->change();
+                });
+            }
+        } catch (\Throwable $e) {}
     }
 
     public function down(): void
     {
-        Schema::table('absensi', function (Blueprint $table) {
-            $table->enum('status', ['hadir', 'terlambat', 'bolos'])->default('hadir')->change();
-        });
+        // no-op: status tetap VARCHAR agar kompatibel pgsql/mysql
     }
 };

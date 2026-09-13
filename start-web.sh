@@ -22,7 +22,9 @@ php artisan route:clear --no-interaction || true
 php artisan view:clear --no-interaction || true
 
 echo "Running database migrations..."
-php artisan migrate --force || true
+# Sengaja TIDAK pakai '|| true' buta: tampilkan error verbosely agar terlihat
+# di deploy log Railway, tapi tetap lanjut boot agar container tidak crash-loop.
+php artisan migrate --force -vvv || echo "!!! MIGRATE GAGAL — lihat error di atas, cek storage/logs/laravel.log"
 
 echo "Seeding feature flags (idempotent, hanya isi key yang belum ada)..."
 if php artisan db:seed --class="Database\Seeders\FeatureFlagsSeeder" --force --no-interaction; then

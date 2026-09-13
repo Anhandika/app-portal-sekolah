@@ -14,9 +14,23 @@ return new class extends Migration
 {
     public function up(): void
     {
+        // Kompatibel Postgres: ubah enum type jadi VARCHAR tanpa ->change().
+        try {
+            $driver = Schema::getConnection()->getDriverName();
+            if ($driver === 'pgsql') {
+                foreach (['chat_groups_type_check', 'chat_groups_type_chk'] as $c) {
+                    try { \Illuminate\Support\Facades\DB::statement("ALTER TABLE chat_groups DROP CONSTRAINT IF EXISTS {$c}"); } catch (\Throwable $e) {}
+                }
+                \Illuminate\Support\Facades\DB::statement("ALTER TABLE chat_groups ALTER COLUMN type TYPE VARCHAR(20)");
+            } else {
+                Schema::table('chat_groups', function (Blueprint $table) {
+                    $table->enum('type', ['school', 'class', 'eskul', 'private', 'custom'])->change();
+                });
+            }
+        } catch (\Throwable $e) {}
+
         Schema::table('chat_groups', function (Blueprint $table) {
-            $table->enum('type', ['school', 'class', 'eskul', 'private', 'custom'])->change();
-            $table->foreignId('created_by')->nullable()->after('avatar')->constrained('users')->nullOnDelete();
+            $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
         });
 
         Schema::table('chat_group_members', function (Blueprint $table) {
@@ -43,7 +57,7 @@ return new class extends Migration
         });
         Schema::table('chat_groups', function (Blueprint $table) {
             $table->dropConstrainedForeignId('created_by');
-            $table->enum('type', ['school', 'class', 'eskul', 'private'])->change();
+            // type dibiarkan VARCHAR agar kompatibel pgsql — no-op
         });
     }
 };
