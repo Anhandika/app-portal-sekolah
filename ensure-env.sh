@@ -187,7 +187,21 @@ safe_inject QUEUE_CONNECTION        "${QUEUE_CONNECTION:-}"
 
 # 8) Firebase
 safe_inject FIREBASE_ENABLED            "${FIREBASE_ENABLED:-}"
-safe_inject FIREBASE_CREDENTIALS        "${FIREBASE_CREDENTIALS:-}"
+# FIREBASE_CREDENTIALS berisi JSON service account (penuh tanda "). inject_env
+# biasa membungkus dengan "..." sehingga .env RUSAK. Tulis dengan single-quote
+# (JSON valid tidak pernah mengandung ' mentah) agar Dotenv parse utuh.
+if is_valid_val "${FIREBASE_CREDENTIALS:-}"; then
+  sed -i "/^FIREBASE_CREDENTIALS=/d" .env
+  if [[ "${FIREBASE_CREDENTIALS}" == \{* ]]; then
+    printf "FIREBASE_CREDENTIALS='%s'\n" "${FIREBASE_CREDENTIALS}" >> .env
+  else
+    inject_env "FIREBASE_CREDENTIALS" "${FIREBASE_CREDENTIALS}"
+  fi
+  export FIREBASE_CREDENTIALS="${FIREBASE_CREDENTIALS}"
+  echo "[ensure-env] FIREBASE_CREDENTIALS di-inject (panjang ${#FIREBASE_CREDENTIALS} karakter)"
+else
+  echo "[ensure-env] SKIP FIREBASE_CREDENTIALS (kosong/template)"
+fi
 safe_inject FIREBASE_STORAGE_BUCKET     "${FIREBASE_STORAGE_BUCKET:-}"
 safe_inject FIREBASE_PROJECT_ID         "${FIREBASE_PROJECT_ID:-}"
 safe_inject FIREBASE_DATABASE_URL       "${FIREBASE_DATABASE_URL:-}"

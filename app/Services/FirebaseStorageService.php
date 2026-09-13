@@ -17,12 +17,11 @@ class FirebaseStorageService
             return $file->store($dir, 'public');
         }
 
-        $cred = config('firebase.credentials');
+        $cred = static::serviceAccount();
         $bucket = config('firebase.storage_bucket');
 
         // cek kredensial file/json ada
-        $hasCred = $cred && (is_file($cred) || str_starts_with($cred, '{'));
-        if (!$hasCred) {
+        if (!$cred || !$bucket) {
             return $file->store($dir, 'public');
         }
 
@@ -51,8 +50,28 @@ class FirebaseStorageService
         if (!config('firebase.enabled') || !config('firebase.storage_bucket')) {
             return false;
         }
+        return static::serviceAccount() !== null;
+    }
+
+    /**
+     * Resolve kredensial: path file, array, ATAU string JSON mentah (env Railway).
+     * JSON string di-decode ke array seperti FcmService agar Kreait selalu
+     * menerima tipe yang didukung (path file | array), bukan string JSON.
+     */
+    public static function serviceAccount(): array|string|null
+    {
         $cred = config('firebase.credentials');
-        return (bool) $cred && (is_file($cred) || str_starts_with($cred, '{'));
+        if (!$cred) {
+            return null;
+        }
+        if (is_array($cred) || is_file($cred)) {
+            return $cred;
+        }
+        $decoded = json_decode((string) $cred, true);
+        if (is_array($decoded) && isset($decoded['private_key'])) {
+            return $decoded;
+        }
+        return null;
     }
 
     public static function url(?string $path): ?string
@@ -76,7 +95,7 @@ class FirebaseStorageService
                     if (preg_match('#/o/(.+?)(\?|$)#', $path, $m)) {
                         $name = rawurldecode($m[1]);
                         $factory = (new \Kreait\Firebase\Factory)
-                            ->withServiceAccount(config('firebase.credentials'))
+                            ->withServiceAccount(static::serviceAccount())
                             ->withDefaultStorageBucket(config('firebase.storage_bucket'));
                         $factory->createStorage()->getBucket()->object($name)->delete();
                     }
